@@ -36,6 +36,7 @@ Requires:	dbus >= 0.22
 Requires:	hotplug >= 2003_08_05
 Requires:	python-dbus >= 0.22
 Requires:	python-gnome-ui
+Requires:	python-pygtk-glade
 Requires:	udev >= 015-2
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
