@@ -3,7 +3,7 @@ Summary:	HAL - Hardware Abstraction Layer
 Summary(pl):	HAL - abstrakcyjna warstwa dostêpu do sprzêtu
 Name:		hal
 Version:	0.2.98
-Release:	4
+Release:	5
 License:	AFL v2.0 or GPL v2
 Group:		Libraries
 #Source0:	%{name}-%{version}-%{_snap}.tar.bz2
@@ -52,6 +52,7 @@ Summary:	Header files for HAL library
 Summary(pl):	Pliki nag³ówkowe biblioteki HAL
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
+Requires:	dbus-devel >= 0.22-5
 
 %description devel
 Header files for HAL library.
