@@ -1,6 +1,6 @@
-diff -Nuard hal-0.4.2.orig/fdi/90defaultpolicy/storage-policy.fdi hal-0.4.2/fdi/90defaultpolicy/storage-policy.fdi
---- hal-0.4.2.orig/fdi/90defaultpolicy/storage-policy.fdi	2004-12-10 17:37:47.125532872 +0100
-+++ hal-0.4.2/fdi/90defaultpolicy/storage-policy.fdi	2004-12-10 17:38:04.173941120 +0100
+diff -Nuard hal-0.5.0.orig/fdi/policy/10osvendor/10-storage-policy.fdi hal-0.5.0/fdi/policy/10osvendor/10-storage-policy.fdi
+--- hal-0.5.0.orig/fdi/policy/10osvendor/10-storage-policy.fdi	2004-12-10 17:37:47.125532872 +0100
++++ hal-0.5.0/fdi/policy/10osvendor/10-storage-policy.fdi	2004-12-10 17:38:04.173941120 +0100
 @@ -10,8 +10,9 @@
        <merge key="storage.policy.default.managed_keyword.primary" type="string">managed</merge>
        <merge key="storage.policy.default.managed_keyword.secondary" type="string">kudzu</merge>
