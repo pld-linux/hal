@@ -18,7 +18,7 @@ BuildRequires:	autoconf >= 2.57
 BuildRequires:	automake
 BuildRequires:	dbus-glib-devel >= 0.22-5
 BuildRequires:	docbook-dtd412-xml
-Buildrequires:	docbook-utils
+BuildRequires:	docbook-utils
 BuildRequires:	doxygen
 BuildRequires:	expat-devel
 BuildRequires:	glib2-devel >= 2.2.2
