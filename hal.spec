@@ -2,7 +2,7 @@ Summary:	HAL - Hardware Abstraction Layer
 Summary(pl):	HAL - abstrakcyjna warstwa dostêpu do sprzêtu
 Name:		hal
 Version:	0.4.7
-Release:	1
+Release:	2
 License:	AFL v2.0 or GPL v2
 Group:		Libraries
 Source0:	http://freedesktop.org/~david/dist/%{name}-%{version}.tar.gz
@@ -13,6 +13,7 @@ Source3:	%{name}-device-manager.desktop
 Source4:	%{name}.readme
 Patch0:		%{name}-device_manager.patch
 Patch1:		%{name}-mount-options.patch
+Patch2:		%{name}-link.patch
 URL:		http://freedesktop.org/Software/hal
 BuildRequires:	autoconf >= 2.57
 BuildRequires:	automake
@@ -51,20 +52,6 @@ HAL is an implementation of a hardware abstraction layer.
 %description -l pl
 HAL jest implementacj± abstrakcyjnej warstwy dostêpu do sprzêtu.
 
-%package devel
-Summary:	Header files for HAL library
-Summary(pl):	Pliki nag³ówkowe biblioteki HAL
-Group:		Development/Libraries
-Requires:	%{name}-libs = %{version}-%{release}
-Requires:	dbus-devel >= 0.22-5
-Requires:	popt-devel
-
-%description devel
-Header files for HAL library.
-
-%description devel -l pl
-Pliki nag³ówkowe biblioteki HAL.
-
 %package libs
 Summary:	HAL library
 Summary(pl):	Biblioteka HAL
@@ -76,6 +63,19 @@ HAL library.
 
 %description libs -l pl
 Biblioteka HAL.
+
+%package devel
+Summary:	Header files for HAL library
+Summary(pl):	Pliki nag³ówkowe biblioteki HAL
+Group:		Development/Libraries
+Requires:	%{name}-libs = %{version}-%{release}
+Requires:	dbus-devel >= 0.22-5
+
+%description devel
+Header files for HAL library.
+
+%description devel -l pl
+Pliki nag³ówkowe biblioteki HAL.
 
 %package static
 Summary:	Static HAL library
@@ -107,6 +107,7 @@ Program dla GNOME wy¶wietlaj±cy urz±dzenia wykryte przez HAL.
 %setup -q
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %build
 %{__libtoolize}
@@ -215,16 +216,16 @@ fi
 %dir /var/lib/hal
 %dir /var/run/hald
 
+%files libs
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/lib*.so.*.*.*
+
 %files devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/lib*.so
 %{_libdir}/lib*.la
 %{_includedir}/%{name}
 %{_pkgconfigdir}/*.pc
-
-%files libs
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/lib*.so.*.*.*
 
 %files static
 %defattr(644,root,root,755)
