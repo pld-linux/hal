@@ -1,15 +1,13 @@
 Summary:	HAL - Hardware Abstraction Layer
 Summary(pl):	HAL - abstrakcyjna warstwa dostêpu do sprzêtu
 Name:		hal
-Version:	0.2.6
+Version:	0.2.90
 Release:	1
 License:	AFL v2.0 or GPL v2
 Group:		Libraries
-#Source0:	http://freedesktop.org/~david/dist/%{name}-%{version}.tar.gz
-Source0:	%{name}-%{version}.tar.gz
-# Source0-md5:	81e12b73a8a00e89acc007b244426d68
+Source0:	http://freedesktop.org/~david/dist/%{name}-%{version}.tar.gz
+# Source0-md5:	07ad3ff83ce306f35e93e8a41ec60556
 Source1:	haldaemon.init
-Patch0:		%{name}-no_static.patch
 URL:		http://freedesktop.org/Software/hal
 BuildRequires:	autoconf >= 2.57
 BuildRequires:	automake
@@ -66,7 +64,6 @@ Statyczna biblioteka HAL.
 
 %prep
 %setup -q
-%patch0 -p1
 
 %build
 %{__libtoolize}
@@ -148,6 +145,7 @@ fi
 %attr(755,root,root) %{_bindir}/*
 %attr(755,root,root) %{_sbindir}/*
 %attr(754,root,root) /etc/rc.d/init.d/*
+%attr(755,root,root) %{_libdir}/hal.dev
 %attr(755,root,root) %{_libdir}/hal.hotplug
 %attr(755,root,root) %{_libdir}/lib*.so.*.*.*
 %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/dbus*/system.d/*
