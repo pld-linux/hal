@@ -9,30 +9,15 @@
 Summary:	HAL - Hardware Abstraction Layer
 Summary(pl):	HAL - abstrakcyjna warstwa dostêpu do sprzêtu
 Name:		hal
-Version:	0.4.0
-Release:	1.91
+Version:	0.4.1
+Release:	0.1
 License:	AFL v2.0 or GPL v2
 Group:		Libraries
 #Source0:	%{name}-%{version}-%{_snap}.tar.bz2
 Source0:	http://freedesktop.org/~david/dist/%{name}-%{version}.tar.gz
-# Source0-md5:	2ced1620a85cd547c53aa72787d8b06e
+# Source0-md5:	8c06c46ff1925c521cd4196d8b61d8ae
 Source1:	haldaemon.init
 Source2:	%{name}-device-manager.desktop
-Patch0:		%{name}-clean-on-startup.patch
-Patch1:		%{name}-fix-fstab-sync-logging.patch
-Patch2:		%{name}-fix-nonblock.patch
-Patch3:		%{name}-storage-policy-never-use-uuid.patch
-Patch4:		%{name}-allow-floppy-drives.patch
-Patch5:		%{name}-ataraid-detection.patch
-Patch6:		%{name}-fix-fstab-sync-crasher.patch
-Patch7:		%{name}-fix-fstab-sync-manpage.patch
-Patch8:		%{name}-fix-missing-hotplug-events.patch
-Patch9:		%{name}-fix-netwireless-detection.patch
-Patch10:	%{name}-fix-pcmcia-card-readers.patch
-Patch11:	%{name}-fstype-auto-for-optical-drives.patch
-Patch12:	%{name}-move-ntfs-probe-to-bottom.patch
-Patch13:	%{name}-storage-policy-fix-sync-add-scsi-cdrom.patch
-Patch14:	%{name}-storage-policy-ignore-fixed-nonhotpluggable-partitions.patch
 URL:		http://freedesktop.org/Software/hal
 BuildRequires:	autoconf >= 2.57
 BuildRequires:	automake
@@ -105,21 +90,6 @@ Statyczna biblioteka HAL.
 
 %prep
 %setup -q
-%patch0 -p0
-%patch1 -p0
-%patch2 -p0
-%patch3 -p0
-%patch4 -p0
-%patch5 -p0
-%patch6 -p0
-%patch7 -p0
-%patch8 -p0
-%patch9 -p0
-%patch10 -p0
-%patch11 -p0
-%patch12 -p0
-%patch13 -p0
-%patch14 -p0
 
 %build
 %{__libtoolize}
