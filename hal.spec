@@ -1,17 +1,17 @@
 Summary:	HAL - Hardware Abstraction Layer
 Summary(pl):	HAL - abstrakcyjna warstwa dostêpu do sprzêtu
 Name:		hal
-Version:	0.2.90
+Version:	0.2.91
 Release:	1
 License:	AFL v2.0 or GPL v2
 Group:		Libraries
 Source0:	http://freedesktop.org/~david/dist/%{name}-%{version}.tar.gz
-# Source0-md5:	07ad3ff83ce306f35e93e8a41ec60556
+# Source0-md5:	2e5ddc895d828dbc6c38fe2d5a347e8e
 Source1:	haldaemon.init
 URL:		http://freedesktop.org/Software/hal
 BuildRequires:	autoconf >= 2.57
 BuildRequires:	automake
-BuildRequires:	dbus-glib-devel >= 0.20
+BuildRequires:	dbus-glib-devel >= 0.21
 BuildRequires:	doxygen
 BuildRequires:	expat-devel
 BuildRequires:	glib2-devel >= 2.2.2
@@ -25,9 +25,9 @@ Requires(post,preun):		/sbin/chkconfig
 Requires(post,postun):	/sbin/ldconfig
 Requires(postun):	/usr/sbin/groupdel
 Requires(postun):	/usr/sbin/userdel
-Requires:	dbus >= 0.20-2
+Requires:	dbus >= 0.21
 Requires:	hotplug >= 2003_08_05
-Requires:	python-dbus >= 0.20
+Requires:	python-dbus >= 0.21
 Requires:	python-gnome-ui
 Requires:	udev >= 015-2
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
