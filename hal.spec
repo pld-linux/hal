@@ -17,7 +17,7 @@ Patch2:		%{name}-link.patch
 URL:		http://freedesktop.org/Software/hal
 BuildRequires:	autoconf >= 2.57
 BuildRequires:	automake
-BuildRequires:	dbus-glib-devel >= 0.31
+BuildRequires:	dbus-glib-devel >= 0.23.4
 BuildRequires:	docbook-dtd412-xml
 BuildRequires:	docbook-utils
 BuildRequires:	doxygen
@@ -38,11 +38,11 @@ Requires(pre):	/usr/sbin/groupadd
 Requires(pre):	/usr/sbin/useradd
 Requires(post,preun):		/sbin/chkconfig
 Requires:	%{name}-libs = %{version}-%{release}
-Requires:	dbus >= 0.31
+Requires:	dbus >= 0.23.4
 Requires:	hotplug >= 2003_08_05
 Requires:	mount >= 2.12-14
 %pyrequires_eq	python
-Requires:	python-dbus >= 0.31
+Requires:	python-dbus >= 0.23.4
 Requires:	udev >= 015-2
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
