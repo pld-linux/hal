@@ -2,13 +2,13 @@
 Summary:	HAL - Hardware Abstraction Layer
 Summary(pl):	HAL - abstrakcyjna warstwa dostêpu do sprzêtu
 Name:		hal
-Version:	0.2.98
-Release:	7
+Version:	0.4.0
+Release:	0.1
 License:	AFL v2.0 or GPL v2
 Group:		Libraries
 #Source0:	%{name}-%{version}-%{_snap}.tar.bz2
 Source0:	http://freedesktop.org/~david/dist/%{name}-%{version}.tar.gz
-# Source0-md5:	cc289e50e00330032604e02392ffde3a
+# Source0-md5:	2ced1620a85cd547c53aa72787d8b06e
 Source1:	haldaemon.init
 Source2:	%{name}-device-manager.desktop
 URL:		http://freedesktop.org/Software/hal
@@ -115,6 +115,8 @@ find $RPM_BUILD_ROOT%{_datadir}/hal/device-manager -name "*.py" -exec rm -f {} \
 install %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/haldaemon
 install %{SOURCE2} $RPM_BUILD_ROOT%{_desktopdir}
 
+%find_lang %{name}
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -156,7 +158,7 @@ fi
 %post	libs -p /sbin/ldconfig
 %postun	libs -p /sbin/ldconfig
 	
-%files
+%files -f %{name}.lang
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog NEWS README doc/TODO
 %attr(755,root,root) %{_bindir}/*
