@@ -1,0 +1,146 @@
+? changes
+? foo.c
+? hal-0.4.0-clean-on-startup.patch
+? hal-0.4.0-fix-nonblock.patch
+? hal-0.4.0.tar.gz
+? hal-storage.pc
+? intltool-extract
+? intltool-extract.in
+? intltool-merge
+? intltool-merge.in
+? intltool-update
+? intltool-update.in
+? mkinstalldirs
+? doc/api/Doxyfile
+? doc/api/Makefile
+? doc/api/Makefile.in
+? doc/api/html
+? doc/conf/Makefile
+? doc/conf/Makefile.in
+? doc/spec/Makefile
+? doc/spec/Makefile.in
+? doc/spec/hal-spec.xml
+? doc/spec/spec.tar
+? fdi/30osvendor/Makefile
+? fdi/30osvendor/Makefile.in
+? fdi/40oem/Makefile
+? fdi/40oem/Makefile.in
+? fdi/50user/Makefile
+? fdi/50user/Makefile.in
+? fdi/90defaultpolicy/Makefile
+? fdi/90defaultpolicy/Makefile.in
+? fdi/95userpolicy/Makefile
+? fdi/95userpolicy/Makefile.in
+? hald/foo
+? hald/hout
+? hald/sout
+? libhal-storage/.deps
+? libhal-storage/.libs
+? libhal-storage/Makefile
+? libhal-storage/Makefile.in
+? libhal-storage/libhal-storage.la
+? libhal-storage/libhal-storage.lo
+? po/Makefile
+? po/Makefile.in
+? po/Makefile.in.in
+? po/POTFILES
+? po/da.gmo
+? po/de.gmo
+? po/fr.gmo
+? po/hal.pot
+? po/nl.gmo
+? tools/foo
+? tools/fstab-sync
+? tools/fstab-sync.8
+? tools/linux/hal-hotplug-map
+Index: hald/linux/block_class_device.c
+===================================================================
+RCS file: /cvs/hal/hal/hald/linux/block_class_device.c,v
+retrieving revision 1.84
+diff -u -p -r1.84 block_class_device.c
+--- hald/linux/block_class_device.c	8 Oct 2004 16:40:24 -0000	1.84
++++ hald/linux/block_class_device.c	15 Oct 2004 20:36:13 -0000
+@@ -911,6 +911,8 @@ detect_media (HalDevice * d, dbus_bool_t
+ 	if (fd < 0)
+ 		return FALSE;
+ 
++	close (fd);
++
+ 	/* Now got_media==TRUE and fd>0.. So, Yay!, we got media
+ 	 *
+ 	 * See if we already got children (or children underway :-),
+@@ -923,7 +925,6 @@ detect_media (HalDevice * d, dbus_bool_t
+ 		get_child_device_tdl (d);
+ 	}
+ 	if (child != NULL) {
+-		close (fd);
+ 		return FALSE;
+ 	}
+ 
+@@ -1000,9 +1001,8 @@ detect_media (HalDevice * d, dbus_bool_t
+ 
+ 			HAL_INFO (("Detecting if %s contains a fs", device_file));
+ 
+-			vid = volume_id_open_fd (fd);
++			vid = volume_id_open_node (device_file);
+ 			if (vid == NULL) {
+-				close (fd);
+ 				g_object_unref (child);
+ 				return FALSE;
+ 			}
+@@ -1011,15 +1011,14 @@ detect_media (HalDevice * d, dbus_bool_t
+ 				if (is_cdrom) {
+ 					/* volume_id cannot probe blank/audio discs etc,
+ 					 * so don't fail for them, just set vid to NULL */
+-					volume_id_close (vid);
+ 					vid = NULL;
+ 				} else {
+-					close (fd);
+ 					g_object_unref (child);
+ 					volume_id_close (vid);
+ 					return FALSE;
+ 				}
+ 			}
++
+ 		}
+ 
+ 		/* Unfortunally, linux doesn't scan optical discs for partition
+@@ -1032,7 +1031,6 @@ detect_media (HalDevice * d, dbus_bool_t
+ 		if (!no_partitions) {
+ 			if (vid != NULL)
+ 				volume_id_close (vid);
+-			close (fd);
+ 			g_object_unref (child);
+ 			return FALSE;
+ 		}
+@@ -1072,12 +1070,11 @@ detect_media (HalDevice * d, dbus_bool_t
+ 			G_CALLBACK (class_device_move_from_tdl_to_gdl), cad);
+ 		hal_callout_device (child, TRUE);
+ 
+-		volume_id_close (vid);
+-		close (fd);
++		if (vid != NULL)
++			volume_id_close (vid);
+ 		return TRUE;
+ 	}
+ 
+-	close (fd);
+ 	return FALSE;
+ }
+ 
+Index: hald/linux/volume_id/volume_id.c
+===================================================================
+RCS file: /cvs/hal/hal/hald/linux/volume_id/volume_id.c,v
+retrieving revision 1.42
+diff -u -p -r1.42 volume_id.c
+--- hald/linux/volume_id/volume_id.c	29 Sep 2004 16:29:45 -0000	1.42
++++ hald/linux/volume_id/volume_id.c	15 Oct 2004 20:36:14 -0000
+@@ -2128,7 +2128,7 @@ struct volume_id *volume_id_open_node(co
+ 	struct volume_id *id;
+ 	int fd;
+ 
+-	fd = open(path, O_RDONLY | O_NONBLOCK);
++	fd = open(path, O_RDONLY /*| O_NONBLOCK */);
+ 	if (fd < 0) {
+ 		dbg("unable to open '%s'", path);
+ 		return NULL;
