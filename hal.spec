@@ -57,6 +57,7 @@ Summary(pl):	Pliki nag³ówkowe biblioteki HAL
 Group:		Development/Libraries
 Requires:	%{name}-libs = %{version}-%{release}
 Requires:	dbus-devel >= 0.22-5
+Requires:	popt-devel
 
 %description devel
 Header files for HAL library.
