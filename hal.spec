@@ -3,7 +3,7 @@ Summary:	HAL - Hardware Abstraction Layer
 Summary(pl):	HAL - abstrakcyjna warstwa dostêpu do sprzêtu
 Name:		hal
 Version:	0.2.98
-Release:	6
+Release:	7
 License:	AFL v2.0 or GPL v2
 Group:		Libraries
 #Source0:	%{name}-%{version}-%{_snap}.tar.bz2
@@ -29,9 +29,6 @@ Requires(pre):	/bin/id
 Requires(pre):	/usr/sbin/groupadd
 Requires(pre):	/usr/sbin/useradd
 Requires(post,preun):		/sbin/chkconfig
-Requires(post,postun):	/sbin/ldconfig
-Requires(postun):	/usr/sbin/groupdel
-Requires(postun):	/usr/sbin/userdel
 Requires:	%{name}-libs = %{version}-%{release}
 Requires:	dbus >= 0.22-5
 Requires:	hotplug >= 2003_08_05
@@ -148,10 +145,6 @@ else
 	echo "Run \"/etc/rc.d/init.d/haldaemon start\" to start HAL daemon."
 fi
 
-if [ -f /var/lock/subsys/messagebus ]; then
-	/etc/rc.d/init.d/messagebus restart 1>&2
-fi
-
 %preun
 if [ "$1" = "0" ];then
 	if [ -f /var/lock/subsys/haldaemon ]; then
@@ -159,11 +152,9 @@ if [ "$1" = "0" ];then
 	fi
 	/sbin/chkconfig --del haldaemon
 fi
-	
-%postun
-if [ -f /var/lock/subsys/messagebus ]; then
-	/etc/rc.d/init.d/messagebus restart 1>&2
-fi
+
+%post	libs -p /sbin/ldconfig
+%postun	libs -p /sbin/ldconfig
 	
 %files
 %defattr(644,root,root,755)
