@@ -1,15 +1,16 @@
+%define		_snap	20040918
 Summary:	HAL - Hardware Abstraction Layer
 Summary(pl):	HAL - abstrakcyjna warstwa dostêpu do sprzêtu
 Name:		hal
 Version:	0.2.97
-Release:	1
+Release:	1.%{_snap}.1
 License:	AFL v2.0 or GPL v2
 Group:		Libraries
-Source0:	http://freedesktop.org/~david/dist/%{name}-%{version}.tar.gz
-# Source0-md5:	d156860f508ea384282a367774fe85bb
+Source0:	%{name}-%{version}-%{_snap}.tar.bz2
+# Source0-md5:	15462e835593822fafd456282e4a6c4d
+#Source0:	http://freedesktop.org/~david/dist/%{name}-%{version}.tar.gz
 Source1:	haldaemon.init
-Source2:	%{name}-fstab-update.sh
-Source3:	%{name}-device-manager.desktop
+Source2:	%{name}-device-manager.desktop
 URL:		http://freedesktop.org/Software/hal
 BuildRequires:	autoconf >= 2.57
 BuildRequires:	automake
@@ -72,11 +73,16 @@ Statyczna biblioteka HAL.
 %build
 %{__libtoolize}
 %{__aclocal}
+%{__autoheader}
 %{__autoconf}
 %{__automake}
 %configure \
 	--enable-doxygen-docs \
 	--enable-docbook-docs \
+	--enable-fstab-sync \
+	--enable-mnt-noop \
+	--enable-selinux \
+	--enable-hotplug-map \
 	--with-hwdata=/etc
 
 %{__make}
@@ -84,7 +90,7 @@ Statyczna biblioteka HAL.
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version} \
-	$RPM_BUILD_ROOT{/etc/rc.d/init.d,%{_desktopdir}}
+	$RPM_BUILD_ROOT{/etc/rc.d/init.d,%{_desktopdir},/var/run/hald}
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
@@ -94,9 +100,7 @@ install examples/volumed/*.py $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 find $RPM_BUILD_ROOT%{_datadir}/hal/device-manager -name "*.py" -exec rm -f {} \;
 
 install %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/haldaemon
-install %{SOURCE3} $RPM_BUILD_ROOT%{_desktopdir}
-
-install %{SOURCE2} fstab-update.sh
+install %{SOURCE2} $RPM_BUILD_ROOT%{_desktopdir}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -150,12 +154,13 @@ fi
 	
 %files
 %defattr(644,root,root,755)
-%doc AUTHORS ChangeLog NEWS README doc/TODO fstab-update.sh
+%doc AUTHORS ChangeLog NEWS README doc/TODO tools/callouts/fstab-update.sh
 %attr(755,root,root) %{_bindir}/*
 %attr(755,root,root) %{_sbindir}/*
 %attr(754,root,root) /etc/rc.d/init.d/*
 %attr(755,root,root) %{_libdir}/hal.dev
 %attr(755,root,root) %{_libdir}/hal.hotplug
+%attr(755,root,root) %{_libdir}/hal-hotplug-map
 %attr(755,root,root) %{_libdir}/lib*.so.*.*.*
 %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/dbus*/system.d/*
 %{_sysconfdir}/dev.d/default/*.dev
@@ -163,6 +168,7 @@ fi
 %dir %{_sysconfdir}/%{name}
 %dir %{_sysconfdir}/%{name}/capability.d
 %dir %{_sysconfdir}/%{name}/device.d
+%{_sysconfdir}/%{name}/device.d/*
 %dir %{_sysconfdir}/%{name}/property.d
 %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/%{name}/hald.conf
 %dir %{_datadir}/%{name}
@@ -174,6 +180,8 @@ fi
 %attr(755,root,root) %{_datadir}/%{name}/device-manager/hal-device-manager
 %{_desktopdir}/*.desktop
 %{_examplesdir}/%{name}-%{version}
+%dir /var/lib/hal
+%dir /var/run/hald
 
 %files devel
 %defattr(644,root,root,755)
