@@ -1,3 +1,8 @@
+#
+# TODO
+# - separate hal-device-manager and find out why it wont to work
+#   (looks like our dbus stuff is broken)
+#
 %define		_snap	20040918
 Summary:	HAL - Hardware Abstraction Layer
 Summary(pl):	HAL - abstrakcyjna warstwa dostêpu do sprzêtu
