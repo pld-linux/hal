@@ -21,11 +21,15 @@ Buildrequires:	docbook-utils
 BuildRequires:	doxygen
 BuildRequires:	expat-devel
 BuildRequires:	glib2-devel >= 2.2.2
+BuildRequires:	intltool
 BuildRequires:	libcap-devel
 BuildRequires:	libselinux-devel >= 1.17.13
 BuildRequires:	libtool
 BuildRequires:	pciutils
+BuildRequires:	pkgconfig
 BuildRequires:	popt-devel
+BuildRequires:	python-modules
+BuildRequires:	which
 Requires(pre):	/usr/bin/getgid
 Requires(pre):	/bin/id
 Requires(pre):	/usr/sbin/groupadd
