@@ -1,23 +1,21 @@
 #
 # TODO
-# - for AC: solve problem with udev in /udev (it simply don't work)
 # - get rid of DESTDIR in pycompile (this breaks H-D-M)
-# - test for messagebus service
-# - implement hald --verbose=yes
 #
 %define		_snap	20040918
 Summary:	HAL - Hardware Abstraction Layer
 Summary(pl):	HAL - abstrakcyjna warstwa dostêpu do sprzêtu
 Name:		hal
 Version:	0.4.1
-Release:	0.1
+Release:	0.2
 License:	AFL v2.0 or GPL v2
 Group:		Libraries
 #Source0:	%{name}-%{version}-%{_snap}.tar.bz2
 Source0:	http://freedesktop.org/~david/dist/%{name}-%{version}.tar.gz
 # Source0-md5:	8c06c46ff1925c521cd4196d8b61d8ae
 Source1:	haldaemon.init
-Source2:	%{name}-device-manager.desktop
+Source2:	hald.sysconfig
+Source3:	%{name}-device-manager.desktop
 URL:		http://freedesktop.org/Software/hal
 BuildRequires:	autoconf >= 2.57
 BuildRequires:	automake
@@ -111,7 +109,7 @@ Statyczna biblioteka HAL.
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version} \
-	$RPM_BUILD_ROOT{/etc/rc.d/init.d,%{_desktopdir},/var/run/hald}
+	$RPM_BUILD_ROOT{/etc/{sysconfig,rc.d}/init.d,%{_desktopdir},/var/run/hald}
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
@@ -121,7 +119,8 @@ install examples/volumed/*.py $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 find $RPM_BUILD_ROOT%{_datadir}/hal/device-manager -name "*.py" -exec rm -f {} \;
 
 install %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/haldaemon
-install %{SOURCE2} $RPM_BUILD_ROOT%{_desktopdir}
+install %{SOURCE2} $RPM_BUILD_ROOT/etc/sysconfig/hald
+install %{SOURCE3} $RPM_BUILD_ROOT%{_desktopdir}
 
 %find_lang %{name}
 
@@ -172,6 +171,7 @@ fi
 %attr(755,root,root) %{_bindir}/*
 %attr(755,root,root) %{_sbindir}/*
 %attr(754,root,root) /etc/rc.d/init.d/*
+%config(noreplace) %verify(not size mtime md5) /etc/sysconfig/hald
 %attr(755,root,root) %{_libdir}/hal.dev
 %attr(755,root,root) %{_libdir}/hal.hotplug
 %attr(755,root,root) %{_libdir}/hal-hotplug-map
@@ -184,6 +184,7 @@ fi
 %{_sysconfdir}/%{name}/device.d/*
 %dir %{_sysconfdir}/%{name}/property.d
 %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/%{name}/hald.conf
+
 %dir %{_datadir}/%{name}
 %{_datadir}/%{name}/fdi
 %dir %{_datadir}/%{name}/device-manager
