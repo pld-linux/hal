@@ -1,0 +1,27 @@
+Index: hald/linux/volume_id/volume_id.c
+===================================================================
+RCS file: /cvs/hal/hal/hald/linux/volume_id/volume_id.c,v
+retrieving revision 1.44
+diff -u -p -r1.44 volume_id.c
+--- hald/linux/volume_id/volume_id.c	25 Oct 2004 02:57:27 -0000	1.44
++++ hald/linux/volume_id/volume_id.c	25 Oct 2004 15:52:00 -0000
+@@ -2091,9 +2091,6 @@ int volume_id_probe(struct volume_id *id
+ 		rc = probe_msdos_part_table(id, off);
+ 		if (rc == 0)
+ 			break;
+-		rc = probe_ntfs(id, off);
+-		if (rc == 0)
+-			break;
+ 		rc = probe_vfat(id, off);
+ 		if (rc == 0)
+ 			break;
+@@ -2131,6 +2128,9 @@ int volume_id_probe(struct volume_id *id
+ 		rc = probe_ufs(id, off);
+ 		if (rc == 0)
+ 			break;
++		rc = probe_ntfs(id, off);
++		if (rc == 0)
++			break;
+ 
+ 		rc = -1;
+ 	}
