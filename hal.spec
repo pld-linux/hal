@@ -1,7 +1,6 @@
 #
 # TODO
-# - separate hal-device-manager and find out why it wont to work
-#   (looks like our dbus stuff is broken)
+# - get rid of DESTDIR in pycompile (this breaks H-D-M)
 #
 %define		_snap	20040918
 Summary:	HAL - Hardware Abstraction Layer
