@@ -8,7 +8,7 @@ Summary:	HAL - Hardware Abstraction Layer
 Summary(pl):	HAL - abstrakcyjna warstwa dostêpu do sprzêtu
 Name:		hal
 Version:	0.4.0
-Release:	0.2
+Release:	1
 License:	AFL v2.0 or GPL v2
 Group:		Libraries
 #Source0:	%{name}-%{version}-%{_snap}.tar.bz2
