@@ -1,22 +1,17 @@
-#
-# TODO
-# - get rid of DESTDIR in pycompile (this breaks H-D-M)
-#
-%define		_snap	20040918
 Summary:	HAL - Hardware Abstraction Layer
 Summary(pl):	HAL - abstrakcyjna warstwa dostêpu do sprzêtu
 Name:		hal
 Version:	0.4.1
-Release:	1
+Release:	2
 License:	AFL v2.0 or GPL v2
 Group:		Libraries
-#Source0:	%{name}-%{version}-%{_snap}.tar.bz2
 Source0:	http://freedesktop.org/~david/dist/%{name}-%{version}.tar.gz
 # Source0-md5:	8c06c46ff1925c521cd4196d8b61d8ae
 Source1:	haldaemon.init
 Source2:	hald.sysconfig
 Source3:	%{name}-device-manager.desktop
 Source4:	%{name}.readme
+Patch0:		%{name}-device_manager.patch
 URL:		http://freedesktop.org/Software/hal
 BuildRequires:	autoconf >= 2.57
 BuildRequires:	automake
@@ -41,8 +36,6 @@ Requires:	dbus >= 0.22-5
 Requires:	hotplug >= 2003_08_05
 %pyrequires_eq	python
 Requires:	python-dbus >= 0.22-5
-Requires:	python-gnome-ui
-Requires:	python-pygtk-glade
 Requires:	udev >= 015-2
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -89,8 +82,23 @@ Static HAL library.
 %description static -l pl
 Statyczna biblioteka HAL.
 
+%package device-manager
+Summary:	HAL device manager for GNOME
+Summary(pl):	Zarz±dca urz±dzeñ HALa dla GNOME
+Group:		X11/Applications
+Requires:	python-gnome-ui
+Requires:	python-pygtk-glade
+Requires:	%{name} = %{version}-%{release}
+
+%description device-manager
+GNOME program for displaying devices detected by HAL.
+
+%description device-manager -l pl
+Program dla GNOME wy¶wietlaj±cy urz±dzenia wykryte przez HAL.
+
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 %{__libtoolize}
@@ -172,7 +180,9 @@ fi
 %files -f %{name}.lang
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog NEWS README doc/TODO hal.readme
-%attr(755,root,root) %{_bindir}/*
+%attr(755,root,root) %{_bindir}/hal-get-property
+%attr(755,root,root) %{_bindir}/hal-set-property
+%attr(755,root,root) %{_bindir}/lshal
 %attr(755,root,root) %{_sbindir}/*
 %attr(754,root,root) /etc/rc.d/init.d/*
 %config(noreplace) %verify(not size mtime md5) /etc/sysconfig/hald
@@ -191,12 +201,6 @@ fi
 
 %dir %{_datadir}/%{name}
 %{_datadir}/%{name}/fdi
-%dir %{_datadir}/%{name}/device-manager
-%{_datadir}/%{name}/device-manager/*.py[co]
-%{_datadir}/%{name}/device-manager/*.png
-%{_datadir}/%{name}/device-manager/*.glade
-%attr(755,root,root) %{_datadir}/%{name}/device-manager/hal-device-manager
-%{_desktopdir}/*.desktop
 %{_mandir}/man8/fstab-sync.8*
 %{_examplesdir}/%{name}-%{version}
 %dir /var/lib/hal
@@ -216,3 +220,13 @@ fi
 %files static
 %defattr(644,root,root,755)
 %{_libdir}/lib*.a
+
+%files device-manager
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/hal-device-manager
+%dir %{_datadir}/%{name}/device-manager
+%{_datadir}/%{name}/device-manager/*.py[co]
+%{_datadir}/%{name}/device-manager/*.png
+%{_datadir}/%{name}/device-manager/*.glade
+%attr(755,root,root) %{_datadir}/%{name}/device-manager/hal-device-manager
+%{_desktopdir}/*.desktop
