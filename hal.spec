@@ -189,6 +189,7 @@ fi
 %{_datadir}/%{name}/device-manager/*.glade
 %attr(755,root,root) %{_datadir}/%{name}/device-manager/hal-device-manager
 %{_desktopdir}/*.desktop
+%{_mandir}/man8/fstab-sync.8*
 %{_examplesdir}/%{name}-%{version}
 %dir /var/lib/hal
 %dir /var/run/hald
