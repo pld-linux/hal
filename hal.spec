@@ -69,7 +69,7 @@ Requires:	dbus-libs >= 0.22-5
 HAL library.
 
 %description libs -l pl
-Biblioteka HAL
+Biblioteka HAL.
 
 %package static
 Summary:	Static HAL library
