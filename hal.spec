@@ -1,12 +1,12 @@
 Summary:	HAL - Hardware Abstraction Layer
 Summary(pl):	HAL - abstrakcyjna warstwa dostêpu do sprzêtu
 Name:		hal
-Version:	0.2.92
+Version:	0.2.94
 Release:	1
 License:	AFL v2.0 or GPL v2
 Group:		Libraries
 Source0:	http://freedesktop.org/~david/dist/%{name}-%{version}.tar.gz
-# Source0-md5:	59dbf594c19738b2acc6c90a12c8ffde
+# Source0-md5:	5d4904d3984c4bcec7d03eb6b42f1504
 Source1:	haldaemon.init
 URL:		http://freedesktop.org/Software/hal
 BuildRequires:	autoconf >= 2.57
