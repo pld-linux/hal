@@ -1,17 +1,21 @@
 Summary:	HAL - Hardware Abstraction Layer
 Summary(pl):	HAL - abstrakcyjna warstwa dostêpu do sprzêtu
 Name:		hal
-Version:	0.2.94
-Release:	2
+Version:	0.2.95
+Release:	1
 License:	AFL v2.0 or GPL v2
 Group:		Libraries
 Source0:	http://freedesktop.org/~david/dist/%{name}-%{version}.tar.gz
-# Source0-md5:	5d4904d3984c4bcec7d03eb6b42f1504
+# Source0-md5:	ceb7146d2012296ffedbb238ac18ce2b
 Source1:	haldaemon.init
+Source2:	%{name}-fstab-update.sh
+Source3:	%{name}-device-manager.desktop
+Patch0:		%{name}-docs_build.patch
 URL:		http://freedesktop.org/Software/hal
 BuildRequires:	autoconf >= 2.57
 BuildRequires:	automake
 BuildRequires:	dbus-glib-devel >= 0.21
+BuildRequires:	docbook-dtd412-xml
 BuildRequires:	doxygen
 BuildRequires:	expat-devel
 BuildRequires:	glib2-devel >= 2.2.2
@@ -64,6 +68,7 @@ Statyczna biblioteka HAL.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 %{__libtoolize}
@@ -78,7 +83,7 @@ Statyczna biblioteka HAL.
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version} \
-	$RPM_BUILD_ROOT/etc/rc.d/init.d
+	$RPM_BUILD_ROOT{/etc/rc.d/init.d,%{_desktopdir}}
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
@@ -88,6 +93,9 @@ install examples/volumed/*.py $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 find $RPM_BUILD_ROOT%{_datadir}/hal/device-manager -name "*.py" -exec rm -f {} \;
 
 install %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/haldaemon
+install %{SOURCE3} $RPM_BUILD_ROOT%{_desktopdir}
+
+install %{SOURCE2} fstab-update.sh
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -141,7 +149,7 @@ fi
 	
 %files
 %defattr(644,root,root,755)
-%doc AUTHORS ChangeLog NEWS README doc/TODO
+%doc AUTHORS ChangeLog NEWS README doc/TODO fstab-update.sh
 %attr(755,root,root) %{_bindir}/*
 %attr(755,root,root) %{_sbindir}/*
 %attr(754,root,root) /etc/rc.d/init.d/*
@@ -163,6 +171,7 @@ fi
 %{_datadir}/%{name}/device-manager/*.png
 %{_datadir}/%{name}/device-manager/*.glade
 %attr(755,root,root) %{_datadir}/%{name}/device-manager/hal-device-manager
+%{_desktopdir}/*.desktop
 %{_examplesdir}/%{name}-%{version}
 
 %files devel
