@@ -5,7 +5,7 @@ Version:	0.4.1
 Release:	2
 License:	AFL v2.0 or GPL v2
 Group:		Libraries
-Source0:	http://freedesktop.org/~david/dist/%{name}-%{version}.tar.gz
+Source0:	http://freedesktop.org/~david/%{name}-%{version}.tar.gz
 # Source0-md5:	8c06c46ff1925c521cd4196d8b61d8ae
 Source1:	haldaemon.init
 Source2:	hald.sysconfig
