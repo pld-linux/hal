@@ -1,5 +1,5 @@
 Summary:	HAL - Hardware Abstraction Layer
-Summary(pl):	HAL - Abstrakcyjna Warstwa Dostêpu do Sprzêtu
+Summary(pl):	HAL - abstrakcyjna warstwa dostêpu do sprzêtu
 Name:		hal
 Version:	0.2.5
 Release:	1
