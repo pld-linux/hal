@@ -1,12 +1,16 @@
+
+# Conditional build:
+%bcond_without	docs	# disable documentation building
+
 Summary:	HAL - Hardware Abstraction Layer
 Summary(pl):	HAL - abstrakcyjna warstwa dostêpu do sprzêtu
 Name:		hal
-Version:	0.4.7
-Release:	2
+Version:	0.5.0
+Release:	0.1
 License:	AFL v2.0 or GPL v2
 Group:		Libraries
 Source0:	http://freedesktop.org/~david/dist/%{name}-%{version}.tar.gz
-# Source0-md5:	3386817a6811cce803bcfa8a20b05c51
+# Source0-md5:	82f5245252af1f8e2384bb4c3a39804f
 Source1:	haldaemon.init
 Source2:	hald.sysconfig
 Source3:	%{name}-device-manager.desktop
@@ -18,9 +22,9 @@ URL:		http://freedesktop.org/Software/hal
 BuildRequires:	autoconf >= 2.57
 BuildRequires:	automake
 BuildRequires:	dbus-glib-devel >= 0.22-5
-BuildRequires:	docbook-dtd412-xml
-BuildRequires:	docbook-utils
-BuildRequires:	doxygen
+%{?with_docs:BuildRequires:	docbook-dtd412-xml}
+%{?with_docs:BuildRequires:	docbook-utils}
+%{?with_docs:BuildRequires:	doxygen}
 BuildRequires:	expat-devel
 BuildRequires:	glib2-devel >= 2.2.2
 BuildRequires:	intltool
@@ -116,8 +120,8 @@ Program dla GNOME wy¶wietlaj±cy urz±dzenia wykryte przez HAL.
 %{__autoconf}
 %{__automake}
 %configure \
-	--enable-docbook-docs \
-	--enable-doxygen-docs \
+	%{?with_docs:--enable-docbook-docs} \
+	%{?with_docs:--enable-doxygen-docs} \
 	--enable-fstab-sync \
 	--enable-hotplug-map \
 	--enable-pcmcia-support \
@@ -193,27 +197,28 @@ fi
 %attr(755,root,root) %{_bindir}/hal-get-property
 %attr(755,root,root) %{_bindir}/hal-set-property
 %attr(755,root,root) %{_bindir}/lshal
+%attr(755,root,root) %{_libdir}/hald-*
 %attr(755,root,root) %{_sbindir}/*
 %attr(754,root,root) /etc/rc.d/init.d/*
 %config(noreplace) %verify(not size mtime md5) /etc/sysconfig/hald
-%attr(755,root,root) %{_libdir}/hal.dev
+#%attr(755,root,root) %{_libdir}/hal.dev
 %attr(755,root,root) %{_libdir}/hal.hotplug
-%attr(755,root,root) %{_libdir}/hal-hotplug-map
+#%attr(755,root,root) %{_libdir}/hal-hotplug-map
 %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/dbus*/system.d/*
-%{_sysconfdir}/dev.d/default/*.dev
+#%{_sysconfdir}/dev.d/default/*.dev
 %{_sysconfdir}/hotplug.d/default/*.hotplug
 %dir %{_sysconfdir}/%{name}
-%dir %{_sysconfdir}/%{name}/capability.d
-%dir %{_sysconfdir}/%{name}/device.d
-%{_sysconfdir}/%{name}/device.d/*
-%dir %{_sysconfdir}/%{name}/property.d
-%config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/%{name}/hald.conf
+#%dir %{_sysconfdir}/%{name}/capability.d
+#%dir %{_sysconfdir}/%{name}/device.d
+#%{_sysconfdir}/%{name}/device.d/*
+#%dir %{_sysconfdir}/%{name}/property.d
+#%config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/%{name}/hald.conf
 
 %dir %{_datadir}/%{name}
 %{_datadir}/%{name}/fdi
 %{_mandir}/man8/fstab-sync.8*
 %{_examplesdir}/%{name}-%{version}
-%dir /var/lib/hal
+#%dir /var/lib/hal
 %dir /var/run/hald
 
 %files libs
