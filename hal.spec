@@ -1,6 +1,9 @@
 #
 # TODO
+# - for AC: solve problem with udev in /udev (it simply don't work)
 # - get rid of DESTDIR in pycompile (this breaks H-D-M)
+# - test for messagebus service
+# - implement hald --verbose=yes
 #
 %define		_snap	20040918
 Summary:	HAL - Hardware Abstraction Layer
