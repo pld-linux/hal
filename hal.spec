@@ -3,7 +3,7 @@ Summary:	HAL - Hardware Abstraction Layer
 Summary(pl):	HAL - abstrakcyjna warstwa dostêpu do sprzêtu
 Name:		hal
 Version:	0.2.98
-Release:	3
+Release:	4
 License:	AFL v2.0 or GPL v2
 Group:		Libraries
 #Source0:	%{name}-%{version}-%{_snap}.tar.bz2
@@ -14,7 +14,7 @@ Source2:	%{name}-device-manager.desktop
 URL:		http://freedesktop.org/Software/hal
 BuildRequires:	autoconf >= 2.57
 BuildRequires:	automake
-BuildRequires:	dbus-glib-devel >= 0.22
+BuildRequires:	dbus-glib-devel >= 0.22-5
 BuildRequires:	docbook-dtd412-xml
 Buildrequires:	docbook-utils
 BuildRequires:	doxygen
@@ -33,9 +33,9 @@ Requires(post,postun):	/sbin/ldconfig
 Requires(postun):	/usr/sbin/groupdel
 Requires(postun):	/usr/sbin/userdel
 Requires:	%{name}-libs = %{version}-%{release}
-Requires:	dbus >= 0.22
+Requires:	dbus >= 0.22-5
 Requires:	hotplug >= 2003_08_05
-Requires:	python-dbus >= 0.22
+Requires:	python-dbus >= 0.22-5
 Requires:	python-gnome-ui
 Requires:	python-pygtk-glade
 Requires:	udev >= 015-2
@@ -63,7 +63,7 @@ Pliki nag³ówkowe biblioteki HAL.
 Summary:	HAL library
 Summary(pl):	Biblioteka HAL
 Group:		Libraries
-Requires:	dbus-libs
+Requires:	dbus-libs >= 0.22-5
 
 %description libs
 HAL library.
