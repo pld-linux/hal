@@ -2,7 +2,7 @@ Summary:	HAL - Hardware Abstraction Layer
 Summary(pl):	HAL - abstrakcyjna warstwa dostêpu do sprzêtu
 Name:		hal
 Version:	0.2.94
-Release:	1
+Release:	2
 License:	AFL v2.0 or GPL v2
 Group:		Libraries
 Source0:	http://freedesktop.org/~david/dist/%{name}-%{version}.tar.gz
@@ -149,8 +149,12 @@ fi
 %attr(755,root,root) %{_libdir}/hal.hotplug
 %attr(755,root,root) %{_libdir}/lib*.so.*.*.*
 %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/dbus*/system.d/*
+%{_sysconfdir}/dev.d/default/*.dev
 %{_sysconfdir}/hotplug.d/default/*.hotplug
 %dir %{_sysconfdir}/%{name}
+%dir %{_sysconfdir}/%{name}/capability.d
+%dir %{_sysconfdir}/%{name}/device.d
+%dir %{_sysconfdir}/%{name}/property.d
 %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/%{name}/hald.conf
 %dir %{_datadir}/%{name}
 %{_datadir}/%{name}/fdi
