@@ -3,7 +3,7 @@ Summary:	HAL - Hardware Abstraction Layer
 Summary(pl):	HAL - abstrakcyjna warstwa dostêpu do sprzêtu
 Name:		hal
 Version:	0.2.98
-Release:	2
+Release:	3
 License:	AFL v2.0 or GPL v2
 Group:		Libraries
 #Source0:	%{name}-%{version}-%{_snap}.tar.bz2
@@ -32,6 +32,7 @@ Requires(post,preun):		/sbin/chkconfig
 Requires(post,postun):	/sbin/ldconfig
 Requires(postun):	/usr/sbin/groupdel
 Requires(postun):	/usr/sbin/userdel
+Requires:	%{name}-libs = %{version}-%{release}
 Requires:	dbus >= 0.22
 Requires:	hotplug >= 2003_08_05
 Requires:	python-dbus >= 0.22
@@ -57,6 +58,18 @@ Header files for HAL library.
 
 %description devel -l pl
 Pliki nag³ówkowe biblioteki HAL.
+
+%package libs
+Summary:	HAL library
+Summary(pl):	Biblioteka HAL
+Group:		Libraries
+Requires:	dbus-libs
+
+%description libs
+HAL library.
+
+%description libs -l pl
+Biblioteka HAL
 
 %package static
 Summary:	Static HAL library
@@ -126,7 +139,6 @@ else
 fi
 
 %post
-/sbin/ldconfig
 /sbin/chkconfig --add haldaemon
 
 if [ -f /var/lock/subsys/haldaemon ]; then
@@ -148,8 +160,6 @@ if [ "$1" = "0" ];then
 fi
 	
 %postun
-/sbin/ldconfig
-
 if [ -f /var/lock/subsys/messagebus ]; then
 	/etc/rc.d/init.d/messagebus restart 1>&2
 fi
@@ -163,7 +173,6 @@ fi
 %attr(755,root,root) %{_libdir}/hal.dev
 %attr(755,root,root) %{_libdir}/hal.hotplug
 %attr(755,root,root) %{_libdir}/hal-hotplug-map
-%attr(755,root,root) %{_libdir}/lib*.so.*.*.*
 %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/dbus*/system.d/*
 %{_sysconfdir}/dev.d/default/*.dev
 %{_sysconfdir}/hotplug.d/default/*.hotplug
@@ -191,6 +200,10 @@ fi
 %{_libdir}/lib*.la
 %{_includedir}/%{name}
 %{_pkgconfigdir}/*.pc
+
+%files libs
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/lib*.so.*.*.*
 
 %files static
 %defattr(644,root,root,755)
