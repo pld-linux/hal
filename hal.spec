@@ -3,7 +3,7 @@ Summary:	HAL - Hardware Abstraction Layer
 Summary(pl):	HAL - abstrakcyjna warstwa dostêpu do sprzêtu
 Name:		hal
 Version:	0.2.97
-Release:	1.%{_snap}.1
+Release:	1.%{_snap}.2
 License:	AFL v2.0 or GPL v2
 Group:		Libraries
 Source0:	%{name}-%{version}-%{_snap}.tar.bz2
@@ -80,7 +80,6 @@ Statyczna biblioteka HAL.
 	--enable-doxygen-docs \
 	--enable-docbook-docs \
 	--enable-fstab-sync \
-	--enable-mnt-noop \
 	--enable-selinux \
 	--enable-hotplug-map \
 	--with-hwdata=/etc
