@@ -1,21 +1,21 @@
 Summary:	HAL - Hardware Abstraction Layer
 Summary(pl):	HAL - abstrakcyjna warstwa dostêpu do sprzêtu
 Name:		hal
-Version:	0.2.95
+Version:	0.2.97
 Release:	1
 License:	AFL v2.0 or GPL v2
 Group:		Libraries
 Source0:	http://freedesktop.org/~david/dist/%{name}-%{version}.tar.gz
-# Source0-md5:	ceb7146d2012296ffedbb238ac18ce2b
+# Source0-md5:	d156860f508ea384282a367774fe85bb
 Source1:	haldaemon.init
 Source2:	%{name}-fstab-update.sh
 Source3:	%{name}-device-manager.desktop
-Patch0:		%{name}-docs_build.patch
 URL:		http://freedesktop.org/Software/hal
 BuildRequires:	autoconf >= 2.57
 BuildRequires:	automake
-BuildRequires:	dbus-glib-devel >= 0.21
+BuildRequires:	dbus-glib-devel >= 0.22
 BuildRequires:	docbook-dtd412-xml
+Buildrequires:	docbook-utils
 BuildRequires:	doxygen
 BuildRequires:	expat-devel
 BuildRequires:	glib2-devel >= 2.2.2
@@ -29,9 +29,9 @@ Requires(post,preun):		/sbin/chkconfig
 Requires(post,postun):	/sbin/ldconfig
 Requires(postun):	/usr/sbin/groupdel
 Requires(postun):	/usr/sbin/userdel
-Requires:	dbus >= 0.21
+Requires:	dbus >= 0.22
 Requires:	hotplug >= 2003_08_05
-Requires:	python-dbus >= 0.21
+Requires:	python-dbus >= 0.22
 Requires:	python-gnome-ui
 Requires:	udev >= 015-2
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -68,7 +68,6 @@ Statyczna biblioteka HAL.
 
 %prep
 %setup -q
-%patch0 -p1
 
 %build
 %{__libtoolize}
@@ -76,6 +75,8 @@ Statyczna biblioteka HAL.
 %{__autoconf}
 %{__automake}
 %configure \
+	--enable-doxygen-docs \
+	--enable-docbook-docs \
 	--with-hwdata=/etc
 
 %{__make}
