@@ -2,13 +2,13 @@
 Summary:	HAL - Hardware Abstraction Layer
 Summary(pl):	HAL - abstrakcyjna warstwa dostêpu do sprzêtu
 Name:		hal
-Version:	0.2.97
-Release:	1.%{_snap}.2
+Version:	0.2.98
+Release:	1
 License:	AFL v2.0 or GPL v2
 Group:		Libraries
-Source0:	%{name}-%{version}-%{_snap}.tar.bz2
-# Source0-md5:	15462e835593822fafd456282e4a6c4d
-#Source0:	http://freedesktop.org/~david/dist/%{name}-%{version}.tar.gz
+#Source0:	%{name}-%{version}-%{_snap}.tar.bz2
+Source0:	http://freedesktop.org/~david/dist/%{name}-%{version}.tar.gz
+# Source0-md5:	cc289e50e00330032604e02392ffde3a
 Source1:	haldaemon.init
 Source2:	%{name}-device-manager.desktop
 URL:		http://freedesktop.org/Software/hal
@@ -21,6 +21,7 @@ BuildRequires:	doxygen
 BuildRequires:	expat-devel
 BuildRequires:	glib2-devel >= 2.2.2
 BuildRequires:	libcap-devel
+BuildRequires:	libselinux-devel >= 1.17.13
 BuildRequires:	libtool
 BuildRequires:	pciutils
 Requires(pre):	/usr/bin/getgid
@@ -154,7 +155,7 @@ fi
 	
 %files
 %defattr(644,root,root,755)
-%doc AUTHORS ChangeLog NEWS README doc/TODO tools/callouts/fstab-update.sh
+%doc AUTHORS ChangeLog NEWS README doc/TODO
 %attr(755,root,root) %{_bindir}/*
 %attr(755,root,root) %{_sbindir}/*
 %attr(754,root,root) /etc/rc.d/init.d/*
