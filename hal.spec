@@ -2,7 +2,7 @@ Summary:	HAL - Hardware Abstraction Layer
 Summary(pl):	HAL - Abstrakcyjna Warstwa Dostêpu do Sprzêtu
 Name:		hal
 Version:	0.2
-Release:	1
+Release:	2
 License:	AFL v2.0 or GPL v2
 Group:		Libraries
 Source0:	http://freedesktop.org/~david/%{name}-%{version}/%{name}-%{version}.tar.gz
@@ -19,6 +19,8 @@ BuildRequires:	pciutils
 Requires(post,postun):	/sbin/ldconfig
 Requires:	dbus >= 0.20-2
 Requires:	hotplug >= 2003_08_05
+Requires:	python-dbus
+Requires:	python-gnome-ui
 Requires:	udev >= 015-2
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -75,6 +77,8 @@ install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 
 install examples/volumed/*.py $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 
+find $RPM_BUILD_ROOT%{_datadir}/hal/device-manager -name "*.py" -exec rm -f {} \;
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -101,7 +105,13 @@ fi
 %attr(755,root,root) %{_libdir}/lib*.so.*.*.*
 %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/dbus*/system.d/*
 %{_sysconfdir}/hotplug.d/default/*.hotplug
-%{_datadir}/%{name}
+%dir %{_datadir}/%{name}
+%{_datadir}/%{name}/fdi
+%dir %{_datadir}/%{name}/device-manager
+%{_datadir}/%{name}/device-manager/*.py[co]
+%{_datadir}/%{name}/device-manager/*.png
+%{_datadir}/%{name}/device-manager/*.glade
+%attr(755,root,root) %{_datadir}/%{name}/device-manager/hal-device-manager
 %{_examplesdir}/%{name}-%{version}
 
 %files devel
