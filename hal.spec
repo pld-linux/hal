@@ -30,6 +30,7 @@ BuildRequires:	libcap-devel
 BuildRequires:	libselinux-devel >= 1.17.13
 BuildRequires:	libtool
 BuildRequires:	pciutils
+BuildRequires:	popt-devel
 Requires(pre):	/usr/bin/getgid
 Requires(pre):	/bin/id
 Requires(pre):	/usr/sbin/groupadd
@@ -38,6 +39,7 @@ Requires(post,preun):		/sbin/chkconfig
 Requires:	%{name}-libs = %{version}-%{release}
 Requires:	dbus >= 0.22-5
 Requires:	hotplug >= 2003_08_05
+%pyrequires_eq	python
 Requires:	python-dbus >= 0.22-5
 Requires:	python-gnome-ui
 Requires:	python-pygtk-glade
