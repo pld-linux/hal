@@ -20,6 +20,7 @@ Buildrequires:	docbook-utils
 BuildRequires:	doxygen
 BuildRequires:	expat-devel
 BuildRequires:	glib2-devel >= 2.2.2
+BuildRequires:	libcap-devel
 BuildRequires:	libtool
 BuildRequires:	pciutils
 Requires(pre):	/usr/bin/getgid
