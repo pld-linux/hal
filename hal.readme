@@ -1,9 +1,0 @@
-# HAL readme, mostly for testing purposes
-
-For testing are required:
-- running udev (assume running AC version with /udev devpath)
-- fstab entries with /udev (for cd/floppy/dvd media)
-- running messagebus
-- running haldaemon (in verbose mode)
-
-HAL is not PCMCIA ready yet.
