@@ -7,8 +7,8 @@ License:	AFL v2.0 or GPL v2
 Group:		Libraries
 Source0:	http://freedesktop.org/~david/dist/%{name}-%{version}.tar.gz
 # Source0-md5:	3386817a6811cce803bcfa8a20b05c51
-Source1:	haldaemon.init
-Source2:	hald.sysconfig
+Source1:	%{name}daemon.init
+Source2:	%{name}d.sysconfig
 Source3:	%{name}-device-manager.desktop
 Patch0:		%{name}-device_manager.patch
 Patch1:		%{name}-mount-options.patch
@@ -36,7 +36,7 @@ Requires(pre):	/usr/bin/getgid
 Requires(pre):	/bin/id
 Requires(pre):	/usr/sbin/groupadd
 Requires(pre):	/usr/sbin/useradd
-Requires(post,preun):		/sbin/chkconfig
+Requires(post,preun):	/sbin/chkconfig
 Requires:	%{name}-libs = %{version}-%{release}
 Requires:	dbus >= 0.23.4
 Requires:	hotplug >= 2003_08_05
@@ -124,7 +124,7 @@ Program dla GNOME wy¶wietlaj±cy urz±dzenia wykryte przez HAL.
 	--enable-selinux \
 	--enable-sysfs-carrier \
 	--enable-verbose-mode \
-	--with-hwdata=/etc
+--with-hwdata=%{_sysconfdir}
 
 %{__make}
 
@@ -189,7 +189,7 @@ fi
 
 %postun	libs
 %ldconfig_postun
-	
+
 %files -f %{name}.lang
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog NEWS README doc/TODO
@@ -198,11 +198,11 @@ fi
 %attr(755,root,root) %{_bindir}/lshal
 %attr(755,root,root) %{_sbindir}/*
 %attr(754,root,root) /etc/rc.d/init.d/*
-%config(noreplace) %verify(not size mtime md5) /etc/sysconfig/hald
+%config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/hald
 %attr(755,root,root) %{_libdir}/hal.dev
 %attr(755,root,root) %{_libdir}/hal.hotplug
 %attr(755,root,root) %{_libdir}/hal-hotplug-map
-%config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/dbus*/system.d/*
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/dbus*/system.d/*
 %{_sysconfdir}/dev.d/default/*.dev
 %{_sysconfdir}/hotplug.d/default/*.hotplug
 %dir %{_sysconfdir}/%{name}
@@ -210,7 +210,7 @@ fi
 %dir %{_sysconfdir}/%{name}/device.d
 %{_sysconfdir}/%{name}/device.d/*
 %dir %{_sysconfdir}/%{name}/property.d
-%config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/%{name}/hald.conf
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/%{name}/hald.conf
 
 %dir %{_datadir}/%{name}
 %{_datadir}/%{name}/fdi
