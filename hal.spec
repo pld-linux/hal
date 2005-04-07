@@ -2,7 +2,7 @@ Summary:	HAL - Hardware Abstraction Layer
 Summary(pl):	HAL - abstrakcyjna warstwa dostêpu do sprzêtu
 Name:		hal
 Version:	0.4.7
-Release:	3
+Release:	4
 License:	AFL v2.0 or GPL v2
 Group:		Libraries
 Source0:	http://freedesktop.org/~david/dist/%{name}-%{version}.tar.gz
@@ -10,7 +10,6 @@ Source0:	http://freedesktop.org/~david/dist/%{name}-%{version}.tar.gz
 Source1:	haldaemon.init
 Source2:	hald.sysconfig
 Source3:	%{name}-device-manager.desktop
-Source4:	%{name}.readme
 Patch0:		%{name}-device_manager.patch
 Patch1:		%{name}-mount-options.patch
 Patch2:		%{name}-link.patch
@@ -31,6 +30,7 @@ BuildRequires:	pciutils
 BuildRequires:	pkgconfig
 BuildRequires:	popt-devel
 BuildRequires:	python-modules
+BuildRequires:	rpmbuild(macros) >= 1.197
 BuildRequires:	which
 Requires(pre):	/usr/bin/getgid
 Requires(pre):	/bin/id
@@ -122,6 +122,7 @@ Program dla GNOME wy¶wietlaj±cy urz±dzenia wykryte przez HAL.
 	--enable-hotplug-map \
 	--enable-pcmcia-support \
 	--enable-selinux \
+	--enable-sysfs-carrier \
 	--enable-verbose-mode \
 	--with-hwdata=/etc
 
@@ -142,7 +143,6 @@ find $RPM_BUILD_ROOT%{_datadir}/hal/device-manager -name "*.py" -exec rm -f {} \
 install %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/haldaemon
 install %{SOURCE2} $RPM_BUILD_ROOT/etc/sysconfig/hald
 install %{SOURCE3} $RPM_BUILD_ROOT%{_desktopdir}
-install %{SOURCE4} .
 
 %find_lang %{name}
 
@@ -184,12 +184,15 @@ if [ "$1" = "0" ];then
 	/sbin/chkconfig --del haldaemon
 fi
 
-%post	libs -p /sbin/ldconfig
-%postun	libs -p /sbin/ldconfig
+%post	libs
+%ldconfig_post
+
+%postun	libs
+%ldconfig_postun
 	
 %files -f %{name}.lang
 %defattr(644,root,root,755)
-%doc AUTHORS ChangeLog NEWS README doc/TODO hal.readme
+%doc AUTHORS ChangeLog NEWS README doc/TODO
 %attr(755,root,root) %{_bindir}/hal-get-property
 %attr(755,root,root) %{_bindir}/hal-set-property
 %attr(755,root,root) %{_bindir}/lshal
