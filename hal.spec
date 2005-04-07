@@ -124,7 +124,7 @@ Program dla GNOME wy¶wietlaj±cy urz±dzenia wykryte przez HAL.
 	--enable-selinux \
 	--enable-sysfs-carrier \
 	--enable-verbose-mode \
---with-hwdata=%{_sysconfdir}
+	--with-hwdata=%{_sysconfdir}
 
 %{__make}
 
