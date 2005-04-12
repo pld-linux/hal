@@ -184,11 +184,8 @@ if [ "$1" = "0" ];then
 	/sbin/chkconfig --del haldaemon
 fi
 
-%post	libs
-%ldconfig_post
-
-%postun	libs
-%ldconfig_postun
+%post	libs -p /sbin/ldconfig
+%postun	libs -p /sbin/ldconfig
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
