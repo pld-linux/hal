@@ -1,0 +1,5 @@
+- updated to 0.2.95
+- added fstab-update.sh script (for now only in %doc - you can copy it by
+  hand to /etc/hal/device.d/ if you want)
+- added hal-device-manager.desktop
+- added docs_build patch (fix documentation building)
