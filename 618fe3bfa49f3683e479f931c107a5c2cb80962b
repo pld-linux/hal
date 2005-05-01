@@ -1,0 +1,2 @@
+- don't pass --enable-mnt-noop to %configure
+- rel. .2
