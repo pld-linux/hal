@@ -30,7 +30,7 @@ BuildRequires:	pciutils
 BuildRequires:	pkgconfig
 BuildRequires:	popt-devel
 BuildRequires:	python-modules
-BuildRequires:	rpmbuild(macros) >= 1.197
+BuildRequires:	rpmbuild(macros) >= 1.202
 BuildRequires:	which
 Requires(pre):	/usr/bin/getgid
 Requires(pre):	/bin/id
@@ -150,22 +150,8 @@ install %{SOURCE3} $RPM_BUILD_ROOT%{_desktopdir}
 rm -rf $RPM_BUILD_ROOT
 
 %pre
-if [ -n "`/usr/bin/getgid haldaemon`" ]; then
-	if [ "`getgid haldaemon`" != "126" ]; then
-		echo "Error: group haldaemon doesn't have gid=126. Correct this before installing hal." 1>&2
-		exit 1
-	fi
-else
-	/usr/sbin/groupadd -g 126 -r -f haldaemon
-fi
-if [ -n "`/bin/id -u haldaemon 2>/dev/null`" ]; then
-	if [ "`/bin/id -u haldaemon`" != "126" ]; then
-		echo "Error: user haldaemon doesn't have uid=126. Correct this before installing hal." 1>&2
-		exit 1
-	fi
-else
-	/usr/sbin/useradd -u 126 -r -d /usr/share/empty -s /bin/false -c "HAL daemon" -g haldaemon haldaemon 1>&2
-fi
+%groupadd -g 126 -r -f haldaemon
+%useradd -u 126 -r -d /usr/share/empty -s /bin/false -c "HAL daemon" -g haldaemon haldaemon
 
 %post
 /sbin/chkconfig --add haldaemon
