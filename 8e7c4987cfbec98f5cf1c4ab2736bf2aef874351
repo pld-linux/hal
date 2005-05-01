@@ -1,0 +1,4 @@
+- 755 for %{_datadir}/hal/devicemanager/hal-device-manager
+- removed *.py files (there are *.pyo and *.pyc files)
+- R: python-dbus, python-gnome-ui
+- rel. 2
