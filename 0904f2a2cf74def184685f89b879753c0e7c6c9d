@@ -1,0 +1,4 @@
+- updated to 0.2.97-20040918 snap - gnome-volume-manager works at last
+- removed fstab-update.sh (Source2) - it's already in tarball
+- added --enable-fstab-sync --enable-mnt-noop --enable-selinux and
+  --enable-hotplug-map to %configure
