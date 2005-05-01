@@ -1,0 +1,3 @@
+- there is no need to restart messagebus daemon after hal
+- run /sbin/ldconfig in %post/%postun of -libs subpackage
+- rel. 7
