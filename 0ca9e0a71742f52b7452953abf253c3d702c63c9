@@ -1,0 +1,3 @@
+- added missing %{_sysconfdir}/%{name}/{capability.d,device.d,property.d} dirs
+- added missing %{_sysconfdir}/dev.d/default/hal.dev symlink
+- rel. 2
