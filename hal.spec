@@ -11,10 +11,9 @@ License:	AFL v2.0 or GPL v2
 Group:		Libraries
 Source0:	http://freedesktop.org/~david/dist/%{name}-%{version}.tar.gz
 # Source0-md5:	3b351822ba359669646026013a3d5a03
-Source1:	haldaemon.init
-Source2:	hald.sysconfig
+Source1:	%{name}daemon.init
+Source2:	%{name}d.sysconfig
 Source3:	%{name}-device-manager.desktop
-Source4:	%{name}.readme
 Patch0:		%{name}-device_manager.patch
 Patch1:		%{name}-mount-options.patch
 Patch2:		%{name}-link.patch
@@ -35,18 +34,19 @@ BuildRequires:	pciutils
 BuildRequires:	pkgconfig
 BuildRequires:	popt-devel
 BuildRequires:	python-modules
+BuildRequires:	rpmbuild(macros) >= 1.202
 BuildRequires:	which
 Requires(pre):	/usr/bin/getgid
 Requires(pre):	/bin/id
 Requires(pre):	/usr/sbin/groupadd
 Requires(pre):	/usr/sbin/useradd
-Requires(post,preun):		/sbin/chkconfig
+Requires(post,preun):	/sbin/chkconfig
 Requires:	%{name}-libs = %{version}-%{release}
-Requires:	dbus >= 0.22-5
+Requires:	dbus >= 0.23.4
 Requires:	hotplug >= 2003_08_05
 Requires:	mount >= 2.12-14
 %pyrequires_eq	python
-Requires:	python-dbus >= 0.22-5
+Requires:	python-dbus >= 0.23.4
 Requires:	udev >= 015-2
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -126,8 +126,9 @@ Program dla GNOME wy¶wietlaj±cy urz±dzenia wykryte przez HAL.
 	--enable-hotplug-map \
 	--enable-pcmcia-support \
 	--enable-selinux \
+	--enable-sysfs-carrier \
 	--enable-verbose-mode \
-	--with-hwdata=/etc
+	--with-hwdata=%{_sysconfdir}
 
 %{__make}
 
@@ -146,7 +147,6 @@ find $RPM_BUILD_ROOT%{_datadir}/hal/device-manager -name "*.py" -exec rm -f {} \
 install %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/haldaemon
 install %{SOURCE2} $RPM_BUILD_ROOT/etc/sysconfig/hald
 install %{SOURCE3} $RPM_BUILD_ROOT%{_desktopdir}
-install %{SOURCE4} .
 
 %find_lang %{name}
 
@@ -154,22 +154,8 @@ install %{SOURCE4} .
 rm -rf $RPM_BUILD_ROOT
 
 %pre
-if [ -n "`/usr/bin/getgid haldaemon`" ]; then
-	if [ "`getgid haldaemon`" != "126" ]; then
-		echo "Error: group haldaemon doesn't have gid=126. Correct this before installing hal." 1>&2
-		exit 1
-	fi
-else
-	/usr/sbin/groupadd -g 126 -r -f haldaemon
-fi
-if [ -n "`/bin/id -u haldaemon 2>/dev/null`" ]; then
-	if [ "`/bin/id -u haldaemon`" != "126" ]; then
-		echo "Error: user haldaemon doesn't have uid=126. Correct this before installing hal." 1>&2
-		exit 1
-	fi
-else
-	/usr/sbin/useradd -u 126 -r -d /usr/share/empty -s /bin/false -c "HAL daemon" -g haldaemon haldaemon 1>&2
-fi
+%groupadd -g 126 -r -f haldaemon
+%useradd -u 126 -r -d /usr/share/empty -s /bin/false -c "HAL daemon" -g haldaemon haldaemon
 
 %post
 /sbin/chkconfig --add haldaemon
@@ -190,35 +176,24 @@ fi
 
 %post	libs -p /sbin/ldconfig
 %postun	libs -p /sbin/ldconfig
-	
+
 %files -f %{name}.lang
 %defattr(644,root,root,755)
-%doc AUTHORS ChangeLog NEWS README doc/TODO hal.readme
+%doc AUTHORS ChangeLog NEWS README doc/TODO
 %attr(755,root,root) %{_bindir}/hal-get-property
 %attr(755,root,root) %{_bindir}/hal-set-property
 %attr(755,root,root) %{_bindir}/lshal
 %attr(755,root,root) %{_libdir}/hald-*
 %attr(755,root,root) %{_sbindir}/*
 %attr(754,root,root) /etc/rc.d/init.d/*
-%config(noreplace) %verify(not size mtime md5) /etc/sysconfig/hald
-#%attr(755,root,root) %{_libdir}/hal.dev
+%config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/hald
 %attr(755,root,root) %{_libdir}/hal.hotplug
-#%attr(755,root,root) %{_libdir}/hal-hotplug-map
-%config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/dbus*/system.d/*
-#%{_sysconfdir}/dev.d/default/*.dev
-%{_sysconfdir}/hotplug.d/default/*.hotplug
-%dir %{_sysconfdir}/%{name}
-#%dir %{_sysconfdir}/%{name}/capability.d
-#%dir %{_sysconfdir}/%{name}/device.d
-#%{_sysconfdir}/%{name}/device.d/*
-#%dir %{_sysconfdir}/%{name}/property.d
-#%config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/%{name}/hald.conf
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/dbus*/system.d/*
 
 %dir %{_datadir}/%{name}
 %{_datadir}/%{name}/fdi
 %{_mandir}/man8/fstab-sync.8*
 %{_examplesdir}/%{name}-%{version}
-#%dir /var/lib/hal
 %dir /var/run/hald
 
 %files libs
