@@ -1,6 +1,6 @@
 # Customized settings for hal daemon
 
-verbose="yes"
+verbose="no"
 
 # This must be last line !
 # vi:syntax=sh:tw=78:ts=8:sw=4
