@@ -20,7 +20,7 @@ Patch2:		%{name}-link.patch
 URL:		http://freedesktop.org/Software/hal
 BuildRequires:	autoconf >= 2.57
 BuildRequires:	automake
-BuildRequires:	dbus-glib-devel >= 0.22-5
+BuildRequires:	dbus-glib-devel >= 0.33
 %{?with_docs:BuildRequires:	docbook-dtd412-xml}
 %{?with_docs:BuildRequires:	docbook-utils}
 %{?with_docs:BuildRequires:	doxygen}
@@ -42,12 +42,12 @@ Requires(pre):	/usr/sbin/groupadd
 Requires(pre):	/usr/sbin/useradd
 Requires(post,preun):	/sbin/chkconfig
 Requires:	%{name}-libs = %{version}-%{release}
-Requires:	dbus >= 0.23.4
+Requires:	dbus >= 0.33
 Requires:	hotplug >= 2003_08_05
 Requires:	mount >= 2.12-14
 %pyrequires_eq	python
-Requires:	python-dbus >= 0.23.4
-Requires:	udev >= 015-2
+Requires:	python-dbus >= 0.33
+Requires:	udev >= 057
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -60,7 +60,7 @@ HAL jest implementacj± abstrakcyjnej warstwy dostêpu do sprzêtu.
 Summary:	HAL library
 Summary(pl):	Biblioteka HAL
 Group:		Libraries
-Requires:	dbus-libs >= 0.22-5
+Requires:	dbus-libs >= 0.33
 
 %description libs
 HAL library.
@@ -73,7 +73,7 @@ Summary:	Header files for HAL library
 Summary(pl):	Pliki nag³ówkowe biblioteki HAL
 Group:		Development/Libraries
 Requires:	%{name}-libs = %{version}-%{release}
-Requires:	dbus-devel >= 0.22-5
+Requires:	dbus-devel >= 0.33
 
 %description devel
 Header files for HAL library.
