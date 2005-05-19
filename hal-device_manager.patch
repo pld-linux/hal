@@ -1,24 +1,26 @@
-diff -aurN hal-0.4.1.orig/tools/device-manager/DeviceManager.py hal-0.4.1/tools/device-manager/DeviceManager.py
---- hal-0.4.1.orig/tools/device-manager/DeviceManager.py	2004-11-08 23:33:39.000000000 +0100
-+++ hal-0.4.1/tools/device-manager/DeviceManager.py	2004-11-27 01:00:42.976801072 +0100
-@@ -265,13 +265,16 @@
-             device_dbus_obj = self.hal_service.get_object(name,
-                                                      "org.freedesktop.Hal.Device")
-             properties = device_dbus_obj.GetAllProperties()
+--- hal-0.5.2/tools/device-manager/DeviceManager.py.orig	2005-04-27 21:15:37.000000000 +0200
++++ hal-0.5.2/tools/device-manager/DeviceManager.py	2005-05-19 16:40:29.000000000 +0200
+@@ -261,13 +261,16 @@
+         for name in device_names:
+             device_dbus_obj = self.bus.get_object("org.freedesktop.Hal" ,name)
+             properties = device_dbus_obj.GetAllProperties(dbus_interface="org.freedesktop.Hal.Device")
 -            try:
-+            if properties == None:
-+               print name + " has no properties"
-+            else:
-+             try:
-                 parent_name = properties["info.parent"]
+-                parent_name = properties["info.parent"]
 -            except KeyError:
-+             except:
-                 # no parent, must be parent of virtual_root
-                 parent_name = "/"
+-                # no parent, must be parent of virtual_root
+-                parent_name = "/"
 -            device = Device(name, parent_name, properties)
 -            self.device_list.append(device)
-+             device = Device(name, parent_name, properties)
-+             self.device_list.append(device)
++            if properties == None:
++                print name + " has no properties"
++            else:
++                try:
++                    parent_name = properties["info.parent"]
++                except KeyError:
++                    # no parent, must be parent of virtual_root
++                    parent_name = "/"
++                device = Device(name, parent_name, properties)
++                self.device_list.append(device)
  
          # set parent_device and children for each Device object
          for device in self.device_list:
