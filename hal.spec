@@ -1,12 +1,16 @@
+#
+# Conditional build:
+%bcond_without	docs	# disable documentation building
+#
 Summary:	HAL - Hardware Abstraction Layer
 Summary(pl):	HAL - abstrakcyjna warstwa dostêpu do sprzêtu
 Name:		hal
-Version:	0.4.8
-Release:	1
+Version:	0.5.2
+Release:	0.1
 License:	AFL v2.0 or GPL v2
 Group:		Libraries
 Source0:	http://freedesktop.org/~david/dist/%{name}-%{version}.tar.gz
-# Source0-md5:	0b8aa2e8b45769bb56276e464918525f
+# Source0-md5:	3b351822ba359669646026013a3d5a03
 Source1:	%{name}daemon.init
 Source2:	%{name}d.sysconfig
 Source3:	%{name}-device-manager.desktop
@@ -16,10 +20,10 @@ Patch2:		%{name}-link.patch
 URL:		http://freedesktop.org/Software/hal
 BuildRequires:	autoconf >= 2.57
 BuildRequires:	automake
-BuildRequires:	dbus-glib-devel >= 0.23.4
-BuildRequires:	docbook-dtd412-xml
-BuildRequires:	docbook-utils
-BuildRequires:	doxygen
+BuildRequires:	dbus-glib-devel >= 0.33
+%{?with_docs:BuildRequires:	docbook-dtd412-xml}
+%{?with_docs:BuildRequires:	docbook-utils}
+%{?with_docs:BuildRequires:	doxygen}
 BuildRequires:	expat-devel
 BuildRequires:	glib2-devel >= 2.2.2
 BuildRequires:	intltool
@@ -38,12 +42,12 @@ Requires(pre):	/usr/sbin/groupadd
 Requires(pre):	/usr/sbin/useradd
 Requires(post,preun):	/sbin/chkconfig
 Requires:	%{name}-libs = %{version}-%{release}
-Requires:	dbus >= 0.23.4
+Requires:	dbus >= 0.33
 Requires:	hotplug >= 2003_08_05
 Requires:	mount >= 2.12-14
 %pyrequires_eq	python
-Requires:	python-dbus >= 0.23.4
-Requires:	udev >= 015-2
+Requires:	python-dbus >= 0.33
+Requires:	udev >= 057
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -56,7 +60,7 @@ HAL jest implementacj± abstrakcyjnej warstwy dostêpu do sprzêtu.
 Summary:	HAL library
 Summary(pl):	Biblioteka HAL
 Group:		Libraries
-Requires:	dbus-libs >= 0.22-5
+Requires:	dbus-libs >= 0.33
 
 %description libs
 HAL library.
@@ -69,7 +73,7 @@ Summary:	Header files for HAL library
 Summary(pl):	Pliki nag³ówkowe biblioteki HAL
 Group:		Development/Libraries
 Requires:	%{name}-libs = %{version}-%{release}
-Requires:	dbus-devel >= 0.22-5
+Requires:	dbus-devel >= 0.33
 
 %description devel
 Header files for HAL library.
@@ -116,8 +120,8 @@ Program dla GNOME wy¶wietlaj±cy urz±dzenia wykryte przez HAL.
 %{__autoconf}
 %{__automake}
 %configure \
-	--enable-docbook-docs \
-	--enable-doxygen-docs \
+	%{?with_docs:--enable-docbook-docs} \
+	%{?with_docs:--enable-doxygen-docs} \
 	--enable-fstab-sync \
 	--enable-hotplug-map \
 	--enable-pcmcia-support \
@@ -178,27 +182,17 @@ fi
 %attr(755,root,root) %{_bindir}/hal-get-property
 %attr(755,root,root) %{_bindir}/hal-set-property
 %attr(755,root,root) %{_bindir}/lshal
+%attr(755,root,root) %{_libdir}/hald-*
 %attr(755,root,root) %{_sbindir}/*
 %attr(754,root,root) /etc/rc.d/init.d/*
 %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/hald
-%attr(755,root,root) %{_libdir}/hal.dev
 %attr(755,root,root) %{_libdir}/hal.hotplug
-%attr(755,root,root) %{_libdir}/hal-hotplug-map
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/dbus*/system.d/*
-%{_sysconfdir}/dev.d/default/*.dev
-%{_sysconfdir}/hotplug.d/default/*.hotplug
-%dir %{_sysconfdir}/%{name}
-%dir %{_sysconfdir}/%{name}/capability.d
-%dir %{_sysconfdir}/%{name}/device.d
-%{_sysconfdir}/%{name}/device.d/*
-%dir %{_sysconfdir}/%{name}/property.d
-%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/%{name}/hald.conf
 
 %dir %{_datadir}/%{name}
 %{_datadir}/%{name}/fdi
 %{_mandir}/man8/fstab-sync.8*
 %{_examplesdir}/%{name}-%{version}
-%dir /var/lib/hal
 %dir /var/run/hald
 
 %files libs
