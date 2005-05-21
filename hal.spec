@@ -185,7 +185,8 @@ fi
 %attr(755,root,root) %{_bindir}/lshal
 %attr(755,root,root) %{_libdir}/hald-*
 %attr(755,root,root) %{_sbindir}/*
-/etc/%{name}/fdi
+%dir %{_sysconfdir}/%{name}
+%{_sysconfdir}/%{name}/fdi
 %attr(754,root,root) /etc/rc.d/init.d/*
 %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/hald
 %attr(755,root,root) %{_libdir}/hal.hotplug
