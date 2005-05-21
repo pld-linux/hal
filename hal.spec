@@ -134,7 +134,8 @@ Program dla GNOME wy¶wietlaj±cy urz±dzenia wykryte przez HAL.
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version} \
-	$RPM_BUILD_ROOT{/etc/{sysconfig,rc.d}/init.d,%{_desktopdir},/var/run/hald}
+	$RPM_BUILD_ROOT{/etc/{sysconfig,rc.d}/init.d,%{_desktopdir},/var/run/hald} \
+	$RPM_BUILD_ROOT{/etc/hal/fdi/{information,policy,preprobe}}
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
@@ -184,13 +185,14 @@ fi
 %attr(755,root,root) %{_bindir}/lshal
 %attr(755,root,root) %{_libdir}/hald-*
 %attr(755,root,root) %{_sbindir}/*
+/etc/%{name}/fdi
 %attr(754,root,root) /etc/rc.d/init.d/*
 %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/hald
 %attr(755,root,root) %{_libdir}/hal.hotplug
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/dbus*/system.d/*
 
 %dir %{_datadir}/%{name}
-%{_datadir}/%{name}/fdi
+%{_datadir}/%{name}
 %{_mandir}/man8/fstab-sync.8*
 %{_examplesdir}/%{name}-%{version}
 %dir /var/run/hald
