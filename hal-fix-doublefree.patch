@@ -1,0 +1,16 @@
+Index: hald/hald_dbus.c
+===================================================================
+RCS file: /cvs/hal/hal/hald/hald_dbus.c,v
+retrieving revision 1.35
+diff -u -r1.35 hald_dbus.c
+--- hald/hald_dbus.c	27 Apr 2005 18:53:39 -0000	1.35
++++ hald/hald_dbus.c	23 May 2005 13:54:29 -0000
+@@ -1687,8 +1687,6 @@
+ 	g_hash_table_insert (services_with_locks, g_strdup (sender),
+ 			     g_object_ref (d));
+ 
+-	dbus_free (reason);
+-
+ 	if (!dbus_connection_send (connection, reply, NULL))
+ 		DIE (("No memory"));
+ 

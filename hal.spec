@@ -17,6 +17,9 @@ Source3:	%{name}-device-manager.desktop
 Patch0:		%{name}-device_manager.patch
 Patch1:		%{name}-mount-options.patch
 Patch2:		%{name}-link.patch
+Patch3:		%{name}-dont-mount-sync.patch
+Patch4:		%{name}-fix-doublefree.patch
+Patch5:		%{name}-fixup-fstab-sync-man-page.patch
 URL:		http://freedesktop.org/Software/hal
 BuildRequires:	autoconf >= 2.57
 BuildRequires:	automake
@@ -112,6 +115,9 @@ Program dla GNOME wy¶wietlaj±cy urz±dzenia wykryte przez HAL.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3	-p0
+%patch4 -p0
+%patch5 -p0
 
 %build
 %{__libtoolize}
