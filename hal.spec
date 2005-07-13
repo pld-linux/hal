@@ -5,21 +5,18 @@
 Summary:	HAL - Hardware Abstraction Layer
 Summary(pl):	HAL - abstrakcyjna warstwa dostêpu do sprzêtu
 Name:		hal
-Version:	0.5.2
-Release:	0.2
+Version:	0.5.3
+Release:	0.1
 License:	AFL v2.0 or GPL v2
 Group:		Libraries
 Source0:	http://freedesktop.org/~david/dist/%{name}-%{version}.tar.gz
-# Source0-md5:	3b351822ba359669646026013a3d5a03
+# Source0-md5:	bc4005ef21c7c8bfe3444cf0f3fa6d68
 Source1:	%{name}daemon.init
 Source2:	%{name}d.sysconfig
 Source3:	%{name}-device-manager.desktop
 Patch0:		%{name}-device_manager.patch
 Patch1:		%{name}-mount-options.patch
 Patch2:		%{name}-link.patch
-Patch3:		%{name}-dont-mount-sync.patch
-Patch4:		%{name}-fix-doublefree.patch
-Patch5:		%{name}-fixup-fstab-sync-man-page.patch
 URL:		http://freedesktop.org/Software/hal
 BuildRequires:	autoconf >= 2.57
 BuildRequires:	automake
@@ -116,9 +113,6 @@ Program dla GNOME wy¶wietlaj±cy urz±dzenia wykryte przez HAL.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
-%patch3	-p0
-%patch4 -p0
-%patch5 -p0
 
 %build
 %{__libtoolize}
