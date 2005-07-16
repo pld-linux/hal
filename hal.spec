@@ -181,6 +181,9 @@ fi
 %files -f %{name}.lang
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog NEWS README doc/TODO
+%attr(755,root,root) %{_bindir}/hal-device
+%attr(755,root,root) %{_bindir}/hal-find-by-capability
+%attr(755,root,root) %{_bindir}/hal-find-by-property
 %attr(755,root,root) %{_bindir}/hal-get-property
 %attr(755,root,root) %{_bindir}/hal-set-property
 %attr(755,root,root) %{_bindir}/lshal
