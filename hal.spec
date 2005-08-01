@@ -47,7 +47,7 @@ Requires:	hotplug >= 2003_08_05
 Requires:	mount >= 2.12-14
 %pyrequires_eq	python
 Requires:	python-dbus >= 0.33
-Requires:	udev >= 057
+Requires:	udev <= 058
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -124,10 +124,8 @@ Program dla GNOME wy¶wietlaj±cy urz±dzenia wykryte przez HAL.
 	%{?with_docs:--enable-docbook-docs} \
 	%{?with_docs:--enable-doxygen-docs} \
 	--enable-fstab-sync \
-	--enable-hotplug-map \
 	--enable-pcmcia-support \
 	--enable-selinux \
-	--enable-sysfs-carrier \
 	--with-hwdata=%{_sysconfdir}
 
 %{__make}
@@ -160,18 +158,11 @@ rm -rf $RPM_BUILD_ROOT
 
 %post
 /sbin/chkconfig --add haldaemon
-
-if [ -f /var/lock/subsys/haldaemon ]; then
-	/etc/rc.d/init.d/haldaemon restart >&2
-else
-	echo "Run \"/etc/rc.d/init.d/haldaemon start\" to start HAL daemon."
-fi
+%service haldaemon restart
 
 %preun
-if [ "$1" = "0" ];then
-	if [ -f /var/lock/subsys/haldaemon ]; then
-		/etc/rc.d/init.d/haldaemon stop >&2
-	fi
+if [ "$1" = "0" ]; then
+	%service -q haldaemon stop
 	/sbin/chkconfig --del haldaemon
 fi
 
