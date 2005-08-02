@@ -34,7 +34,7 @@ BuildRequires:	pciutils
 BuildRequires:	pkgconfig
 BuildRequires:	popt-devel
 BuildRequires:	python-modules
-BuildRequires:	rpmbuild(macros) >= 1.202
+BuildRequires:	rpmbuild(macros) >= 1.228
 BuildRequires:	which
 Requires(pre):	/usr/bin/getgid
 Requires(pre):	/bin/id
