@@ -1,16 +1,19 @@
 #
 # Conditional build:
-%bcond_without	docs	# disable documentation building
+%bcond_without	docs		# disable documentation building
+%bcond_with	fstab_sync	# build without fstab-sync support
 #
+%define		snap	20050801
 Summary:	HAL - Hardware Abstraction Layer
 Summary(pl):	HAL - abstrakcyjna warstwa dostêpu do sprzêtu
 Name:		hal
-Version:	0.5.3
-Release:	0.1
+Version:	0.5.4
+Release:	0.%{snap}.0.1
 License:	AFL v2.0 or GPL v2
 Group:		Libraries
-Source0:	http://freedesktop.org/~david/dist/%{name}-%{version}.tar.gz
-# Source0-md5:	bc4005ef21c7c8bfe3444cf0f3fa6d68
+Source0:	%{name}-%{version}-%{snap}.tar.bz2
+# Source0-md5:	84ffa61db237493e33695b90f18287e4
+#Source0:	http://freedesktop.org/~david/dist/%{name}-%{version}.tar.gz
 Source1:	%{name}daemon.init
 Source2:	%{name}d.sysconfig
 Source3:	%{name}-device-manager.desktop
@@ -117,6 +120,8 @@ Program dla GNOME wy¶wietlaj±cy urz±dzenia wykryte przez HAL.
 %patch2 -p1
 
 %build
+%{__glib_gettextize}
+%{__intltoolize}
 %{__libtoolize}
 %{__aclocal}
 %{__autoheader}
@@ -125,7 +130,7 @@ Program dla GNOME wy¶wietlaj±cy urz±dzenia wykryte przez HAL.
 %configure \
 	%{?with_docs:--enable-docbook-docs} \
 	%{?with_docs:--enable-doxygen-docs} \
-	--enable-fstab-sync \
+	%{?with_fstab_sync:--enable-fstab-sync} \
 	--enable-pcmcia-support \
 	--enable-selinux \
 	--with-hwdata=%{_sysconfdir}
@@ -191,7 +196,7 @@ fi
 
 %dir %{_datadir}/%{name}
 %{_datadir}/%{name}
-%{_mandir}/man8/fstab-sync.8*
+%{?with_fstab_sync:%{_mandir}/man8/fstab-sync.8*}
 %{_examplesdir}/%{name}-%{version}
 %dir /var/run/hald
 
