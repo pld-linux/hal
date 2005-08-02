@@ -44,7 +44,7 @@ Requires:	mount >= 2.12-14
 %pyrequires_eq	python
 Requires:	python-dbus >= 0.23.4
 Requires:	udev >= 015-2
-Requires:	udev < 058
+Requires:	udev < 059
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
