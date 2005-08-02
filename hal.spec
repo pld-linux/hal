@@ -25,7 +25,7 @@ BuildRequires:	dbus-glib-devel >= 0.33
 %{?with_docs:BuildRequires:	docbook-utils}
 %{?with_docs:BuildRequires:	doxygen}
 BuildRequires:	expat-devel
-BuildRequires:	glib2-devel >= 2.2.2
+BuildRequires:	glib2-devel >= 1:2.6.0
 BuildRequires:	intltool
 BuildRequires:	libcap-devel
 BuildRequires:	libselinux-devel >= 1.17.13
@@ -43,10 +43,12 @@ Requires(pre):	/usr/sbin/useradd
 Requires(post,preun):	/sbin/chkconfig
 Requires:	%{name}-libs = %{version}-%{release}
 Requires:	dbus >= 0.33
+Requires:	glib2 >= 1:2.6.0
 Requires:	hotplug >= 2003_08_05
 Requires:	mount >= 2.12-14
 %pyrequires_eq	python
 Requires:	python-dbus >= 0.33
+Requires:	udev >= 051
 Requires:	udev <= 058
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
