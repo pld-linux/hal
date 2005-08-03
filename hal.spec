@@ -2,7 +2,7 @@ Summary:	HAL - Hardware Abstraction Layer
 Summary(pl):	HAL - abstrakcyjna warstwa dostêpu do sprzêtu
 Name:		hal
 Version:	0.4.8
-Release:	1
+Release:	3
 License:	AFL v2.0 or GPL v2
 Group:		Libraries
 Source0:	http://freedesktop.org/~david/dist/%{name}-%{version}.tar.gz
@@ -44,6 +44,7 @@ Requires:	mount >= 2.12-14
 %pyrequires_eq	python
 Requires:	python-dbus >= 0.23.4
 Requires:	udev >= 015-2
+Requires:	udev < 059
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -94,6 +95,7 @@ Summary:	HAL device manager for GNOME
 Summary(pl):	Zarz±dca urz±dzeñ HALa dla GNOME
 Group:		X11/Applications
 Requires:	python-gnome-ui
+Requires:	python-gnome-vfs
 Requires:	python-pygtk-glade
 Requires:	%{name} = %{version}-%{release}
 
