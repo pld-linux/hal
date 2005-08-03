@@ -103,8 +103,8 @@ Summary:	HAL device manager for GNOME
 Summary(pl):	Zarz±dca urz±dzeñ HALa dla GNOME
 Group:		X11/Applications
 Requires:	python-gnome-ui
-Requires:	python-pygtk-glade
 Requires:	python-gnome-vfs
+Requires:	python-pygtk-glade
 Requires:	%{name} = %{version}-%{release}
 
 %description device-manager
