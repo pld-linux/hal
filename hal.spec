@@ -8,7 +8,7 @@ Summary:	HAL - Hardware Abstraction Layer
 Summary(pl):	HAL - abstrakcyjna warstwa dostêpu do sprzêtu
 Name:		hal
 Version:	0.5.4
-Release:	0.%{snap}.0.1
+Release:	0.%{snap}.0.2
 License:	AFL v2.0 or GPL v2
 Group:		Libraries
 Source0:	%{name}-%{version}-%{snap}.tar.bz2
@@ -195,7 +195,7 @@ fi
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/dbus*/system.d/*
 
 %dir %{_datadir}/%{name}
-%{_datadir}/%{name}
+%{_datadir}/%{name}/fdi
 %{?with_fstab_sync:%{_mandir}/man8/fstab-sync.8*}
 %{_examplesdir}/%{name}-%{version}
 %dir /var/run/hald
