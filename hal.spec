@@ -6,7 +6,7 @@ Summary:	HAL - Hardware Abstraction Layer
 Summary(pl):	HAL - abstrakcyjna warstwa dostêpu do sprzêtu
 Name:		hal
 Version:	0.5.3
-Release:	0.1
+Release:	1
 License:	AFL v2.0 or GPL v2
 Group:		Libraries
 Source0:	http://freedesktop.org/~david/dist/%{name}-%{version}.tar.gz
@@ -15,8 +15,7 @@ Source1:	%{name}daemon.init
 Source2:	%{name}d.sysconfig
 Source3:	%{name}-device-manager.desktop
 Patch0:		%{name}-device_manager.patch
-Patch1:		%{name}-mount-options.patch
-Patch2:		%{name}-link.patch
+Patch1:		%{name}-link.patch
 URL:		http://freedesktop.org/Software/hal
 BuildRequires:	autoconf >= 2.57
 BuildRequires:	automake
@@ -48,8 +47,7 @@ Requires:	hotplug >= 2003_08_05
 Requires:	mount >= 2.12-14
 %pyrequires_eq	python
 Requires:	python-dbus >= 0.33
-Requires:	udev >= 051
-Requires:	udev <= 058
+Requires:	udev >= 057
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -114,7 +112,6 @@ Program dla GNOME wy¶wietlaj±cy urz±dzenia wykryte przez HAL.
 %setup -q
 %patch0 -p1
 %patch1 -p1
-%patch2 -p1
 
 %build
 %{__libtoolize}
@@ -125,7 +122,6 @@ Program dla GNOME wy¶wietlaj±cy urz±dzenia wykryte przez HAL.
 %configure \
 	%{?with_docs:--enable-docbook-docs} \
 	%{?with_docs:--enable-doxygen-docs} \
-	--enable-fstab-sync \
 	--enable-pcmcia-support \
 	--enable-selinux \
 	--with-hwdata=%{_sysconfdir}
@@ -136,7 +132,7 @@ Program dla GNOME wy¶wietlaj±cy urz±dzenia wykryte przez HAL.
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version} \
 	$RPM_BUILD_ROOT{/etc/{sysconfig,rc.d}/init.d,%{_desktopdir},/var/run/hald} \
-	$RPM_BUILD_ROOT{/etc/hal/fdi/{information,policy,preprobe}}
+	$RPM_BUILD_ROOT/etc/hal/fdi/{information,policy,preprobe}
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
@@ -183,16 +179,17 @@ fi
 %attr(755,root,root) %{_libdir}/hald-*
 %attr(755,root,root) %{_sbindir}/*
 %dir %{_sysconfdir}/%{name}
+
 %{_sysconfdir}/%{name}/fdi
+%{_sysconfdir}/hotplug.d/default/*
+
 %attr(754,root,root) /etc/rc.d/init.d/*
-%config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/hald
 %attr(755,root,root) %{_libdir}/hal.hotplug
+%config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/hald
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/dbus*/system.d/*
 
 %dir %{_datadir}/%{name}
-%{_datadir}/%{name}
-%{_mandir}/man8/fstab-sync.8*
-%{_examplesdir}/%{name}-%{version}
+%{_datadir}/%{name}/fdi
 %dir /var/run/hald
 
 %files libs
@@ -203,6 +200,8 @@ fi
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/lib*.so
 %{_libdir}/lib*.la
+%dir %{_examplesdir}/%{name}-%{version}
+%attr(755,root,root) %{_examplesdir}/%{name}-%{version}/*.py
 %{_includedir}/%{name}
 %{_pkgconfigdir}/*.pc
 
