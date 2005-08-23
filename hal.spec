@@ -126,8 +126,9 @@ Program dla GNOME wy¶wietlaj±cy urz±dzenia wykryte przez HAL.
 	%{?with_docs:--enable-doxygen-docs} \
 	--enable-pcmcia-support \
 	--enable-selinux \
-	--with-hwdata=%{_sysconfdir}
-
+	--with-hwdata=%{_sysconfdir} \
+	--enable-fstab-sync \
+	--enable-verbose-mode
 %{__make}
 
 %install
@@ -179,6 +180,7 @@ fi
 %attr(755,root,root) %{_bindir}/hal-set-property
 %attr(755,root,root) %{_bindir}/lshal
 %attr(755,root,root) %{_libdir}/hald-*
+%{_mandir}/man8/fstab-sync.8*
 %attr(755,root,root) %{_sbindir}/*
 %dir %{_sysconfdir}/%{name}
 
