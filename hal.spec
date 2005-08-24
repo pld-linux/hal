@@ -113,7 +113,7 @@ Program dla GNOME wy¶wietlaj±cy urz±dzenia wykryte przez HAL.
 %setup -q
 %patch0 -p1
 %patch1 -p1
-%patch2 -p1
+#%patch2 -p1
 
 %build
 %{__libtoolize}
@@ -128,7 +128,8 @@ Program dla GNOME wy¶wietlaj±cy urz±dzenia wykryte przez HAL.
 	--enable-selinux \
 	--with-hwdata=%{_sysconfdir} \
 	--enable-fstab-sync \
-	--enable-verbose-mode
+	--enable-verbose-mode \
+	--with-pid-file=%{_localstatedir}/run/hald.pid
 %{__make}
 
 %install
