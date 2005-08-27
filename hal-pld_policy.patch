@@ -1,6 +1,6 @@
-diff -aurN hal-0.5.3.orig/fdi/policy/10osvendor/10-storage-policy.fdi hal-0.5.3/fdi/policy/10osvendor/10-storage-policy.fdi
---- hal-0.5.3.orig/fdi/policy/10osvendor/10-storage-policy.fdi	2005-05-13 20:41:20.000000000 +0200
-+++ hal-0.5.3/fdi/policy/10osvendor/10-storage-policy.fdi	2005-08-04 22:04:05.000000000 +0200
+diff -urN hal-0.5.4.orig/fdi/policy/10osvendor/10-storage-policy.fdi hal-0.5.4/fdi/policy/10osvendor/10-storage-policy.fdi
+--- hal-0.5.4.orig/fdi/policy/10osvendor/10-storage-policy.fdi	2005-08-27 22:13:17.239258560 +0200
++++ hal-0.5.4/fdi/policy/10osvendor/10-storage-policy.fdi	2005-08-27 22:29:24.738176368 +0200
 @@ -6,11 +6,11 @@
    <device>
      <match key="info.udi" string="/org/freedesktop/Hal/devices/computer">
@@ -17,7 +17,60 @@ diff -aurN hal-0.5.3.orig/fdi/policy/10osvendor/10-storage-policy.fdi hal-0.5.3/
        <merge key="storage.policy.default.mount_option.exec" type="bool">true</merge>
      </match>
    </device>
-@@ -96,6 +96,9 @@
+@@ -44,6 +44,19 @@
+       </match>
+     </match>
+ 
++    <!-- Use UTF-8 charset and the quiet option for vfat -->
++    <match key="volume.fstype" string="vfat">
++      <merge key="volume.policy.mount_option.iocharset=utf8" type="bool">true</merge>
++      <merge key="volume.policy.mount_option.quiet" type="bool">true</merge>
++    </match>
++    <!-- cdrom filesystems should be mounted with the utf8 option -->
++    <match key="volume.fstype" string="iso9660">
++      <merge key="volume.policy.mount_option.utf8" type="bool">true</merge>
++    </match>
++    <match key="volume.fstype" string="udf">
++      <merge key="volume.policy.mount_option.utf8" type="bool">true</merge>
++    </match>
++
+     <!-- Handle drives with non-partitioned media  -->
+     <match key="storage.no_partitions_hint" bool="true">
+       <!-- optical drives -->
+@@ -51,25 +64,25 @@
+ 	<merge key="storage.policy.mount_filesystem" type="string">auto</merge>
+ 	<merge key="storage.policy.desired_mount_point" type="string">cdrom</merge>
+ 	<match key="storage.cdrom.cdr" bool="true">
+-	  <merge key="storage.policy.desired_mount_point" type="string">cdrecorder</merge>
++	  <merge key="storage.policy.desired_mount_point" type="string">cdwriter</merge>
+ 	</match>
+ 	<match key="storage.cdrom.cdrw" bool="true">
+-	  <merge key="storage.policy.desired_mount_point" type="string">cdrecorder</merge>
++	  <merge key="storage.policy.desired_mount_point" type="string">cdwriter</merge>
+ 	</match>
+ 	<match key="storage.cdrom.dvdplusr" bool="true">
+-	  <merge key="storage.policy.desired_mount_point" type="string">cdrecorder</merge>
++	  <merge key="storage.policy.desired_mount_point" type="string">dvdwriter</merge>
+ 	</match>
+ 	<match key="storage.cdrom.dvdplusrw" bool="true">
+-	  <merge key="storage.policy.desired_mount_point" type="string">cdrecorder</merge>
++	  <merge key="storage.policy.desired_mount_point" type="string">dvdwriter</merge>
+ 	</match>
+ 	<match key="storage.cdrom.dvdram" bool="true">
+-	  <merge key="storage.policy.desired_mount_point" type="string">cdrecorder</merge>
++	  <merge key="storage.policy.desired_mount_point" type="string">dvdwriter</merge>
+ 	</match>
+ 	<match key="storage.cdrom.dvdr" bool="true">
+-	  <merge key="storage.policy.desired_mount_point" type="string">cdrecorder</merge>
++	  <merge key="storage.policy.desired_mount_point" type="string">dvdwriter</merge>
+ 	</match>
+ 	<match key="storage.cdrom.dvdrw" bool="true">
+-	  <merge key="storage.policy.desired_mount_point" type="string">cdrecorder</merge>
++	  <merge key="storage.policy.desired_mount_point" type="string">dvdwriter</merge>
+ 	</match>
+       </match>
+ 
+@@ -96,6 +109,9 @@
      <match key="block.is_volume" bool="true">
        <match key="volume.fsusage" string="filesystem">
  	<!-- skip for drives with the no partitions hint (they are handled above) -->
@@ -27,3 +80,18 @@ diff -aurN hal-0.5.3.orig/fdi/policy/10osvendor/10-storage-policy.fdi hal-0.5.3/
  	<match key="@block.storage_device:storage.no_partitions_hint" bool="false">
  
  	  <merge key="volume.policy.should_mount" type="bool">true</merge>
+@@ -195,5 +211,14 @@
+       <append key="info.addons" type="strlist">hald-addon-storage</append>
+     </match>
+   </device>
++
++  <!-- Always eject USB storage devices to properly power them off -->
++  <device>
++    <match key="info.category" string="storage">
++      <match key="storage.bus" string="usb">
++        <merge key="storage.requires_eject" type="bool">true</merge>
++      </match>
++    </match>
++  </device>
+   
+ </deviceinfo>
