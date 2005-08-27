@@ -129,7 +129,9 @@ Program dla GNOME wy¶wietlaj±cy urz±dzenia wykryte przez HAL.
 %{__automake}
 %configure \
 	%{?with_docs:--enable-docbook-docs} \
+	%{!?with_docs:--disable-docbook-docs} \
 	%{?with_docs:--enable-doxygen-docs} \
+	%{!?with_docs:--disable-doxygen-docs} \
 	%{?with_fstab_sync:--enable-fstab-sync} \
 	--enable-pcmcia-support \
 	--enable-selinux \
