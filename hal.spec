@@ -1,16 +1,17 @@
 #
 # Conditional build:
-%bcond_without	docs	# disable documentation building
+%bcond_without	docs		# disable documentation building
+%bcond_with	fstab_sync	# build with fstab-sync
 #
 Summary:	HAL - Hardware Abstraction Layer
 Summary(pl):	HAL - abstrakcyjna warstwa dostêpu do sprzêtu
 Name:		hal
-Version:	0.5.3
-Release:	3
+Version:	0.5.4
+Release:	0.1
 License:	AFL v2.0 or GPL v2
 Group:		Libraries
 Source0:	http://freedesktop.org/~david/dist/%{name}-%{version}.tar.gz
-# Source0-md5:	bc4005ef21c7c8bfe3444cf0f3fa6d68
+# Source0-md5:	2f84ddbc22bc35baa9388e7794d1fa31
 Source1:	%{name}daemon.init
 Source2:	%{name}d.sysconfig
 Source3:	%{name}-device-manager.desktop
@@ -99,8 +100,8 @@ Summary:	HAL device manager for GNOME
 Summary(pl):	Zarz±dca urz±dzeñ HALa dla GNOME
 Group:		X11/Applications
 Requires:	python-gnome-ui
-Requires:	python-pygtk-glade
 Requires:	python-gnome-vfs
+Requires:	python-pygtk-glade
 Requires:	%{name} = %{version}-%{release}
 
 %description device-manager
@@ -113,9 +114,11 @@ Program dla GNOME wy¶wietlaj±cy urz±dzenia wykryte przez HAL.
 %setup -q
 %patch0 -p1
 %patch1 -p1
-#%patch2 -p1
+%patch2 -p1
 
 %build
+%{__glib_gettextize}
+%{__intltoolize}
 %{__libtoolize}
 %{__aclocal}
 %{__autoheader}
@@ -123,19 +126,21 @@ Program dla GNOME wy¶wietlaj±cy urz±dzenia wykryte przez HAL.
 %{__automake}
 %configure \
 	%{?with_docs:--enable-docbook-docs} \
+	%{!?with_docs:--disable-docbook-docs} \
 	%{?with_docs:--enable-doxygen-docs} \
+	%{!?with_docs:--disable-doxygen-docs} \
+	%{?with_fstab_sync:--enable-fstab-sync} \
 	--enable-pcmcia-support \
 	--enable-selinux \
-	--with-hwdata=%{_sysconfdir} \
-	--enable-fstab-sync \
 	--enable-verbose-mode \
+	--with-hwdata=%{_sysconfdir} \
 	--with-pid-file=%{_localstatedir}/run/hald.pid
 %{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version} \
-	$RPM_BUILD_ROOT{/etc/{sysconfig,rc.d}/init.d,%{_desktopdir},/var/run/hald} \
+	$RPM_BUILD_ROOT{/etc/{sysconfig,rc.d}/init.d,%{_desktopdir}} \
 	$RPM_BUILD_ROOT/etc/hal/fdi/{information,policy,preprobe}
 
 %{__make} install \
@@ -181,13 +186,10 @@ fi
 %attr(755,root,root) %{_bindir}/hal-set-property
 %attr(755,root,root) %{_bindir}/lshal
 %attr(755,root,root) %{_libdir}/hald-*
-%{_mandir}/man8/fstab-sync.8*
 %attr(755,root,root) %{_sbindir}/*
 %dir %{_sysconfdir}/%{name}
-
 %{_sysconfdir}/%{name}/fdi
 %{_sysconfdir}/hotplug.d/default/*
-
 %attr(754,root,root) /etc/rc.d/init.d/*
 %attr(755,root,root) %{_libdir}/hal.hotplug
 %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/hald
@@ -195,7 +197,8 @@ fi
 
 %dir %{_datadir}/%{name}
 %{_datadir}/%{name}/fdi
-%dir /var/run/hald
+%{?with_fstab_sync:%{_mandir}/man8/fstab-sync.8*}
+%{_examplesdir}/%{name}-%{version}
 
 %files libs
 %defattr(644,root,root,755)
