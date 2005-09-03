@@ -26,6 +26,7 @@ BuildRequires:	dbus-glib-devel >= 0.33
 %{?with_docs:BuildRequires:	docbook-utils}
 %{?with_docs:BuildRequires:	doxygen}
 BuildRequires:	expat-devel
+BuildRequires:	gettext-devel
 BuildRequires:	glib2-devel >= 1:2.6.0
 BuildRequires:	intltool
 BuildRequires:	libcap-devel
