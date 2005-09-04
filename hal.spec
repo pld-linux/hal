@@ -1,13 +1,13 @@
 #
 # Conditional build:
 %bcond_without	docs		# disable documentation building
-%bcond_with	fstab_sync	# build with fstab-sync
+%bcond_without	fstab_sync	# build with fstab-sync
 #
 Summary:	HAL - Hardware Abstraction Layer
 Summary(pl):	HAL - abstrakcyjna warstwa dostêpu do sprzêtu
 Name:		hal
 Version:	0.5.4
-Release:	0.1
+Release:	1
 License:	AFL v2.0 or GPL v2
 Group:		Libraries
 Source0:	http://freedesktop.org/~david/dist/%{name}-%{version}.tar.gz
@@ -50,7 +50,7 @@ Requires:	hotplug >= 2003_08_05
 Requires:	mount >= 2.12-14
 %pyrequires_eq	python
 Requires:	python-dbus >= 0.33
-Requires:	udev >= 057
+Requires:	udev >= 068
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -161,6 +161,7 @@ install %{SOURCE3} $RPM_BUILD_ROOT%{_desktopdir}
 rm -rf $RPM_BUILD_ROOT
 
 %pre
+
 %groupadd -g 126 -r -f haldaemon
 %useradd -u 126 -r -d /usr/share/empty -s /bin/false -c "HAL daemon" -g haldaemon haldaemon
 
