@@ -161,7 +161,6 @@ install %{SOURCE3} $RPM_BUILD_ROOT%{_desktopdir}
 rm -rf $RPM_BUILD_ROOT
 
 %pre
-
 %groupadd -g 126 -r -f haldaemon
 %useradd -u 126 -r -d /usr/share/empty -s /bin/false -c "HAL daemon" -g haldaemon haldaemon
 
