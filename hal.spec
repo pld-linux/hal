@@ -1,3 +1,6 @@
+# 
+# TODO:
+# - PLD support for ACPI functions (spec! powersave first)
 #
 # Conditional build:
 %bcond_without	docs		# disable documentation building
@@ -7,7 +10,7 @@ Summary:	HAL - Hardware Abstraction Layer
 Summary(pl):	HAL - abstrakcyjna warstwa dostêpu do sprzêtu
 Name:		hal
 Version:	0.5.4
-Release:	1
+Release:	2
 License:	AFL v2.0 or GPL v2
 Group:		Libraries
 Source0:	http://freedesktop.org/~david/dist/%{name}-%{version}.tar.gz
