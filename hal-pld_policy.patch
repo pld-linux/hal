@@ -76,24 +76,6 @@ diff -aurN hal-0.5.4.orig/fdi/policy/10osvendor/10-storage-policy.fdi hal-0.5.4/
  	<match key="@block.storage_device:storage.no_partitions_hint" bool="false">
  
  	  <merge key="volume.policy.should_mount" type="bool">true</merge>
-@@ -111,17 +127,6 @@
-  	    <merge key="volume.policy.desired_mount_point" type="string">zip</merge>
-           </match>
- 	  
--          <!-- Best: If available use filesystem label -->
--          <match key="volume.label" empty="false">
--            <!-- unless it's a path (e.g. /boot, /, /home etc) -->
--            <match key="volume.label" is_absolute_path="false">
--	      <!-- and only if the label is ascii -->
--              <match key="volume.label" is_ascii="true">
--		<merge key="volume.policy.desired_mount_point" type="copy_property">volume.label</merge>
--              </match>
--            </match>
--          </match>
--	  
- 	  <!-- Should never mount Apple Bootstrap partitions (it would be
- 	       a security hole) - should use the bootable flag from the
- 	       Mac partition table instead -->
 @@ -195,5 +200,14 @@
        <append key="info.addons" type="strlist">hald-addon-storage</append>
      </match>
