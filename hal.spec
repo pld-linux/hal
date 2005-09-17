@@ -25,9 +25,12 @@ URL:		http://freedesktop.org/Software/hal
 BuildRequires:	autoconf >= 2.57
 BuildRequires:	automake
 BuildRequires:	dbus-glib-devel >= 0.33
-%{?with_docs:BuildRequires:	docbook-dtd412-xml}
-%{?with_docs:BuildRequires:	docbook-utils}
-%{?with_docs:BuildRequires:	doxygen}
+%if %{with docs}
+BuildRequires:	docbook-dtd412-xml
+BuildRequires:	docbook-dtd41-sgml
+BuildRequires:	docbook-utils
+BuildRequires:	doxygen
+%endif
 BuildRequires:	expat-devel
 BuildRequires:	gettext-devel
 BuildRequires:	glib2-devel >= 1:2.6.0
