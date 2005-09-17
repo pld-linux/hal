@@ -136,7 +136,6 @@ Program dla GNOME wy¶wietlaj±cy urz±dzenia wykryte przez HAL.
 	%{?with_fstab_sync:--enable-fstab-sync} \
 	--enable-pcmcia-support \
 	--enable-selinux \
-	--enable-verbose-mode \
 	--with-hwdata=%{_sysconfdir} \
 	--with-pid-file=%{_localstatedir}/run/hald.pid
 %{__make}
