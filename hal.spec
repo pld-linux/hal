@@ -1,6 +1,3 @@
-# 
-# TODO:
-# - PLD support for ACPI functions (spec! powersave first)
 #
 # Conditional build:
 %bcond_without	docs		# disable documentation building
@@ -10,7 +7,7 @@ Summary:	HAL - Hardware Abstraction Layer
 Summary(pl):	HAL - abstrakcyjna warstwa dostêpu do sprzêtu
 Name:		hal
 Version:	0.5.4
-Release:	4
+Release:	5
 License:	AFL v2.0 or GPL v2
 Group:		Libraries
 Source0:	http://freedesktop.org/~david/dist/%{name}-%{version}.tar.gz
@@ -21,6 +18,7 @@ Source3:	%{name}-device-manager.desktop
 Patch0:		%{name}-device_manager.patch
 Patch1:		%{name}-link.patch
 Patch2:		%{name}-pld_policy.patch
+Patch3:		%{name}-pld_powersave.patch
 URL:		http://freedesktop.org/Software/hal
 BuildRequires:	autoconf >= 2.57
 BuildRequires:	automake
@@ -122,6 +120,7 @@ Program dla GNOME wy¶wietlaj±cy urz±dzenia wykryte przez HAL.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 %build
 %{__glib_gettextize}
