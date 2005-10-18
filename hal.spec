@@ -7,7 +7,7 @@ Summary:	HAL - Hardware Abstraction Layer
 Summary(pl):	HAL - abstrakcyjna warstwa dostêpu do sprzêtu
 Name:		hal
 Version:	0.5.4
-Release:	5
+Release:	5.1
 License:	AFL v2.0 or GPL v2
 Group:		Libraries
 Source0:	http://freedesktop.org/~david/dist/%{name}-%{version}.tar.gz
@@ -15,6 +15,7 @@ Source0:	http://freedesktop.org/~david/dist/%{name}-%{version}.tar.gz
 Source1:	%{name}daemon.init
 Source2:	%{name}d.sysconfig
 Source3:	%{name}-device-manager.desktop
+Source4:	%{name}.rules
 Patch0:		%{name}-device_manager.patch
 Patch1:		%{name}-link.patch
 Patch2:		%{name}-pld_policy.patch
@@ -54,7 +55,7 @@ Requires:	hotplug >= 2003_08_05
 Requires:	mount >= 2.12-14
 %pyrequires_eq	python
 Requires:	python-dbus >= 0.33
-Requires:	udev >= 068
+Requires:	udev >= 070-5.1
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -146,7 +147,8 @@ Program dla GNOME wy¶wietlaj±cy urz±dzenia wykryte przez HAL.
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version} \
 	$RPM_BUILD_ROOT{/etc/{sysconfig,rc.d}/init.d,%{_desktopdir}} \
-	$RPM_BUILD_ROOT/etc/hal/fdi/{information,policy,preprobe}
+	$RPM_BUILD_ROOT/etc/hal/fdi/{information,policy,preprobe} \
+	$RPM_BUILD_ROOT%{_sysconfdir}/udev/rules.d
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
@@ -158,6 +160,9 @@ find $RPM_BUILD_ROOT%{_datadir}/hal/device-manager -name "*.py" -exec rm -f {} \
 install %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/haldaemon
 install %{SOURCE2} $RPM_BUILD_ROOT/etc/sysconfig/hald
 install %{SOURCE3} $RPM_BUILD_ROOT%{_desktopdir}
+install %{SOURCE4} $RPM_BUILD_ROOT%{_sysconfdir}/udev/rules.d/60-hal.rules
+
+rm -rf $RPM_BUILD_ROOT%{_sysconfdir}/hotplug.d
 
 %find_lang %{name}
 
@@ -194,11 +199,12 @@ fi
 %attr(755,root,root) %{_sbindir}/*
 %dir %{_sysconfdir}/%{name}
 %{_sysconfdir}/%{name}/fdi
-%{_sysconfdir}/hotplug.d/default/*
+
 %attr(754,root,root) /etc/rc.d/init.d/*
 %attr(755,root,root) %{_libdir}/hal.hotplug
 %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/hald
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/dbus*/system.d/*
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/udev/rules.d/60-hal.rules
 
 %dir %{_datadir}/%{name}
 %{_datadir}/%{name}/fdi
