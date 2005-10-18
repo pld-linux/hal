@@ -1,0 +1,2 @@
+RUN+="/usr/lib/hal.hotplug"
+
