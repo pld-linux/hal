@@ -54,7 +54,7 @@ Requires:	glib2 >= 1:2.6.0
 Requires:	mount >= 2.12-14
 %pyrequires_eq	python
 Requires:	python-dbus >= 0.33
-Requires:	udev >= 070-5.3
+Requires:	udev >= 1:070-5.3
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
