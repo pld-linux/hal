@@ -7,7 +7,7 @@ Summary:	HAL - Hardware Abstraction Layer
 Summary(pl):	HAL - abstrakcyjna warstwa dostêpu do sprzêtu
 Name:		hal
 Version:	0.5.4
-Release:	6
+Release:	7
 License:	AFL v2.0 or GPL v2
 Group:		Libraries
 Source0:	http://freedesktop.org/~david/dist/%{name}-%{version}.tar.gz
@@ -162,6 +162,7 @@ install %{SOURCE3} $RPM_BUILD_ROOT%{_desktopdir}
 install %{SOURCE4} $RPM_BUILD_ROOT%{_sysconfdir}/udev/rules.d/60-hal.rules
 
 rm -rf $RPM_BUILD_ROOT%{_sysconfdir}/hotplug.d
+mv -f $RPM_BUILD_ROOT%{_datadir}/locale/sl{_SI,}
 
 %find_lang %{name}
 
