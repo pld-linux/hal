@@ -1,2 +1,2 @@
-RUN+="/usr/lib/hal.hotplug"
+ENV{SEQNUM}=="[0-9]*", ENV{UDEVD_EVENT}=="1", RUN+="/usr/lib/hal.hotplug"
 
