@@ -7,7 +7,7 @@ Summary:	HAL - Hardware Abstraction Layer
 Summary(pl):	HAL - abstrakcyjna warstwa dostêpu do sprzêtu
 Name:		hal
 Version:	0.5.4
-Release:	7
+Release:	8
 License:	AFL v2.0 or GPL v2
 Group:		Libraries
 Source0:	http://freedesktop.org/~david/dist/%{name}-%{version}.tar.gz
@@ -159,7 +159,7 @@ find $RPM_BUILD_ROOT%{_datadir}/hal/device-manager -name "*.py" -exec rm -f {} \
 install %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/haldaemon
 install %{SOURCE2} $RPM_BUILD_ROOT/etc/sysconfig/hald
 install %{SOURCE3} $RPM_BUILD_ROOT%{_desktopdir}
-install %{SOURCE4} $RPM_BUILD_ROOT%{_sysconfdir}/udev/rules.d/60-hal.rules
+install %{SOURCE4} $RPM_BUILD_ROOT%{_sysconfdir}/udev/rules.d/hal.rules
 
 rm -rf $RPM_BUILD_ROOT%{_sysconfdir}/hotplug.d
 mv -f $RPM_BUILD_ROOT%{_datadir}/locale/sl{_SI,}
@@ -204,7 +204,7 @@ fi
 %attr(755,root,root) %{_libdir}/hal.hotplug
 %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/hald
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/dbus*/system.d/*
-%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/udev/rules.d/60-hal.rules
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/udev/rules.d/hal.rules
 
 %dir %{_datadir}/%{name}
 %{_datadir}/%{name}/fdi
