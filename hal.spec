@@ -6,12 +6,12 @@
 Summary:	HAL - Hardware Abstraction Layer
 Summary(pl):	HAL - abstrakcyjna warstwa dostêpu do sprzêtu
 Name:		hal
-Version:	0.5.4
-Release:	8
+Version:	0.5.5
+Release:	1
 License:	AFL v2.0 or GPL v2
 Group:		Libraries
 Source0:	http://freedesktop.org/~david/dist/%{name}-%{version}.tar.gz
-# Source0-md5:	2f84ddbc22bc35baa9388e7794d1fa31
+# Source0-md5:	f4c72c252f347d914dc94d040b713e51
 Source1:	%{name}daemon.init
 Source2:	%{name}d.sysconfig
 Source3:	%{name}-device-manager.desktop
@@ -54,7 +54,8 @@ Requires:	glib2 >= 1:2.6.0
 Requires:	mount >= 2.12-14
 %pyrequires_eq	python
 Requires:	python-dbus >= 0.33
-Requires:	udev >= 1:070-6
+Requires:	udev >= 1:071
+# Recommended:	dmidecode
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
