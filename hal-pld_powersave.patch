@@ -1,36 +1,36 @@
-diff -aurN hal-0.5.4.orig/tools/hal-system-power-hibernate hal-0.5.4/tools/hal-system-power-hibernate
---- hal-0.5.4.orig/tools/hal-system-power-hibernate	2005-08-19 14:33:48.000000000 +0200
-+++ hal-0.5.4/tools/hal-system-power-hibernate	2005-10-13 20:26:19.000000000 +0200
-@@ -13,7 +13,7 @@
+diff -aurN hal-0.5.5.orig/tools/hal-system-power-hibernate hal-0.5.5/tools/hal-system-power-hibernate
+--- hal-0.5.5.orig/tools/hal-system-power-hibernate	2005-09-28 18:52:13.000000000 +0200
++++ hal-0.5.5/tools/hal-system-power-hibernate	2005-11-14 19:58:11.000000000 +0100
+@@ -7,7 +7,7 @@
  }
  
- 
--if [ -f /etc/altlinux-release ] ; then
-+if [ -f /etc/pld-release ] ; then
-     if [ -x /usr/bin/powersave ] ; then
-         /usr/bin/powersave --suspend-to-disk
-         RET=$?
-diff -aurN hal-0.5.4.orig/tools/hal-system-power-set-power-save hal-0.5.4/tools/hal-system-power-set-power-save
---- hal-0.5.4.orig/tools/hal-system-power-set-power-save	2005-08-19 14:33:48.000000000 +0200
-+++ hal-0.5.4/tools/hal-system-power-set-power-save	2005-10-13 20:26:49.000000000 +0200
-@@ -17,7 +17,7 @@
+ #SuSE and ALTLinux only support powersave
+-if [ -f /etc/altlinux-release ] || [ -f "/etc/SuSE-release" ] ; then
++if [ -f "/etc/altlinux-release" ] || [ -f "/etc/SuSE-release" ] || [ -f "/etc/pld-release" ] ; then
+ 	if [ -x /usr/bin/powersave ] ; then
+ 		/usr/bin/powersave --suspend-to-disk
+ 		RET=$?
+diff -aurN hal-0.5.5.orig/tools/hal-system-power-set-power-save hal-0.5.5/tools/hal-system-power-set-power-save
+--- hal-0.5.5.orig/tools/hal-system-power-set-power-save	2005-09-28 18:52:13.000000000 +0200
++++ hal-0.5.5/tools/hal-system-power-set-power-save	2005-11-14 19:58:32.000000000 +0100
+@@ -8,7 +8,7 @@
  }
  
- 
--if [ -f /etc/altlinux-release ] ; then
-+if [ -f /etc/pld-release ] ; then
-     if [ -x /usr/bin/powersave ] ; then
-         if [ $value = "true" ]; then
-             /usr/bin/powersave -e Powersave
-diff -aurN hal-0.5.4.orig/tools/hal-system-power-suspend hal-0.5.4/tools/hal-system-power-suspend
---- hal-0.5.4.orig/tools/hal-system-power-suspend	2005-08-19 14:33:48.000000000 +0200
-+++ hal-0.5.4/tools/hal-system-power-suspend	2005-10-13 20:27:07.000000000 +0200
-@@ -20,7 +20,7 @@
- 
+ #SuSE and ALTLinux only support powersave
+-if [ -f /etc/altlinux-release ] || [ -f /etc/SuSE-release ] ; then
++if [ -f "/etc/altlinux-release" ] || [ -f "/etc/SuSE-release" ] || [ -f "/etc/pld-release" ] ; then
+ 	if [ -x "/usr/bin/powersave" ] ; then
+ 		if [ $value = "true" ]; then
+ 			/usr/bin/powersave -e Powersave
+diff -aurN hal-0.5.5.orig/tools/hal-system-power-suspend hal-0.5.5/tools/hal-system-power-suspend
+--- hal-0.5.5.orig/tools/hal-system-power-suspend	2005-09-28 18:52:13.000000000 +0200
++++ hal-0.5.5/tools/hal-system-power-suspend	2005-11-14 19:57:48.000000000 +0100
+@@ -15,7 +15,7 @@
  read seconds_to_sleep
  
--if [ -f /etc/altlinux-release ] ; then
-+if [ -f /etc/pld-release ] ; then
-     if [ -x /usr/bin/powersave ] ; then
-         /usr/bin/powersave --suspend-to-ram
-         RET=$?
+ #SuSE and ALTLinux only support powersave
+-if [ -f "/etc/altlinux-release" ] || [ -f "/etc/SuSE-release" ] ; then
++if [ -f "/etc/altlinux-release" ] || [ -f "/etc/SuSE-release" ] || [ -f "/etc/pld-release" ] ; then
+ 	if [ -x /usr/bin/powersave ] ; then
+ 		/usr/bin/powersave --suspend-to-ram
+ 		RET=$?
