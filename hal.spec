@@ -210,7 +210,6 @@ fi
 %dir %{_datadir}/%{name}
 %{_datadir}/%{name}/fdi
 %{?with_fstab_sync:%{_mandir}/man8/fstab-sync.8*}
-%{_examplesdir}/%{name}-%{version}
 
 %files libs
 %defattr(644,root,root,755)
