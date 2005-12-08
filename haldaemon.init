@@ -29,7 +29,7 @@ case "$1" in
 				daemon hald --verbose=yes --retain-privileges
 			else
 				daemon hald --verbose=no --retain-privileges
-			fi	
+			fi
 		    RETVAL=$?
 		    [ $RETVAL -eq 0 ] && touch /var/lock/subsys/haldaemon
 		else
@@ -37,7 +37,7 @@ case "$1" in
 		fi
 	else
 		msg_not_running messagebus
-	fi		
+	fi
 	;;
   stop)
 	if [ -f /var/lock/subsys/haldaemon ]; then
