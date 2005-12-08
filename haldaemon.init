@@ -23,7 +23,6 @@ case "$1" in
 	if [ -f /var/lock/subsys/messagebus ]; then
 		# Check if the service is already running?
 		if [ ! -f /var/lock/subsys/haldaemon ]; then
-		    # show "Starting %s service" haldaemon
 		    msg_starting haldaemon
 		    # Verbose mode on/off
 			if is_yes "$verbose"; then
@@ -34,7 +33,6 @@ case "$1" in
 		    RETVAL=$?
 		    [ $RETVAL -eq 0 ] && touch /var/lock/subsys/haldaemon
 		else
-		    # show "%s service is already running." haldaemon
 		    msg_already_running haldaemon
 		fi
 	else
@@ -44,12 +42,10 @@ case "$1" in
   stop)
 	if [ -f /var/lock/subsys/haldaemon ]; then
 		# Stop daemons.
-		# show "Stopping %s service" haldaemon
 		msg_stopping haldaemon
 		killproc hald
 		rm -f /var/lock/subsys/haldaemon
 	else
-		# show "%s service is not running." haldaemon
 		msg_not_running haldaemon
 	fi
 	;;
@@ -60,12 +56,10 @@ case "$1" in
 	;;
   reload)
 	if [ -f /var/lock/subsys/haldaemon ]; then
-		# show "Reload %s service" haldaemon
 		msg_reloading haldaemon
 		killproc hald -HUP
 		RETVAL=$?
 	else
-		# show "%s service is not running." haldaemon
 		msg_not_running haldaemon >&2
 		RETVAL=7
 	fi
@@ -84,7 +78,6 @@ case "$1" in
 	RETVAL=$?
 	;;
   *)
-	# show "Usage: %s {start|stop|restart|reload|force-reload|status}"
 	msg_usage "$0 {start|stop|restart|reload|force-reload|status}"
 	exit 3
 esac
