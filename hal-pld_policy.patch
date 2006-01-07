@@ -84,18 +84,3 @@ diff -aurN hal-0.5.4.orig/fdi/policy/10osvendor/10-storage-policy.fdi hal-0.5.4/
  	  <!-- Should never mount Apple Bootstrap partitions (it would be
  	       a security hole) - should use the bootable flag from the
  	       Mac partition table instead -->
-@@ -195,5 +197,14 @@
-       <append key="info.addons" type="strlist">hald-addon-storage</append>
-     </match>
-   </device>
-+
-+  <!-- Always eject USB storage devices to properly power them off -->
-+  <device>
-+    <match key="info.category" string="storage">
-+      <match key="storage.bus" string="usb">
-+        <merge key="storage.requires_eject" type="bool">true</merge>
-+      </match>
-+    </match>
-+  </device>
-   
- </deviceinfo>
