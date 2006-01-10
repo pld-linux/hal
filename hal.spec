@@ -7,7 +7,7 @@ Summary:	HAL - Hardware Abstraction Layer
 Summary(pl):	HAL - abstrakcyjna warstwa dostêpu do sprzêtu
 Name:		hal
 Version:	0.5.5.1
-Release:	2
+Release:	2.1
 License:	AFL v2.0 or GPL v2
 Group:		Libraries
 Source0:	http://freedesktop.org/~david/dist/%{name}-%{version}.tar.gz
@@ -16,6 +16,8 @@ Source1:	%{name}daemon.init
 Source2:	%{name}d.sysconfig
 Source3:	%{name}-device-manager.desktop
 Source4:	%{name}.rules
+Source5:	%{name}-libgphoto2.fdi
+Source6:	%{name}-libgphoto_udev.rules
 Patch0:		%{name}-device_manager.patch
 Patch1:		%{name}-link.patch
 Patch2:		%{name}-pld_policy.patch
@@ -116,6 +118,24 @@ GNOME program for displaying devices detected by HAL.
 %description device-manager -l pl
 Program dla GNOME wy¶wietlaj±cy urz±dzenia wykryte przez HAL.
 
+%package gphoto
+Summary:	Userspace support for digital cameras
+Summary(pl):	Wsparcie dla kamer cyfrowych w przestrzeni u¿ytkownika
+Group:		Applications/System
+Requires:	%{name} = %{version}-%{release}
+Requires:	libusb >= 0.1.10-2
+Requires:	udev >= 1:079-2
+Obsoletes:	hotplug-digicam
+Obsoletes:	udev-digicam
+
+%description gphoto
+Set of Udev rules and HAL device information file to handle digital
+cameras in userspace.
+
+%description gphoto -l pl
+Zestaw regu³ Udev i plik z informacjami o urz±dzeniach HALa do
+obs³ugi kamer cyfrowych w przestrzeni u¿ytkownika.
+
 %prep
 %setup -q
 %patch0 -p1
@@ -161,6 +181,10 @@ install %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/haldaemon
 install %{SOURCE2} $RPM_BUILD_ROOT/etc/sysconfig/hald
 install %{SOURCE3} $RPM_BUILD_ROOT%{_desktopdir}
 install %{SOURCE4} $RPM_BUILD_ROOT%{_sysconfdir}/udev/rules.d/hal.rules
+
+# hal-gphoto
+install %{SOURCE5} $RPM_BUILD_ROOT%{_datadir}/%{name}/fdi/information/10freedesktop/10-gphoto.fdi
+install %{SOURCE6} $RPM_BUILD_ROOT%{_sysconfdir}/udev/rules.d/gphoto.rules
 
 rm -rf $RPM_BUILD_ROOT%{_sysconfdir}/hotplug.d
 mv -f $RPM_BUILD_ROOT%{_datadir}/locale/sl{_SI,}
@@ -238,3 +262,8 @@ fi
 %{_datadir}/%{name}/device-manager/*.glade
 %attr(755,root,root) %{_datadir}/%{name}/device-manager/hal-device-manager
 %{_desktopdir}/*.desktop
+
+%files gphoto
+%defattr(644,root,root,755)
+%{_sysconfdir}/udev/rules.d/gphoto.rules
+%{_datadir}/%{name}/fdi/information/10freedesktop/10-gphoto.fdi
