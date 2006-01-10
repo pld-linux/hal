@@ -1,0 +1,918 @@
+# udev rules file for libgphoto2
+#
+SUBSYSTEM!="usb_device", GOTO="libgphoto2_rules_end"
+
+# AEG Snap 300
+SYSFS{idVendor}=="0553", SYSFS{idProduct}=="0202", GROUP="usb", MODE="0660"
+# Agfa ePhoto CL18
+SYSFS{idVendor}=="06bd", SYSFS{idProduct}=="0403", GROUP="usb", MODE="0660"
+# Agfa ePhoto CL20
+SYSFS{idVendor}=="06bd", SYSFS{idProduct}=="0404", GROUP="usb", MODE="0660"
+# Aiptek 1.3 mega PocketCam
+SYSFS{idVendor}=="04fc", SYSFS{idProduct}=="504b", GROUP="usb", MODE="0660"
+# Aiptek PalmCam Trio
+SYSFS{idVendor}=="0553", SYSFS{idProduct}=="0202", GROUP="usb", MODE="0660"
+# Aiptek Pencam
+SYSFS{idVendor}=="04fc", SYSFS{idProduct}=="504a", GROUP="usb", MODE="0660"
+# Aiptek PenCam Trio
+SYSFS{idVendor}=="0553", SYSFS{idProduct}=="0202", GROUP="usb", MODE="0660"
+# Aiptek PenCam VGA+
+SYSFS{idVendor}=="08ca", SYSFS{idProduct}=="0111", GROUP="usb", MODE="0660"
+# Aiptek Pencam without flash
+SYSFS{idVendor}=="04fc", SYSFS{idProduct}=="504a", GROUP="usb", MODE="0660"
+# Aiptek Smart Megacam
+SYSFS{idVendor}=="04fc", SYSFS{idProduct}=="504b", GROUP="usb", MODE="0660"
+# Argus DC-1500
+SYSFS{idVendor}=="0553", SYSFS{idProduct}=="0202", GROUP="usb", MODE="0660"
+# Argus DC-1510
+SYSFS{idVendor}=="2770", SYSFS{idProduct}=="9120", GROUP="usb", MODE="0660"
+# Argus DC-1730
+SYSFS{idVendor}=="2770", SYSFS{idProduct}=="913c", GROUP="usb", MODE="0660"
+# Argus DC-2200
+SYSFS{idVendor}=="0919", SYSFS{idProduct}=="0100", GROUP="usb", MODE="0660"
+# Benq DC1300
+SYSFS{idVendor}=="04a5", SYSFS{idProduct}=="3003", GROUP="usb", MODE="0660"
+# Canon Digital IXUS
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="3047", GROUP="usb", MODE="0660"
+# Canon Digital IXUS 30 (PTP mode)
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="30c0", GROUP="usb", MODE="0660"
+# Canon Digital IXUS 300
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="304d", GROUP="usb", MODE="0660"
+# Canon Digital IXUS 330
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="3066", GROUP="usb", MODE="0660"
+# Canon Digital IXUS 40 (PTP mode)
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="30bf", GROUP="usb", MODE="0660"
+# Canon Digital IXUS 400
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="3075", GROUP="usb", MODE="0660"
+# Canon Digital IXUS 400 (PTP mode)
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="3075", GROUP="usb", MODE="0660"
+# Canon Digital IXUS 430 (normal mode)
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="30ba", GROUP="usb", MODE="0660"
+# Canon Digital IXUS 430 (PTP mode)
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="30ba", GROUP="usb", MODE="0660"
+# Canon Digital IXUS 50 (normal mode)
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="30c1", GROUP="usb", MODE="0660"
+# Canon Digital IXUS 50 (PTP mode)
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="310e", GROUP="usb", MODE="0660"
+# Canon Digital IXUS 500 (normal mode)
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="30b4", GROUP="usb", MODE="0660"
+# Canon Digital IXUS 500 (PTP mode)
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="30b4", GROUP="usb", MODE="0660"
+# Canon Digital IXUS 700 (normal mode)
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="30f2", GROUP="usb", MODE="0660"
+# Canon Digital IXUS 700 (PTP mode)
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="30f2", GROUP="usb", MODE="0660"
+# Canon Digital IXUS i (normal mode)
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="309b", GROUP="usb", MODE="0660"
+# Canon Digital IXUS i (PTP mode)
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="309b", GROUP="usb", MODE="0660"
+# Canon Digital IXUS i5 (normal mode)
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="30c4", GROUP="usb", MODE="0660"
+# Canon Digital IXUS II (normal mode)
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="3072", GROUP="usb", MODE="0660"
+# Canon Digital IXUS II (PTP mode)
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="3072", GROUP="usb", MODE="0660"
+# Canon Digital IXUS IIs
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="30b6", GROUP="usb", MODE="0660"
+# Canon Digital IXUS IIs (PTP mode)
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="30b6", GROUP="usb", MODE="0660"
+# Canon Digital IXUS v
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="3052", GROUP="usb", MODE="0660"
+# Canon Digital IXUS v2
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="3065", GROUP="usb", MODE="0660"
+# Canon Digital IXUS v3 (normal mode)
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="3070", GROUP="usb", MODE="0660"
+# Canon Digital IXUS v3 (PTP mode)
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="3071", GROUP="usb", MODE="0660"
+# Canon Digital unknown 3
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="306a", GROUP="usb", MODE="0660"
+# Canon Elura 50 (normal mode)
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="3088", GROUP="usb", MODE="0660"
+# Canon Elura 50 (PTP mode)
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="3087", GROUP="usb", MODE="0660"
+# Canon EOS 10D
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="3083", GROUP="usb", MODE="0660"
+# Canon EOS 1D Mark II (PTP mode)
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="30ea", GROUP="usb", MODE="0660"
+# Canon EOS 20D (PTP mode)
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="30ec", GROUP="usb", MODE="0660"
+# Canon EOS 300D (normal mode)
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="3084", GROUP="usb", MODE="0660"
+# Canon EOS 300D (PTP mode)
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="3099", GROUP="usb", MODE="0660"
+# Canon EOS 350D (PTP mode)
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="30ef", GROUP="usb", MODE="0660"
+# Canon EOS D30
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="3044", GROUP="usb", MODE="0660"
+# Canon EOS D60
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="3060", GROUP="usb", MODE="0660"
+# Canon EOS Digital Rebel (normal mode)
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="3084", GROUP="usb", MODE="0660"
+# Canon EOS Digital Rebel (PTP mode)
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="3099", GROUP="usb", MODE="0660"
+# Canon EOS Kiss Digital (normal mode)
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="3084", GROUP="usb", MODE="0660"
+# Canon EOS Kiss Digital (PTP mode)
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="3099", GROUP="usb", MODE="0660"
+# Canon FV M1 (normal mode)
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="308e", GROUP="usb", MODE="0660"
+# Canon IXY DIGITAL
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="3046", GROUP="usb", MODE="0660"
+# Canon IXY DIGITAL 300
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="304b", GROUP="usb", MODE="0660"
+# Canon IXY Digital 430 (normal mode)
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="30ba", GROUP="usb", MODE="0660"
+# Canon IXY Digital 500 (normal mode)
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="30b4", GROUP="usb", MODE="0660"
+# Canon IXY Digital 55 (normal mode)
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="30c1", GROUP="usb", MODE="0660"
+# Canon IXY Digital 60 (normal mode)
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="30f2", GROUP="usb", MODE="0660"
+# Canon IXY Digital L2 (normal mode)
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="30c4", GROUP="usb", MODE="0660"
+# Canon IXY DV M
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="306b", GROUP="usb", MODE="0660"
+# Canon IXY DV M2 (normal mode)
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="3096", GROUP="usb", MODE="0660"
+# Canon MV630i (normal mode)
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="307c", GROUP="usb", MODE="0660"
+# Canon MV650i (normal mode)
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="307a", GROUP="usb", MODE="0660"
+# Canon MVX 10i (normal mode)
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="3096", GROUP="usb", MODE="0660"
+# Canon MVX 3i (normal mode)
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="308e", GROUP="usb", MODE="0660"
+# Canon MVX100i
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="3081", GROUP="usb", MODE="0660"
+# Canon MVX100i
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="3082", GROUP="usb", MODE="0660"
+# Canon MVX150i (normal mode)
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="3080", GROUP="usb", MODE="0660"
+# Canon MVX25i (normal mode)
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="30a9", GROUP="usb", MODE="0660"
+# Canon MVX2i
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="306b", GROUP="usb", MODE="0660"
+# Canon Optura 10
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="3081", GROUP="usb", MODE="0660"
+# Canon Optura 10
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="3082", GROUP="usb", MODE="0660"
+# Canon Optura 20 (normal mode)
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="3080", GROUP="usb", MODE="0660"
+# Canon Optura 200 MC
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="306b", GROUP="usb", MODE="0660"
+# Canon Optura 300 (normal mode)
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="3096", GROUP="usb", MODE="0660"
+# Canon Optura 40 (normal mode)
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="30a9", GROUP="usb", MODE="0660"
+# Canon Optura Xi (normal mode)
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="308e", GROUP="usb", MODE="0660"
+# Canon PowerShot A10
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="304f", GROUP="usb", MODE="0660"
+# Canon PowerShot A100
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="3061", GROUP="usb", MODE="0660"
+# Canon PowerShot A20
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="304e", GROUP="usb", MODE="0660"
+# Canon PowerShot A200
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="3062", GROUP="usb", MODE="0660"
+# Canon PowerShot A30
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="3059", GROUP="usb", MODE="0660"
+# Canon PowerShot A300
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="3076", GROUP="usb", MODE="0660"
+# Canon PowerShot A310
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="30b8", GROUP="usb", MODE="0660"
+# Canon PowerShot A310 (PTP mode)
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="30b8", GROUP="usb", MODE="0660"
+# Canon PowerShot A40
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="3058", GROUP="usb", MODE="0660"
+# Canon PowerShot A400
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="30b7", GROUP="usb", MODE="0660"
+# Canon PowerShot A400 (PTP mode)
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="30b7", GROUP="usb", MODE="0660"
+# Canon PowerShot A510 (normal mode)
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="30c2", GROUP="usb", MODE="0660"
+# Canon PowerShot A510 (PTP mode)
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="30c2", GROUP="usb", MODE="0660"
+# Canon PowerShot A520 (PTP mode)
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="30c1", GROUP="usb", MODE="0660"
+# Canon PowerShot A60
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="3074", GROUP="usb", MODE="0660"
+# Canon PowerShot A60 (PTP)
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="3074", GROUP="usb", MODE="0660"
+# Canon PowerShot A70
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="3073", GROUP="usb", MODE="0660"
+# Canon PowerShot A70 (PTP)
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="3073", GROUP="usb", MODE="0660"
+# Canon PowerShot A75
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="30b5", GROUP="usb", MODE="0660"
+# Canon PowerShot A75 (PTP mode)
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="30b5", GROUP="usb", MODE="0660"
+# Canon PowerShot A80 (normal mode)
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="309a", GROUP="usb", MODE="0660"
+# Canon PowerShot A80 (PTP)
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="309a", GROUP="usb", MODE="0660"
+# Canon PowerShot A85 (normal mode)
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="30b9", GROUP="usb", MODE="0660"
+# Canon PowerShot A85 (PTP mode)
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="30b9", GROUP="usb", MODE="0660"
+# Canon PowerShot A95 (normal mode)
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="30bb", GROUP="usb", MODE="0660"
+# Canon PowerShot A95 (PTP mode)
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="30bb", GROUP="usb", MODE="0660"
+# Canon PowerShot G1
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="3048", GROUP="usb", MODE="0660"
+# Canon PowerShot G2
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="3055", GROUP="usb", MODE="0660"
+# Canon PowerShot G3 (normal mode)
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="306e", GROUP="usb", MODE="0660"
+# Canon PowerShot G3 (PTP mode)
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="306f", GROUP="usb", MODE="0660"
+# Canon PowerShot G5 (normal mode)
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="3085", GROUP="usb", MODE="0660"
+# Canon PowerShot G5 (PTP mode)
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="3085", GROUP="usb", MODE="0660"
+# Canon PowerShot G6 (normal mode)
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="30b3", GROUP="usb", MODE="0660"
+# Canon Powershot G6 (PTP mode)
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="30b3", GROUP="usb", MODE="0660"
+# Canon PowerShot IXY Digital L (normal mode)
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="309b", GROUP="usb", MODE="0660"
+# Canon PowerShot Pro90 IS
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="3049", GROUP="usb", MODE="0660"
+# Canon PowerShot S1 IS (normal mode)
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="309c", GROUP="usb", MODE="0660"
+# Canon PowerShot S1 IS (PTP mode)
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="309c", GROUP="usb", MODE="0660"
+# Canon PowerShot S10
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="3041", GROUP="usb", MODE="0660"
+# Canon PowerShot S100
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="3045", GROUP="usb", MODE="0660"
+# Canon PowerShot S110
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="3051", GROUP="usb", MODE="0660"
+# Canon PowerShot S2 IS (PTP mode)
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="30f0", GROUP="usb", MODE="0660"
+# Canon PowerShot S20
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="3043", GROUP="usb", MODE="0660"
+# Canon PowerShot S200
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="3065", GROUP="usb", MODE="0660"
+# Canon PowerShot S230 (normal mode)
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="3070", GROUP="usb", MODE="0660"
+# Canon PowerShot S230 (PTP mode)
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="3071", GROUP="usb", MODE="0660"
+# Canon PowerShot S30
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="3057", GROUP="usb", MODE="0660"
+# Canon PowerShot S300
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="304c", GROUP="usb", MODE="0660"
+# Canon PowerShot S330
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="3066", GROUP="usb", MODE="0660"
+# Canon PowerShot S40
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="3056", GROUP="usb", MODE="0660"
+# Canon PowerShot S400
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="3075", GROUP="usb", MODE="0660"
+# Canon PowerShot S410 (PTP mode)
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="30ba", GROUP="usb", MODE="0660"
+# Canon PowerShot S410 Digital ELPH (normal mode)
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="30ba", GROUP="usb", MODE="0660"
+# Canon PowerShot S45 (normal mode)
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="306c", GROUP="usb", MODE="0660"
+# Canon PowerShot S45 (PTP mode)
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="306d", GROUP="usb", MODE="0660"
+# Canon PowerShot S50 (normal mode)
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="3077", GROUP="usb", MODE="0660"
+# Canon PowerShot S50 (PTP mode)
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="3077", GROUP="usb", MODE="0660"
+# Canon PowerShot S500 (PTP mode)
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="30b4", GROUP="usb", MODE="0660"
+# Canon PowerShot S500 Digital ELPH (normal mode)
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="30b4", GROUP="usb", MODE="0660"
+# Canon PowerShot S60 (normal mode)
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="30b2", GROUP="usb", MODE="0660"
+# Canon Powershot S60 (PTP mode)
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="30b2", GROUP="usb", MODE="0660"
+# Canon PowerShot S70 (normal mode)
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="30b1", GROUP="usb", MODE="0660"
+# Canon Powershot S70 (PTP mode)
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="30b1", GROUP="usb", MODE="0660"
+# Canon PowerShot SD10 Digital ELPH (normal mode)
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="309b", GROUP="usb", MODE="0660"
+# Canon PowerShot SD100 (normal mode)
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="3072", GROUP="usb", MODE="0660"
+# Canon PowerShot SD100 (PTP mode)
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="3072", GROUP="usb", MODE="0660"
+# Canon PowerShot SD110 (PTP mode)
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="30b6", GROUP="usb", MODE="0660"
+# Canon PowerShot SD110 Digital ELPH
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="30b6", GROUP="usb", MODE="0660"
+# Canon PowerShot SD20 (normal mode)
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="30c4", GROUP="usb", MODE="0660"
+# Canon PowerShot SD200 (PTP mode)
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="30c0", GROUP="usb", MODE="0660"
+# Canon PowerShot SD400 (normal mode)
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="30c1", GROUP="usb", MODE="0660"
+# Canon PowerShot SD500 (normal mode)
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="30f2", GROUP="usb", MODE="0660"
+# Canon PowerShot SD500 (PTP mode)
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="30f2", GROUP="usb", MODE="0660"
+# Canon PowerShot unknown 1
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="3050", GROUP="usb", MODE="0660"
+# Canon PowerShot unknown 2
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="305c", GROUP="usb", MODE="0660"
+# Canon ZR70MC (normal mode)
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="3078", GROUP="usb", MODE="0660"
+# Casio LV 10
+SYSFS{idVendor}=="055f", SYSFS{idProduct}=="c200", GROUP="usb", MODE="0660"
+# Che-ez Snap
+SYSFS{idVendor}=="2770", SYSFS{idProduct}=="9120", GROUP="usb", MODE="0660"
+# Che-ez! Babe
+SYSFS{idVendor}=="0553", SYSFS{idProduct}=="0202", GROUP="usb", MODE="0660"
+# Che-ez! Splash
+SYSFS{idVendor}=="0553", SYSFS{idProduct}=="1002", GROUP="usb", MODE="0660"
+# Che-ez! SPYZ
+SYSFS{idVendor}=="0553", SYSFS{idProduct}=="0202", GROUP="usb", MODE="0660"
+# Concord Eye-Q Duo
+SYSFS{idVendor}=="2770", SYSFS{idProduct}=="9120", GROUP="usb", MODE="0660"
+# Concord Eye-Q Easy
+SYSFS{idVendor}=="2770", SYSFS{idProduct}=="9120", GROUP="usb", MODE="0660"
+# Concord EyeQ 4330
+SYSFS{idVendor}=="0d96", SYSFS{idProduct}=="4100", GROUP="usb", MODE="0660"
+# Concord EyeQMini_1
+SYSFS{idVendor}=="03e8", SYSFS{idProduct}=="2182", GROUP="usb", MODE="0660"
+# Concord EyeQMini_2
+SYSFS{idVendor}=="03e8", SYSFS{idProduct}=="2180", GROUP="usb", MODE="0660"
+# CoolCam CP086
+SYSFS{idVendor}=="0919", SYSFS{idProduct}=="0100", GROUP="usb", MODE="0660"
+# Creative Go Mini
+SYSFS{idVendor}=="041e", SYSFS{idProduct}=="4007", GROUP="usb", MODE="0660"
+# Creative PC-CAM 300
+SYSFS{idVendor}=="041e", SYSFS{idProduct}=="400a", GROUP="usb", MODE="0660"
+# Creative PC-CAM350
+SYSFS{idVendor}=="041e", SYSFS{idProduct}=="4012", GROUP="usb", MODE="0660"
+# Creative PC-CAM600
+SYSFS{idVendor}=="041e", SYSFS{idProduct}=="400b", GROUP="usb", MODE="0660"
+# Creative PC-CAM750
+SYSFS{idVendor}=="041e", SYSFS{idProduct}=="4013", GROUP="usb", MODE="0660"
+# D-Link DSC 350+
+SYSFS{idVendor}=="084d", SYSFS{idProduct}=="0003", GROUP="usb", MODE="0660"
+# D-Link DSC 350F
+SYSFS{idVendor}=="0d64", SYSFS{idProduct}=="1021", GROUP="usb", MODE="0660"
+# DC-N130t
+SYSFS{idVendor}=="2770", SYSFS{idProduct}=="9120", GROUP="usb", MODE="0660"
+# DigitalDream Enigma1.3
+SYSFS{idVendor}=="05da", SYSFS{idProduct}=="1018", GROUP="usb", MODE="0660"
+# DigitalDream l'elegante
+SYSFS{idVendor}=="0553", SYSFS{idProduct}=="0202", GROUP="usb", MODE="0660"
+# DigitalDream l'elite
+SYSFS{idVendor}=="0919", SYSFS{idProduct}=="0100", GROUP="usb", MODE="0660"
+# DigitalDream l'espion
+SYSFS{idVendor}=="0553", SYSFS{idProduct}=="0202", GROUP="usb", MODE="0660"
+# DigitalDream l'espion XS
+SYSFS{idVendor}=="1183", SYSFS{idProduct}=="0001", GROUP="usb", MODE="0660"
+# DigitalDream l'espion xtra
+SYSFS{idVendor}=="05da", SYSFS{idProduct}=="1020", GROUP="usb", MODE="0660"
+# DigitalDream l'esprit
+SYSFS{idVendor}=="0553", SYSFS{idProduct}=="0202", GROUP="usb", MODE="0660"
+# DigitalDream la ronde
+SYSFS{idVendor}=="0553", SYSFS{idProduct}=="0202", GROUP="usb", MODE="0660"
+# Elta Medi@ digi-cam
+SYSFS{idVendor}=="093a", SYSFS{idProduct}=="010e", GROUP="usb", MODE="0660"
+# Emprex PCD3600
+SYSFS{idVendor}=="093a", SYSFS{idProduct}=="010f", GROUP="usb", MODE="0660"
+# Epson PhotoPC 3000z
+SYSFS{idVendor}=="04b8", SYSFS{idProduct}=="0403", GROUP="usb", MODE="0660"
+# Epson PhotoPC 850z
+SYSFS{idVendor}=="04b8", SYSFS{idProduct}=="0402", GROUP="usb", MODE="0660"
+# Fuji Axia Eyeplate
+SYSFS{idVendor}=="0dca", SYSFS{idProduct}=="0002", GROUP="usb", MODE="0660"
+# Fuji Axia Slimshot
+SYSFS{idVendor}=="0dca", SYSFS{idProduct}=="0002", GROUP="usb", MODE="0660"
+# Fuji FinePix A330 (PictBridge mode)
+SYSFS{idVendor}=="04cb", SYSFS{idProduct}=="014a", GROUP="usb", MODE="0660"
+# Fuji FinePix S7000 (PictBridge mode)
+SYSFS{idVendor}=="04cb", SYSFS{idProduct}=="0142", GROUP="usb", MODE="0660"
+# Fuji IX-1
+SYSFS{idVendor}=="0553", SYSFS{idProduct}=="0202", GROUP="usb", MODE="0660"
+# FujiFilm @xia ix-100
+SYSFS{idVendor}=="0919", SYSFS{idProduct}=="0100", GROUP="usb", MODE="0660"
+# Gear to go
+SYSFS{idVendor}=="2770", SYSFS{idProduct}=="9120", GROUP="usb", MODE="0660"
+# Generic SoundVision Clarity2
+SYSFS{idVendor}=="0919", SYSFS{idProduct}=="0100", GROUP="usb", MODE="0660"
+# GrandTek ScopeCam
+SYSFS{idVendor}=="0797", SYSFS{idProduct}=="801c", GROUP="usb", MODE="0660"
+# GTW Electronics
+SYSFS{idVendor}=="2770", SYSFS{idProduct}=="9120", GROUP="usb", MODE="0660"
+# Haimei Electronics HE-501A
+SYSFS{idVendor}=="093a", SYSFS{idProduct}=="010e", GROUP="usb", MODE="0660"
+# Hawking DC120 Pocketcam
+SYSFS{idVendor}=="0553", SYSFS{idProduct}=="0202", GROUP="usb", MODE="0660"
+# HP PhotoSmart 120 (PTP mode)
+SYSFS{idVendor}=="03f0", SYSFS{idProduct}=="6502", GROUP="usb", MODE="0660"
+# HP PhotoSmart 318 (PTP mode)
+SYSFS{idVendor}=="03f0", SYSFS{idProduct}=="6302", GROUP="usb", MODE="0660"
+# HP PhotoSmart 320 (PTP mode)
+SYSFS{idVendor}=="03f0", SYSFS{idProduct}=="6602", GROUP="usb", MODE="0660"
+# HP PhotoSmart 43x (PTP mode)
+SYSFS{idVendor}=="03f0", SYSFS{idProduct}=="7202", GROUP="usb", MODE="0660"
+# HP PhotoSmart 612 (PTP mode)
+SYSFS{idVendor}=="03f0", SYSFS{idProduct}=="6302", GROUP="usb", MODE="0660"
+# HP PhotoSmart 618
+SYSFS{idVendor}=="03f0", SYSFS{idProduct}=="4102", GROUP="usb", MODE="0660"
+# HP PhotoSmart 620 (PTP mode)
+SYSFS{idVendor}=="03f0", SYSFS{idProduct}=="6802", GROUP="usb", MODE="0660"
+# HP PhotoSmart 635 (PTP mode)
+SYSFS{idVendor}=="03f0", SYSFS{idProduct}=="7102", GROUP="usb", MODE="0660"
+# HP PhotoSmart 715 (PTP mode)
+SYSFS{idVendor}=="03f0", SYSFS{idProduct}=="6402", GROUP="usb", MODE="0660"
+# HP PhotoSmart 720 (PTP mode)
+SYSFS{idVendor}=="03f0", SYSFS{idProduct}=="6702", GROUP="usb", MODE="0660"
+# HP PhotoSmart 735 (PTP mode)
+SYSFS{idVendor}=="03f0", SYSFS{idProduct}=="6a02", GROUP="usb", MODE="0660"
+# HP PhotoSmart 812 (PTP mode)
+SYSFS{idVendor}=="03f0", SYSFS{idProduct}=="4202", GROUP="usb", MODE="0660"
+# HP PhotoSmart 850 (PTP mode)
+SYSFS{idVendor}=="03f0", SYSFS{idProduct}=="4302", GROUP="usb", MODE="0660"
+# HP PhotoSmart 912
+SYSFS{idVendor}=="03f0", SYSFS{idProduct}=="4102", GROUP="usb", MODE="0660"
+# HP PhotoSmart 935 (PTP mode)
+SYSFS{idVendor}=="03f0", SYSFS{idProduct}=="4402", GROUP="usb", MODE="0660"
+# HP PhotoSmart 945 (PTP mode)
+SYSFS{idVendor}=="03f0", SYSFS{idProduct}=="4502", GROUP="usb", MODE="0660"
+# HP PhotoSmart C500
+SYSFS{idVendor}=="03f0", SYSFS{idProduct}=="4102", GROUP="usb", MODE="0660"
+# HP PhotoSmart M307 (PTP mode)
+SYSFS{idVendor}=="03f0", SYSFS{idProduct}=="7302", GROUP="usb", MODE="0660"
+# HP PhotoSmart R707 (PTP mode)
+SYSFS{idVendor}=="03f0", SYSFS{idProduct}=="6b02", GROUP="usb", MODE="0660"
+# iClick 5X
+SYSFS{idVendor}=="2770", SYSFS{idProduct}=="9153", GROUP="usb", MODE="0660"
+# iConcepts digital camera
+SYSFS{idVendor}=="2770", SYSFS{idProduct}=="9120", GROUP="usb", MODE="0660"
+# Intel Pocket PC Camera
+SYSFS{idVendor}=="8086", SYSFS{idProduct}=="0630", GROUP="usb", MODE="0660"
+# IOMagic MagicImage 400
+SYSFS{idVendor}=="0553", SYSFS{idProduct}=="0202", GROUP="usb", MODE="0660"
+# Ixla DualCam 640
+SYSFS{idVendor}=="0784", SYSFS{idProduct}=="0100", GROUP="usb", MODE="0660"
+# Jenoptik JD-3300z3
+SYSFS{idVendor}=="0d96", SYSFS{idProduct}=="3300", GROUP="usb", MODE="0660"
+# Jenoptik JD-4100z3
+SYSFS{idVendor}=="0d96", SYSFS{idProduct}=="4100", GROUP="usb", MODE="0660"
+# Jenoptik JD350 entrance
+SYSFS{idVendor}=="05da", SYSFS{idProduct}=="1006", GROUP="usb", MODE="0660"
+# Jenoptik JD350 video
+SYSFS{idVendor}=="0d96", SYSFS{idProduct}=="0000", GROUP="usb", MODE="0660"
+# Jenoptik JDC 350
+SYSFS{idVendor}=="2770", SYSFS{idProduct}=="9120", GROUP="usb", MODE="0660"
+# KBGear JamCam
+SYSFS{idVendor}=="084e", SYSFS{idProduct}=="0001", GROUP="usb", MODE="0660"
+# Kodak CX4200
+SYSFS{idVendor}=="040a", SYSFS{idProduct}=="0560", GROUP="usb", MODE="0660"
+# Kodak CX4210
+SYSFS{idVendor}=="040a", SYSFS{idProduct}=="0560", GROUP="usb", MODE="0660"
+# Kodak CX4230
+SYSFS{idVendor}=="040a", SYSFS{idProduct}=="0535", GROUP="usb", MODE="0660"
+# Kodak CX4300
+SYSFS{idVendor}=="040a", SYSFS{idProduct}=="0566", GROUP="usb", MODE="0660"
+# Kodak CX4310
+SYSFS{idVendor}=="040a", SYSFS{idProduct}=="0566", GROUP="usb", MODE="0660"
+# Kodak CX6200
+SYSFS{idVendor}=="040a", SYSFS{idProduct}=="0574", GROUP="usb", MODE="0660"
+# Kodak CX6230
+SYSFS{idVendor}=="040a", SYSFS{idProduct}=="0573", GROUP="usb", MODE="0660"
+# Kodak CX6330
+SYSFS{idVendor}=="040a", SYSFS{idProduct}=="0571", GROUP="usb", MODE="0660"
+# Kodak CX6445
+SYSFS{idVendor}=="040a", SYSFS{idProduct}=="0584", GROUP="usb", MODE="0660"
+# Kodak CX7220
+SYSFS{idVendor}=="040a", SYSFS{idProduct}=="0579", GROUP="usb", MODE="0660"
+# Kodak CX7300
+SYSFS{idVendor}=="040a", SYSFS{idProduct}=="0578", GROUP="usb", MODE="0660"
+# Kodak CX7310
+SYSFS{idVendor}=="040a", SYSFS{idProduct}=="0578", GROUP="usb", MODE="0660"
+# Kodak CX7330
+SYSFS{idVendor}=="040a", SYSFS{idProduct}=="057a", GROUP="usb", MODE="0660"
+# Kodak CX7430
+SYSFS{idVendor}=="040a", SYSFS{idProduct}=="057b", GROUP="usb", MODE="0660"
+# Kodak CX7525
+SYSFS{idVendor}=="040a", SYSFS{idProduct}=="0586", GROUP="usb", MODE="0660"
+# Kodak CX7530
+SYSFS{idVendor}=="040a", SYSFS{idProduct}=="057c", GROUP="usb", MODE="0660"
+# Kodak DC220
+SYSFS{idVendor}=="040a", SYSFS{idProduct}=="0100", GROUP="usb", MODE="0660"
+# Kodak DC240
+SYSFS{idVendor}=="040a", SYSFS{idProduct}=="0120", GROUP="usb", MODE="0660"
+# Kodak DC240 (PTP mode)
+SYSFS{idVendor}=="040a", SYSFS{idProduct}=="0121", GROUP="usb", MODE="0660"
+# Kodak DC260
+SYSFS{idVendor}=="040a", SYSFS{idProduct}=="0110", GROUP="usb", MODE="0660"
+# Kodak DC265
+SYSFS{idVendor}=="040a", SYSFS{idProduct}=="0111", GROUP="usb", MODE="0660"
+# Kodak DC280
+SYSFS{idVendor}=="040a", SYSFS{idProduct}=="0130", GROUP="usb", MODE="0660"
+# Kodak DC290
+SYSFS{idVendor}=="040a", SYSFS{idProduct}=="0112", GROUP="usb", MODE="0660"
+# Kodak DC3400
+SYSFS{idVendor}=="040a", SYSFS{idProduct}=="0132", GROUP="usb", MODE="0660"
+# Kodak DC4800
+SYSFS{idVendor}=="040a", SYSFS{idProduct}=="0160", GROUP="usb", MODE="0660"
+# Kodak DC5000
+SYSFS{idVendor}=="040a", SYSFS{idProduct}=="0131", GROUP="usb", MODE="0660"
+# Kodak DX3215
+SYSFS{idVendor}=="040a", SYSFS{idProduct}=="0525", GROUP="usb", MODE="0660"
+# Kodak DX3500
+SYSFS{idVendor}=="040a", SYSFS{idProduct}=="0500", GROUP="usb", MODE="0660"
+# Kodak DX3600
+SYSFS{idVendor}=="040a", SYSFS{idProduct}=="0510", GROUP="usb", MODE="0660"
+# Kodak DX3700
+SYSFS{idVendor}=="040a", SYSFS{idProduct}=="0530", GROUP="usb", MODE="0660"
+# Kodak DX3900
+SYSFS{idVendor}=="040a", SYSFS{idProduct}=="0170", GROUP="usb", MODE="0660"
+# Kodak DX4330
+SYSFS{idVendor}=="040a", SYSFS{idProduct}=="0555", GROUP="usb", MODE="0660"
+# Kodak DX4530
+SYSFS{idVendor}=="040a", SYSFS{idProduct}=="0576", GROUP="usb", MODE="0660"
+# Kodak DX4900
+SYSFS{idVendor}=="040a", SYSFS{idProduct}=="0550", GROUP="usb", MODE="0660"
+# Kodak DX6340
+SYSFS{idVendor}=="040a", SYSFS{idProduct}=="0570", GROUP="usb", MODE="0660"
+# Kodak DX6440
+SYSFS{idVendor}=="040a", SYSFS{idProduct}=="0572", GROUP="usb", MODE="0660"
+# Kodak DX6490
+SYSFS{idVendor}=="040a", SYSFS{idProduct}=="0575", GROUP="usb", MODE="0660"
+# Kodak DX7440
+SYSFS{idVendor}=="040a", SYSFS{idProduct}=="057d", GROUP="usb", MODE="0660"
+# Kodak DX7590
+SYSFS{idVendor}=="040a", SYSFS{idProduct}=="057f", GROUP="usb", MODE="0660"
+# Kodak DX7630
+SYSFS{idVendor}=="040a", SYSFS{idProduct}=="0577", GROUP="usb", MODE="0660"
+# Kodak EZ200
+SYSFS{idVendor}=="040a", SYSFS{idProduct}=="0300", GROUP="usb", MODE="0660"
+# Kodak LS420
+SYSFS{idVendor}=="040a", SYSFS{idProduct}=="0540", GROUP="usb", MODE="0660"
+# Kodak LS443
+SYSFS{idVendor}=="040a", SYSFS{idProduct}=="0568", GROUP="usb", MODE="0660"
+# Kodak LS663
+SYSFS{idVendor}=="040a", SYSFS{idProduct}=="0569", GROUP="usb", MODE="0660"
+# Kodak LS743
+SYSFS{idVendor}=="040a", SYSFS{idProduct}=="0565", GROUP="usb", MODE="0660"
+# Kodak LS753
+SYSFS{idVendor}=="040a", SYSFS{idProduct}=="0567", GROUP="usb", MODE="0660"
+# Kodak MC3
+SYSFS{idVendor}=="040a", SYSFS{idProduct}=="0400", GROUP="usb", MODE="0660"
+# Konica e-mini
+SYSFS{idVendor}=="04c8", SYSFS{idProduct}=="0722", GROUP="usb", MODE="0660"
+# Konica-Minolta DiMAGE A2 (PTP mode)
+SYSFS{idVendor}=="132b", SYSFS{idProduct}=="0001", GROUP="usb", MODE="0660"
+# Konica-Minolta DiMAGE Z2 (PictBridge mode)
+SYSFS{idVendor}=="132b", SYSFS{idProduct}=="0007", GROUP="usb", MODE="0660"
+# Konica-Minolta DiMAGE Z3 (PictBridge mode)
+SYSFS{idVendor}=="132b", SYSFS{idProduct}=="0018", GROUP="usb", MODE="0660"
+# Konica-Minolta DiMAGE Z5 (PictBridge mode)
+SYSFS{idVendor}=="132b", SYSFS{idProduct}=="0022", GROUP="usb", MODE="0660"
+# Lifetec LT 5995
+SYSFS{idVendor}=="0d96", SYSFS{idProduct}=="4100", GROUP="usb", MODE="0660"
+# Logitech Pocket Digital
+SYSFS{idVendor}=="046d", SYSFS{idProduct}=="0950", GROUP="usb", MODE="0660"
+# Maginon SX-410z
+SYSFS{idVendor}=="0d96", SYSFS{idProduct}=="4100", GROUP="usb", MODE="0660"
+# Maginon SX330z
+SYSFS{idVendor}=="0d96", SYSFS{idProduct}=="3300", GROUP="usb", MODE="0660"
+# Magpix B350
+SYSFS{idVendor}=="2770", SYSFS{idProduct}=="9120", GROUP="usb", MODE="0660"
+# Maxell Max Pocket
+SYSFS{idVendor}=="04fc", SYSFS{idProduct}=="504b", GROUP="usb", MODE="0660"
+# Media-Tech mt-406
+SYSFS{idVendor}=="0919", SYSFS{idProduct}=="0100", GROUP="usb", MODE="0660"
+# Medion MD 5319
+SYSFS{idVendor}=="04fc", SYSFS{idProduct}=="504a", GROUP="usb", MODE="0660"
+# Medion MD 6000
+SYSFS{idVendor}=="0d96", SYSFS{idProduct}=="4100", GROUP="usb", MODE="0660"
+# Medion MD 6126
+SYSFS{idVendor}=="05ca", SYSFS{idProduct}=="2205", GROUP="usb", MODE="0660"
+# Medion MD 9700
+SYSFS{idVendor}=="0d96", SYSFS{idProduct}=="4102", GROUP="usb", MODE="0660"
+# Micromaxx Digital Camera
+SYSFS{idVendor}=="0553", SYSFS{idProduct}=="0202", GROUP="usb", MODE="0660"
+# Minton S-Cam F5
+SYSFS{idVendor}=="084d", SYSFS{idProduct}=="0003", GROUP="usb", MODE="0660"
+# Mitek CD10
+SYSFS{idVendor}=="2770", SYSFS{idProduct}=="9120", GROUP="usb", MODE="0660"
+# Mitek CD30P
+SYSFS{idVendor}=="2770", SYSFS{idProduct}=="9120", GROUP="usb", MODE="0660"
+# Mustek gSmart 300
+SYSFS{idVendor}=="055f", SYSFS{idProduct}=="c200", GROUP="usb", MODE="0660"
+# Mustek gSmart 350
+SYSFS{idVendor}=="055f", SYSFS{idProduct}=="a350", GROUP="usb", MODE="0660"
+# Mustek gSmart mini
+SYSFS{idVendor}=="055f", SYSFS{idProduct}=="c220", GROUP="usb", MODE="0660"
+# Mustek gSmart mini 2
+SYSFS{idVendor}=="055f", SYSFS{idProduct}=="c420", GROUP="usb", MODE="0660"
+# Mustek gSmart mini 3
+SYSFS{idVendor}=="055f", SYSFS{idProduct}=="c520", GROUP="usb", MODE="0660"
+# Nikon Coolpix 2000 (PTP mode)
+SYSFS{idVendor}=="04b0", SYSFS{idProduct}=="0302", GROUP="usb", MODE="0660"
+# Nikon Coolpix 2100 (PTP mode)
+SYSFS{idVendor}=="04b0", SYSFS{idProduct}=="0117", GROUP="usb", MODE="0660"
+# Nikon Coolpix 2200 (PTP mode)
+SYSFS{idVendor}=="04b0", SYSFS{idProduct}=="0122", GROUP="usb", MODE="0660"
+# Nikon Coolpix 2500 (PTP mode)
+SYSFS{idVendor}=="04b0", SYSFS{idProduct}=="0109", GROUP="usb", MODE="0660"
+# Nikon CoolPix 2500 (Sierra Mode)
+SYSFS{idVendor}=="04b0", SYSFS{idProduct}=="0108", GROUP="usb", MODE="0660"
+# Nikon Coolpix 3100 (PTP mode)
+SYSFS{idVendor}=="04b0", SYSFS{idProduct}=="0115", GROUP="usb", MODE="0660"
+# Nikon Coolpix 3200 (PTP mode)
+SYSFS{idVendor}=="04b0", SYSFS{idProduct}=="0121", GROUP="usb", MODE="0660"
+# Nikon Coolpix 3500 (PTP mode)
+SYSFS{idVendor}=="04b0", SYSFS{idProduct}=="0111", GROUP="usb", MODE="0660"
+# Nikon CoolPix 3500 (Sierra Mode)
+SYSFS{idVendor}=="04b0", SYSFS{idProduct}=="0110", GROUP="usb", MODE="0660"
+# Nikon Coolpix 3700 (PTP mode)
+SYSFS{idVendor}=="04b0", SYSFS{idProduct}=="011d", GROUP="usb", MODE="0660"
+# Nikon Coolpix 4100 (PTP mode)
+SYSFS{idVendor}=="04b0", SYSFS{idProduct}=="012d", GROUP="usb", MODE="0660"
+# Nikon Coolpix 4200 (PTP mode)
+SYSFS{idVendor}=="04b0", SYSFS{idProduct}=="0204", GROUP="usb", MODE="0660"
+# Nikon Coolpix 4300 (PTP mode)
+SYSFS{idVendor}=="04b0", SYSFS{idProduct}=="010f", GROUP="usb", MODE="0660"
+# Nikon CoolPix 4300 (Sierra Mode)
+SYSFS{idVendor}=="04b0", SYSFS{idProduct}=="010e", GROUP="usb", MODE="0660"
+# Nikon CoolPix 4500 (PTP mode)
+SYSFS{idVendor}=="04b0", SYSFS{idProduct}=="010b", GROUP="usb", MODE="0660"
+# Nikon Coolpix 5000 (PTP mode)
+SYSFS{idVendor}=="04b0", SYSFS{idProduct}=="0113", GROUP="usb", MODE="0660"
+# Nikon Coolpix 5400 (PTP mode)
+SYSFS{idVendor}=="04b0", SYSFS{idProduct}=="0119", GROUP="usb", MODE="0660"
+# Nikon Coolpix 5700 (PTP mode)
+SYSFS{idVendor}=="04b0", SYSFS{idProduct}=="010d", GROUP="usb", MODE="0660"
+# Nikon CoolPix 880
+SYSFS{idVendor}=="04b0", SYSFS{idProduct}=="0103", GROUP="usb", MODE="0660"
+# Nikon Coolpix 885 (PTP mode)
+SYSFS{idVendor}=="04b0", SYSFS{idProduct}=="0112", GROUP="usb", MODE="0660"
+# Nikon CoolPix 990
+SYSFS{idVendor}=="04b0", SYSFS{idProduct}=="0102", GROUP="usb", MODE="0660"
+# Nikon CoolPix 995
+SYSFS{idVendor}=="04b0", SYSFS{idProduct}=="0104", GROUP="usb", MODE="0660"
+# Nikon Coolpix SQ (PTP mode)
+SYSFS{idVendor}=="04b0", SYSFS{idProduct}=="0202", GROUP="usb", MODE="0660"
+# Nikon D2H SLR (PTP mode)
+SYSFS{idVendor}=="04b0", SYSFS{idProduct}=="0404", GROUP="usb", MODE="0660"
+# Nikon D2Hs SLR (PTP mode)
+SYSFS{idVendor}=="04b0", SYSFS{idProduct}=="040c", GROUP="usb", MODE="0660"
+# Nikon D2X SLR (PTP mode)
+SYSFS{idVendor}=="04b0", SYSFS{idProduct}=="0408", GROUP="usb", MODE="0660"
+# Nikon DSC D100 (PTP mode)
+SYSFS{idVendor}=="04b0", SYSFS{idProduct}=="0402", GROUP="usb", MODE="0660"
+# Nikon DSC D70 (PTP mode)
+SYSFS{idVendor}=="04b0", SYSFS{idProduct}=="0406", GROUP="usb", MODE="0660"
+# nisis Quickpix Qp3
+SYSFS{idVendor}=="04fc", SYSFS{idProduct}=="504a", GROUP="usb", MODE="0660"
+# Olympus C-2040Z
+SYSFS{idVendor}=="07b4", SYSFS{idProduct}=="0105", GROUP="usb", MODE="0660"
+# Olympus C-2100UZ
+SYSFS{idVendor}=="07b4", SYSFS{idProduct}=="0100", GROUP="usb", MODE="0660"
+# Olympus C-3000Z
+SYSFS{idVendor}=="07b4", SYSFS{idProduct}=="0100", GROUP="usb", MODE="0660"
+# Olympus C-3020Z
+SYSFS{idVendor}=="07b4", SYSFS{idProduct}=="0105", GROUP="usb", MODE="0660"
+# Olympus C-3030Z
+SYSFS{idVendor}=="07b4", SYSFS{idProduct}=="0100", GROUP="usb", MODE="0660"
+# Olympus C-3040Z
+SYSFS{idVendor}=="07b4", SYSFS{idProduct}=="0105", GROUP="usb", MODE="0660"
+# Olympus C-350Z
+SYSFS{idVendor}=="07b4", SYSFS{idProduct}=="0114", GROUP="usb", MODE="0660"
+# Olympus C-370Z
+SYSFS{idVendor}=="07b4", SYSFS{idProduct}=="0109", GROUP="usb", MODE="0660"
+# Olympus C-4040Z
+SYSFS{idVendor}=="07b4", SYSFS{idProduct}=="0105", GROUP="usb", MODE="0660"
+# Olympus C-5050Z
+SYSFS{idVendor}=="07b4", SYSFS{idProduct}=="0105", GROUP="usb", MODE="0660"
+# Olympus C-700UZ
+SYSFS{idVendor}=="07b4", SYSFS{idProduct}=="0105", GROUP="usb", MODE="0660"
+# Olympus C-750UZ
+SYSFS{idVendor}=="07b4", SYSFS{idProduct}=="0105", GROUP="usb", MODE="0660"
+# Olympus D-535Z
+SYSFS{idVendor}=="07b4", SYSFS{idProduct}=="0109", GROUP="usb", MODE="0660"
+# Olympus D-560Z
+SYSFS{idVendor}=="07b4", SYSFS{idProduct}=="0114", GROUP="usb", MODE="0660"
+# Olympus mju 500
+SYSFS{idVendor}=="07b4", SYSFS{idProduct}=="0113", GROUP="usb", MODE="0660"
+# Olympus X-250
+SYSFS{idVendor}=="07b4", SYSFS{idProduct}=="0114", GROUP="usb", MODE="0660"
+# Olympus X-450
+SYSFS{idVendor}=="07b4", SYSFS{idProduct}=="0109", GROUP="usb", MODE="0660"
+# Oregon Scientific DShot II
+SYSFS{idVendor}=="0919", SYSFS{idProduct}=="0100", GROUP="usb", MODE="0660"
+# Oregon Scientific DShot III
+SYSFS{idVendor}=="0919", SYSFS{idProduct}=="0100", GROUP="usb", MODE="0660"
+# Panasonic DMC-FZ20
+SYSFS{idVendor}=="04da", SYSFS{idProduct}=="2374", GROUP="usb", MODE="0660"
+# Panasonic DMC-FZ20 (alternate id)
+SYSFS{idVendor}=="04da", SYSFS{idProduct}=="2372", GROUP="usb", MODE="0660"
+# Pencam TEVION MD 9456
+SYSFS{idVendor}=="0553", SYSFS{idProduct}=="0202", GROUP="usb", MODE="0660"
+# Pentax Optio 33WR
+SYSFS{idVendor}=="0a17", SYSFS{idProduct}=="0009", GROUP="usb", MODE="0660"
+# Pentax Optio 43WR
+SYSFS{idVendor}=="0a17", SYSFS{idProduct}=="000d", GROUP="usb", MODE="0660"
+# Pentax Optio 450
+SYSFS{idVendor}=="0a17", SYSFS{idProduct}=="0007", GROUP="usb", MODE="0660"
+# Phoebe Smartcam
+SYSFS{idVendor}=="0553", SYSFS{idProduct}=="0202", GROUP="usb", MODE="0660"
+# PockCam
+SYSFS{idVendor}=="2770", SYSFS{idProduct}=="9120", GROUP="usb", MODE="0660"
+# Polaroid DC700
+SYSFS{idVendor}=="0784", SYSFS{idProduct}=="2888", GROUP="usb", MODE="0660"
+# Polaroid PDC 2300Z
+SYSFS{idVendor}=="0546", SYSFS{idProduct}=="0daf", GROUP="usb", MODE="0660"
+# Precision Mini Digital Camera
+SYSFS{idVendor}=="2770", SYSFS{idProduct}=="9120", GROUP="usb", MODE="0660"
+# Precision Mini, Model HA513A
+SYSFS{idVendor}=="093a", SYSFS{idProduct}=="010e", GROUP="usb", MODE="0660"
+# Pretec dc530
+SYSFS{idVendor}=="0784", SYSFS{idProduct}=="5300", GROUP="usb", MODE="0660"
+# PureDigital Ritz Disposable
+SYSFS{idVendor}=="04fc", SYSFS{idProduct}=="ffff", GROUP="usb", MODE="0660"
+# QuickPix QP1
+SYSFS{idVendor}=="0553", SYSFS{idProduct}=="0202", GROUP="usb", MODE="0660"
+# Radioshack Flatfoto
+SYSFS{idVendor}=="0dca", SYSFS{idProduct}=="0004", GROUP="usb", MODE="0660"
+# RCA CDS1005
+SYSFS{idVendor}=="0784", SYSFS{idProduct}=="0100", GROUP="usb", MODE="0660"
+# Ricoh Capilo RX
+SYSFS{idVendor}=="05ca", SYSFS{idProduct}=="220b", GROUP="usb", MODE="0660"
+# Ricoh Caplio 300G
+SYSFS{idVendor}=="05ca", SYSFS{idProduct}=="2203", GROUP="usb", MODE="0660"
+# Ricoh Caplio G3
+SYSFS{idVendor}=="05ca", SYSFS{idProduct}=="2204", GROUP="usb", MODE="0660"
+# Ricoh Caplio G4
+SYSFS{idVendor}=="05ca", SYSFS{idProduct}=="2208", GROUP="usb", MODE="0660"
+# Ricoh Caplio GX (PTP mode)
+SYSFS{idVendor}=="05ca", SYSFS{idProduct}=="0325", GROUP="usb", MODE="0660"
+# Ricoh Caplio R1
+SYSFS{idVendor}=="05ca", SYSFS{idProduct}=="220d", GROUP="usb", MODE="0660"
+# Ricoh Caplio R1v
+SYSFS{idVendor}=="05ca", SYSFS{idProduct}=="2212", GROUP="usb", MODE="0660"
+# Ricoh Caplio RR30
+SYSFS{idVendor}=="05ca", SYSFS{idProduct}=="2202", GROUP="usb", MODE="0660"
+# Ricoh Caplio RZ1
+SYSFS{idVendor}=="05ca", SYSFS{idProduct}=="220d", GROUP="usb", MODE="0660"
+# Sakar Kidz Cam
+SYSFS{idVendor}=="2770", SYSFS{idProduct}=="9120", GROUP="usb", MODE="0660"
+# ScanHex SX-35a
+SYSFS{idVendor}=="0797", SYSFS{idProduct}=="8901", GROUP="usb", MODE="0660"
+# ScanHex SX-35b
+SYSFS{idVendor}=="0797", SYSFS{idProduct}=="8909", GROUP="usb", MODE="0660"
+# ScanHex SX-35c
+SYSFS{idVendor}=="0797", SYSFS{idProduct}=="8911", GROUP="usb", MODE="0660"
+# ScanHex SX-35d
+SYSFS{idVendor}=="084d", SYSFS{idProduct}=="1001", GROUP="usb", MODE="0660"
+# Scott APX 30
+SYSFS{idVendor}=="0919", SYSFS{idProduct}=="0100", GROUP="usb", MODE="0660"
+# Sea & Sea 5000G
+SYSFS{idVendor}=="05ca", SYSFS{idProduct}=="220e", GROUP="usb", MODE="0660"
+# Shark SDC-513
+SYSFS{idVendor}=="2770", SYSFS{idProduct}=="9120", GROUP="usb", MODE="0660"
+# Shark SDC-519
+SYSFS{idVendor}=="2770", SYSFS{idProduct}=="9120", GROUP="usb", MODE="0660"
+# SiPix Blink
+SYSFS{idVendor}=="0851", SYSFS{idProduct}=="1542", GROUP="usb", MODE="0660"
+# SiPix Blink 2
+SYSFS{idVendor}=="0c77", SYSFS{idProduct}=="1011", GROUP="usb", MODE="0660"
+# SiPix CAMeleon
+SYSFS{idVendor}=="0c77", SYSFS{idProduct}=="1015", GROUP="usb", MODE="0660"
+# SiPix SC2100
+SYSFS{idVendor}=="0c77", SYSFS{idProduct}=="1002", GROUP="usb", MODE="0660"
+# SiPix Snap
+SYSFS{idVendor}=="0c77", SYSFS{idProduct}=="1010", GROUP="usb", MODE="0660"
+# SiPix Stylecam
+SYSFS{idVendor}=="0d64", SYSFS{idProduct}=="1001", GROUP="usb", MODE="0660"
+# SiPix Web2
+SYSFS{idVendor}=="0c77", SYSFS{idProduct}=="1001", GROUP="usb", MODE="0660"
+# Skanhex SX-330z
+SYSFS{idVendor}=="0d96", SYSFS{idProduct}=="3300", GROUP="usb", MODE="0660"
+# SMaL Ultra-Pocket
+SYSFS{idVendor}=="0dca", SYSFS{idProduct}=="0002", GROUP="usb", MODE="0660"
+# So. Show 301
+SYSFS{idVendor}=="0ec7", SYSFS{idProduct}=="1008", GROUP="usb", MODE="0660"
+# Sony DSC-F707V (PTP mode)
+SYSFS{idVendor}=="054c", SYSFS{idProduct}=="004e", GROUP="usb", MODE="0660"
+# Sony DSC-F717 (PTP mode)
+SYSFS{idVendor}=="054c", SYSFS{idProduct}=="004e", GROUP="usb", MODE="0660"
+# Sony DSC-F828 (PTP mode)
+SYSFS{idVendor}=="054c", SYSFS{idProduct}=="004e", GROUP="usb", MODE="0660"
+# Sony DSC-P10 (PTP mode)
+SYSFS{idVendor}=="054c", SYSFS{idProduct}=="004e", GROUP="usb", MODE="0660"
+# Sony DSC-P100 (PTP mode)
+SYSFS{idVendor}=="054c", SYSFS{idProduct}=="004e", GROUP="usb", MODE="0660"
+# Sony DSC-P120 (PTP mode)
+SYSFS{idVendor}=="054c", SYSFS{idProduct}=="004e", GROUP="usb", MODE="0660"
+# Sony DSC-P30 (PTP mode)
+SYSFS{idVendor}=="054c", SYSFS{idProduct}=="004e", GROUP="usb", MODE="0660"
+# Sony DSC-P31 (PTP mode)
+SYSFS{idVendor}=="054c", SYSFS{idProduct}=="004e", GROUP="usb", MODE="0660"
+# Sony DSC-P32 (PTP mode)
+SYSFS{idVendor}=="054c", SYSFS{idProduct}=="004e", GROUP="usb", MODE="0660"
+# Sony DSC-P41 (PTP mode)
+SYSFS{idVendor}=="054c", SYSFS{idProduct}=="004e", GROUP="usb", MODE="0660"
+# Sony DSC-P43 (PTP mode)
+SYSFS{idVendor}=="054c", SYSFS{idProduct}=="004e", GROUP="usb", MODE="0660"
+# Sony DSC-P5 (PTP mode)
+SYSFS{idVendor}=="054c", SYSFS{idProduct}=="004e", GROUP="usb", MODE="0660"
+# Sony DSC-P50 (PTP mode)
+SYSFS{idVendor}=="054c", SYSFS{idProduct}=="004e", GROUP="usb", MODE="0660"
+# Sony DSC-P51 (PTP mode)
+SYSFS{idVendor}=="054c", SYSFS{idProduct}=="004e", GROUP="usb", MODE="0660"
+# Sony DSC-P52 (PTP mode)
+SYSFS{idVendor}=="054c", SYSFS{idProduct}=="004e", GROUP="usb", MODE="0660"
+# Sony DSC-P71 (PTP mode)
+SYSFS{idVendor}=="054c", SYSFS{idProduct}=="004e", GROUP="usb", MODE="0660"
+# Sony DSC-P72 (PTP mode)
+SYSFS{idVendor}=="054c", SYSFS{idProduct}=="004e", GROUP="usb", MODE="0660"
+# Sony DSC-P73 (PTP mode)
+SYSFS{idVendor}=="054c", SYSFS{idProduct}=="004e", GROUP="usb", MODE="0660"
+# Sony DSC-P92 (PTP mode)
+SYSFS{idVendor}=="054c", SYSFS{idProduct}=="004e", GROUP="usb", MODE="0660"
+# Sony DSC-P93 (PTP mode)
+SYSFS{idVendor}=="054c", SYSFS{idProduct}=="004e", GROUP="usb", MODE="0660"
+# Sony DSC-S75 (PTP mode)
+SYSFS{idVendor}=="054c", SYSFS{idProduct}=="004e", GROUP="usb", MODE="0660"
+# Sony DSC-S85 (PTP mode)
+SYSFS{idVendor}=="054c", SYSFS{idProduct}=="004e", GROUP="usb", MODE="0660"
+# Sony DSC-T1 (PTP mode)
+SYSFS{idVendor}=="054c", SYSFS{idProduct}=="004e", GROUP="usb", MODE="0660"
+# Sony DSC-T3 (PTP mode)
+SYSFS{idVendor}=="054c", SYSFS{idProduct}=="004e", GROUP="usb", MODE="0660"
+# Sony DSC-U20 (PTP mode)
+SYSFS{idVendor}=="054c", SYSFS{idProduct}=="004e", GROUP="usb", MODE="0660"
+# Sony DSC-V1 (PTP mode)
+SYSFS{idVendor}=="054c", SYSFS{idProduct}=="004e", GROUP="usb", MODE="0660"
+# Sony DSC-W1 (PTP mode)
+SYSFS{idVendor}=="054c", SYSFS{idProduct}=="004e", GROUP="usb", MODE="0660"
+# Sony DSC-W12 (PTP mode)
+SYSFS{idVendor}=="054c", SYSFS{idProduct}=="004e", GROUP="usb", MODE="0660"
+# Sony MVC-CD300 (PTP mode)
+SYSFS{idVendor}=="054c", SYSFS{idProduct}=="004e", GROUP="usb", MODE="0660"
+# Sony MVC-CD500 (PTP mode)
+SYSFS{idVendor}=="054c", SYSFS{idProduct}=="004e", GROUP="usb", MODE="0660"
+# Sony PTP
+SYSFS{idVendor}=="054c", SYSFS{idProduct}=="004e", GROUP="usb", MODE="0660"
+# SpyPen Axys
+SYSFS{idVendor}=="0553", SYSFS{idProduct}=="0202", GROUP="usb", MODE="0660"
+# SpyPen Cleo
+SYSFS{idVendor}=="0553", SYSFS{idProduct}=="0202", GROUP="usb", MODE="0660"
+# SpyPen Luxo
+SYSFS{idVendor}=="0553", SYSFS{idProduct}=="0202", GROUP="usb", MODE="0660"
+# SpyPen Memo
+SYSFS{idVendor}=="0553", SYSFS{idProduct}=="0202", GROUP="usb", MODE="0660"
+# SpyPen Xion
+SYSFS{idVendor}=="0553", SYSFS{idProduct}=="0202", GROUP="usb", MODE="0660"
+# SQ chip camera
+SYSFS{idVendor}=="2770", SYSFS{idProduct}=="9120", GROUP="usb", MODE="0660"
+# StarCam CP086
+SYSFS{idVendor}=="0919", SYSFS{idProduct}=="0100", GROUP="usb", MODE="0660"
+# STM USB Dual-mode camera
+SYSFS{idVendor}=="0553", SYSFS{idProduct}=="0202", GROUP="usb", MODE="0660"
+# STV0680
+SYSFS{idVendor}=="0553", SYSFS{idProduct}=="0202", GROUP="usb", MODE="0660"
+# SY-2107C
+SYSFS{idVendor}=="2770", SYSFS{idProduct}=="9120", GROUP="usb", MODE="0660"
+# Tiger Fast Flicks
+SYSFS{idVendor}=="0919", SYSFS{idProduct}=="0100", GROUP="usb", MODE="0660"
+# Timlex CP075
+SYSFS{idVendor}=="0553", SYSFS{idProduct}=="0202", GROUP="usb", MODE="0660"
+# Toshiba PDR-M11
+SYSFS{idVendor}=="1132", SYSFS{idProduct}=="4337", GROUP="usb", MODE="0660"
+# Toshiba PDR-M60
+SYSFS{idVendor}=="1132", SYSFS{idProduct}=="4332", GROUP="usb", MODE="0660"
+# Toshiba PDR-M61
+SYSFS{idVendor}=="1132", SYSFS{idProduct}=="4335", GROUP="usb", MODE="0660"
+# Toshiba PDR-M65
+SYSFS{idVendor}=="1132", SYSFS{idProduct}=="4334", GROUP="usb", MODE="0660"
+# Traveler SX330z
+SYSFS{idVendor}=="0d96", SYSFS{idProduct}=="3300", GROUP="usb", MODE="0660"
+# Traveler SX410z
+SYSFS{idVendor}=="0d96", SYSFS{idProduct}=="4100", GROUP="usb", MODE="0660"
+# Trust Familycam 300
+SYSFS{idVendor}=="084d", SYSFS{idProduct}=="0003", GROUP="usb", MODE="0660"
+# Trust PowerC@m 350FS
+SYSFS{idVendor}=="06d6", SYSFS{idProduct}=="002e", GROUP="usb", MODE="0660"
+# Trust PowerC@m 350FT
+SYSFS{idVendor}=="06d6", SYSFS{idProduct}=="002d", GROUP="usb", MODE="0660"
+# Trust Spyc@m 500F FLASH
+SYSFS{idVendor}=="04fc", SYSFS{idProduct}=="504a", GROUP="usb", MODE="0660"
+# Typhoon StyloCam
+SYSFS{idVendor}=="0797", SYSFS{idProduct}=="801a", GROUP="usb", MODE="0660"
+# UMAX AstraPen
+SYSFS{idVendor}=="0553", SYSFS{idProduct}=="0202", GROUP="usb", MODE="0660"
+# UMAX AstraPix 320s
+SYSFS{idVendor}=="0d64", SYSFS{idProduct}=="1001", GROUP="usb", MODE="0660"
+# USB PTP Class Camera
+SYSFS{bDeviceClass}=="06", GROUP="usb", MODE="0660"
+# ViviCam3350
+SYSFS{idVendor}=="2770", SYSFS{idProduct}=="9120", GROUP="usb", MODE="0660"
+# ViviCam5B
+SYSFS{idVendor}=="2770", SYSFS{idProduct}=="9120", GROUP="usb", MODE="0660"
+# Vivitar Vivicam 55
+SYSFS{idVendor}=="093a", SYSFS{idProduct}=="010f", GROUP="usb", MODE="0660"
+
+LABEL="libgphoto2_rules_end"
