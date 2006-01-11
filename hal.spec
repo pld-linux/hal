@@ -127,6 +127,7 @@ Requires:	libusb >= 0.1.10-2
 Requires:	udev >= 1:079-2
 Obsoletes:	hotplug-digicam
 Obsoletes:	udev-digicam
+Provides:	udev-digicam
 
 %description gphoto
 Set of Udev rules and HAL device information file to handle digital
@@ -210,6 +211,16 @@ fi
 
 %post	libs -p /sbin/ldconfig
 %postun	libs -p /sbin/ldconfig
+
+
+%post gphoto
+%service haldaemon restart
+%banner %{name} -e << EOF
+WARNING!
+ hal-gphoto NO LONGER uses special "digicam" group.
+ Please add yourself to more common "usb" group instead.
+
+EOF
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
