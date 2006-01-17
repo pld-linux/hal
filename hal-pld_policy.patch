@@ -1,6 +1,5 @@
-diff -aurN hal-0.5.4.orig/fdi/policy/10osvendor/10-storage-policy.fdi hal-0.5.4/fdi/policy/10osvendor/10-storage-policy.fdi
---- hal-0.5.4.orig/fdi/policy/10osvendor/10-storage-policy.fdi	2005-05-23 16:06:27.000000000 +0200
-+++ hal-0.5.4/fdi/policy/10osvendor/10-storage-policy.fdi	2005-09-17 17:56:02.000000000 +0200
+--- hal-0.5.6/fdi/policy/10osvendor/10-storage-policy.fdi.orig	2006-01-17 01:25:33.000000000 +0100
++++ hal-0.5.6/fdi/policy/10osvendor/10-storage-policy.fdi	2006-01-17 20:53:50.453404750 +0100
 @@ -8,9 +8,9 @@
        <merge key="storage.policy.default.mount_root" type="string">/media</merge>
        <merge key="storage.policy.default.use_managed_keyword" type="bool">true</merge>
@@ -45,23 +44,23 @@ diff -aurN hal-0.5.4.orig/fdi/policy/10osvendor/10-storage-policy.fdi hal-0.5.4/
 +	  <merge key="storage.policy.desired_mount_point" type="string">cdwriter</merge>
  	</match>
  	<match key="storage.cdrom.dvdplusr" bool="true">
--	  <merge key="storage.policy.desired_mount_point" type="string">cdrecorder</merge>
+-	  <merge key="storage.policy.desired_mount_point" type="string">dvdrecorder</merge>
 +	  <merge key="storage.policy.desired_mount_point" type="string">dvdwriter</merge>
  	</match>
  	<match key="storage.cdrom.dvdplusrw" bool="true">
--	  <merge key="storage.policy.desired_mount_point" type="string">cdrecorder</merge>
+-	  <merge key="storage.policy.desired_mount_point" type="string">dvdrecorder</merge>
 +	  <merge key="storage.policy.desired_mount_point" type="string">dvdwriter</merge>
  	</match>
  	<match key="storage.cdrom.dvdram" bool="true">
--	  <merge key="storage.policy.desired_mount_point" type="string">cdrecorder</merge>
+-	  <merge key="storage.policy.desired_mount_point" type="string">dvdrecorder</merge>
 +	  <merge key="storage.policy.desired_mount_point" type="string">dvdwriter</merge>
  	</match>
  	<match key="storage.cdrom.dvdr" bool="true">
--	  <merge key="storage.policy.desired_mount_point" type="string">cdrecorder</merge>
+-	  <merge key="storage.policy.desired_mount_point" type="string">dvdrecorder</merge>
 +	  <merge key="storage.policy.desired_mount_point" type="string">dvdwriter</merge>
  	</match>
  	<match key="storage.cdrom.dvdrw" bool="true">
--	  <merge key="storage.policy.desired_mount_point" type="string">cdrecorder</merge>
+-	  <merge key="storage.policy.desired_mount_point" type="string">dvdrecorder</merge>
 +	  <merge key="storage.policy.desired_mount_point" type="string">dvdwriter</merge>
  	</match>
        </match>
