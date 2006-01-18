@@ -1,2 +1,1 @@
-ENV{SEQNUM}=="[0-9]*", ENV{UDEVD_EVENT}=="1", RUN+="/usr/lib/hal.hotplug"
-
+RUN+="socket:/org/freedesktop/hal/udev_event"
