@@ -1,7 +1,7 @@
 #
 # Conditional build:
 %bcond_without	docs		# disable documentation building
-%bcond_without	fstab_sync	# build with fstab-sync
+%bcond_with	fstab_sync	# build with fstab-sync
 #
 Summary:	HAL - Hardware Abstraction Layer
 Summary(pl):	HAL - abstrakcyjna warstwa dostêpu do sprzêtu
@@ -25,7 +25,7 @@ Patch3:		%{name}-pld_powersave.patch
 URL:		http://freedesktop.org/Software/hal
 BuildRequires:	autoconf >= 2.57
 BuildRequires:	automake
-BuildRequires:	dbus-glib-devel >= 0.33
+BuildRequires:	dbus-glib-devel >= 0.60
 %if %{with docs}
 BuildRequires:	docbook-dtd412-xml
 BuildRequires:	docbook-dtd41-sgml
@@ -50,14 +50,13 @@ Requires(pre):	/bin/id
 Requires(pre):	/usr/sbin/groupadd
 Requires(pre):	/usr/sbin/useradd
 Requires(post,preun):	/sbin/chkconfig
+%pyrequires_eq	python
 Requires:	%{name}-libs = %{version}-%{release}
 Requires:	dbus >= 0.33
+Requires:	dmidecode
 Requires:	glib2 >= 1:2.6.0
-Requires:	mount >= 2.12-14
-%pyrequires_eq	python
-Requires:	python-dbus >= 0.33
+Requires:	python-dbus >= 0.60
 Requires:	udev >= 1:071
-# Recommended:	dmidecode
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -162,7 +161,8 @@ obs³ugi kamer cyfrowych w przestrzeni u¿ytkownika.
 	--enable-selinux \
 	--with-hwdata=%{_sysconfdir} \
 	--with-pid-file=%{_localstatedir}/run/hald.pid
-%{__make}
+%{__make} \
+	scriptdir="%{_libdir}/hal/scripts"
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -172,7 +172,8 @@ install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version} \
 	$RPM_BUILD_ROOT%{_sysconfdir}/udev/rules.d
 
 %{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT
+	DESTDIR=$RPM_BUILD_ROOT \
+	scriptdir="%{_libdir}/hal/scripts"
 
 install examples/volumed/*.py $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 
@@ -236,8 +237,11 @@ EOF
 %dir %{_sysconfdir}/%{name}
 %{_sysconfdir}/%{name}/fdi
 
+%dir %{_libdir}/hal
+%dir %{_libdir}/hal/scripts
+%attr(755,root,root) %{_libdir}/hal/scripts/hal-*
+
 %attr(754,root,root) /etc/rc.d/init.d/*
-%attr(755,root,root) %{_libdir}/hal.hotplug
 %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/hald
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/dbus*/system.d/*
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/udev/rules.d/hal.rules
