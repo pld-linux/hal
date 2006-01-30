@@ -52,6 +52,13 @@
         </match>
       </match>
       <match key="usb.vendor_id" int="0x03f0">
+        <match key="usb.product_id" int="0x6202">
+          <merge key="info.category" type="string">camera</merge>
+	  <append key="info.capabilities" type="strlist">camera</append>
+          <merge key="camera.access_method" type="string">libgphoto2</merge>
+        </match>
+      </match>
+      <match key="usb.vendor_id" int="0x03f0">
         <match key="usb.product_id" int="0x6302">
           <merge key="info.category" type="string">camera</merge>
 	  <append key="info.capabilities" type="strlist">camera</append>
@@ -123,6 +130,27 @@
       </match>
       <match key="usb.vendor_id" int="0x03f0">
         <match key="usb.product_id" int="0x7302">
+          <merge key="info.category" type="string">camera</merge>
+	  <append key="info.capabilities" type="strlist">camera</append>
+          <merge key="camera.access_method" type="string">libgphoto2</merge>
+        </match>
+      </match>
+      <match key="usb.vendor_id" int="0x03f0">
+        <match key="usb.product_id" int="0x7702">
+          <merge key="info.category" type="string">camera</merge>
+	  <append key="info.capabilities" type="strlist">camera</append>
+          <merge key="camera.access_method" type="string">libgphoto2</merge>
+        </match>
+      </match>
+      <match key="usb.vendor_id" int="0x03f0">
+        <match key="usb.product_id" int="0x7a02">
+          <merge key="info.category" type="string">camera</merge>
+	  <append key="info.capabilities" type="strlist">camera</append>
+          <merge key="camera.access_method" type="string">libgphoto2</merge>
+        </match>
+      </match>
+      <match key="usb.vendor_id" int="0x03f0">
+        <match key="usb.product_id" int="0x7b02">
           <merge key="info.category" type="string">camera</merge>
 	  <append key="info.capabilities" type="strlist">camera</append>
           <merge key="camera.access_method" type="string">libgphoto2</merge>
@@ -214,6 +242,13 @@
       </match>
       <match key="usb.vendor_id" int="0x040a">
         <match key="usb.product_id" int="0x0400">
+          <merge key="info.category" type="string">camera</merge>
+	  <append key="info.capabilities" type="strlist">camera</append>
+          <merge key="camera.access_method" type="string">libgphoto2</merge>
+        </match>
+      </match>
+      <match key="usb.vendor_id" int="0x040a">
+        <match key="usb.product_id" int="0x0403">
           <merge key="info.category" type="string">camera</merge>
 	  <append key="info.capabilities" type="strlist">camera</append>
           <merge key="camera.access_method" type="string">libgphoto2</merge>
@@ -416,7 +451,21 @@
         </match>
       </match>
       <match key="usb.vendor_id" int="0x040a">
+        <match key="usb.product_id" int="0x057e">
+          <merge key="info.category" type="string">camera</merge>
+	  <append key="info.capabilities" type="strlist">camera</append>
+          <merge key="camera.access_method" type="string">libgphoto2</merge>
+        </match>
+      </match>
+      <match key="usb.vendor_id" int="0x040a">
         <match key="usb.product_id" int="0x057f">
+          <merge key="info.category" type="string">camera</merge>
+	  <append key="info.capabilities" type="strlist">camera</append>
+          <merge key="camera.access_method" type="string">libgphoto2</merge>
+        </match>
+      </match>
+      <match key="usb.vendor_id" int="0x040a">
+        <match key="usb.product_id" int="0x0580">
           <merge key="info.category" type="string">camera</merge>
 	  <append key="info.capabilities" type="strlist">camera</append>
           <merge key="camera.access_method" type="string">libgphoto2</merge>
@@ -431,6 +480,41 @@
       </match>
       <match key="usb.vendor_id" int="0x040a">
         <match key="usb.product_id" int="0x0586">
+          <merge key="info.category" type="string">camera</merge>
+	  <append key="info.capabilities" type="strlist">camera</append>
+          <merge key="camera.access_method" type="string">libgphoto2</merge>
+        </match>
+      </match>
+      <match key="usb.vendor_id" int="0x040a">
+        <match key="usb.product_id" int="0x058a">
+          <merge key="info.category" type="string">camera</merge>
+	  <append key="info.capabilities" type="strlist">camera</append>
+          <merge key="camera.access_method" type="string">libgphoto2</merge>
+        </match>
+      </match>
+      <match key="usb.vendor_id" int="0x040a">
+        <match key="usb.product_id" int="0x058c">
+          <merge key="info.category" type="string">camera</merge>
+	  <append key="info.capabilities" type="strlist">camera</append>
+          <merge key="camera.access_method" type="string">libgphoto2</merge>
+        </match>
+      </match>
+      <match key="usb.vendor_id" int="0x040a">
+        <match key="usb.product_id" int="0x058d">
+          <merge key="info.category" type="string">camera</merge>
+	  <append key="info.capabilities" type="strlist">camera</append>
+          <merge key="camera.access_method" type="string">libgphoto2</merge>
+        </match>
+      </match>
+      <match key="usb.vendor_id" int="0x040a">
+        <match key="usb.product_id" int="0x058e">
+          <merge key="info.category" type="string">camera</merge>
+	  <append key="info.capabilities" type="strlist">camera</append>
+          <merge key="camera.access_method" type="string">libgphoto2</merge>
+        </match>
+      </match>
+      <match key="usb.vendor_id" int="0x040a">
+        <match key="usb.product_id" int="0x058f">
           <merge key="info.category" type="string">camera</merge>
 	  <append key="info.capabilities" type="strlist">camera</append>
           <merge key="camera.access_method" type="string">libgphoto2</merge>
@@ -1046,7 +1130,42 @@
         </match>
       </match>
       <match key="usb.vendor_id" int="0x04a9">
+        <match key="usb.product_id" int="0x30f9">
+          <merge key="info.category" type="string">camera</merge>
+	  <append key="info.capabilities" type="strlist">camera</append>
+          <merge key="camera.access_method" type="string">libgphoto2</merge>
+        </match>
+      </match>
+      <match key="usb.vendor_id" int="0x04a9">
+        <match key="usb.product_id" int="0x30fc">
+          <merge key="info.category" type="string">camera</merge>
+	  <append key="info.capabilities" type="strlist">camera</append>
+          <merge key="camera.access_method" type="string">libgphoto2</merge>
+        </match>
+      </match>
+      <match key="usb.vendor_id" int="0x04a9">
+        <match key="usb.product_id" int="0x30fd">
+          <merge key="info.category" type="string">camera</merge>
+	  <append key="info.capabilities" type="strlist">camera</append>
+          <merge key="camera.access_method" type="string">libgphoto2</merge>
+        </match>
+      </match>
+      <match key="usb.vendor_id" int="0x04a9">
+        <match key="usb.product_id" int="0x30ff">
+          <merge key="info.category" type="string">camera</merge>
+	  <append key="info.capabilities" type="strlist">camera</append>
+          <merge key="camera.access_method" type="string">libgphoto2</merge>
+        </match>
+      </match>
+      <match key="usb.vendor_id" int="0x04a9">
         <match key="usb.product_id" int="0x310e">
+          <merge key="info.category" type="string">camera</merge>
+	  <append key="info.capabilities" type="strlist">camera</append>
+          <merge key="camera.access_method" type="string">libgphoto2</merge>
+        </match>
+      </match>
+      <match key="usb.vendor_id" int="0x04a9">
+        <match key="usb.product_id" int="0x3116">
           <merge key="info.category" type="string">camera</merge>
 	  <append key="info.capabilities" type="strlist">camera</append>
           <merge key="camera.access_method" type="string">libgphoto2</merge>
@@ -1068,13 +1187,6 @@
       </match>
       <match key="usb.vendor_id" int="0x04b0">
         <match key="usb.product_id" int="0x0104">
-          <merge key="info.category" type="string">camera</merge>
-	  <append key="info.capabilities" type="strlist">camera</append>
-          <merge key="camera.access_method" type="string">libgphoto2</merge>
-        </match>
-      </match>
-      <match key="usb.vendor_id" int="0x04b0">
-        <match key="usb.product_id" int="0x0108">
           <merge key="info.category" type="string">camera</merge>
 	  <append key="info.capabilities" type="strlist">camera</append>
           <merge key="camera.access_method" type="string">libgphoto2</merge>
@@ -1186,7 +1298,42 @@
         </match>
       </match>
       <match key="usb.vendor_id" int="0x04b0">
+        <match key="usb.product_id" int="0x0129">
+          <merge key="info.category" type="string">camera</merge>
+	  <append key="info.capabilities" type="strlist">camera</append>
+          <merge key="camera.access_method" type="string">libgphoto2</merge>
+        </match>
+      </match>
+      <match key="usb.vendor_id" int="0x04b0">
         <match key="usb.product_id" int="0x012d">
+          <merge key="info.category" type="string">camera</merge>
+	  <append key="info.capabilities" type="strlist">camera</append>
+          <merge key="camera.access_method" type="string">libgphoto2</merge>
+        </match>
+      </match>
+      <match key="usb.vendor_id" int="0x04b0">
+        <match key="usb.product_id" int="0x012e">
+          <merge key="info.category" type="string">camera</merge>
+	  <append key="info.capabilities" type="strlist">camera</append>
+          <merge key="camera.access_method" type="string">libgphoto2</merge>
+        </match>
+      </match>
+      <match key="usb.vendor_id" int="0x04b0">
+        <match key="usb.product_id" int="0x0130">
+          <merge key="info.category" type="string">camera</merge>
+	  <append key="info.capabilities" type="strlist">camera</append>
+          <merge key="camera.access_method" type="string">libgphoto2</merge>
+        </match>
+      </match>
+      <match key="usb.vendor_id" int="0x04b0">
+        <match key="usb.product_id" int="0x0135">
+          <merge key="info.category" type="string">camera</merge>
+	  <append key="info.capabilities" type="strlist">camera</append>
+          <merge key="camera.access_method" type="string">libgphoto2</merge>
+        </match>
+      </match>
+      <match key="usb.vendor_id" int="0x04b0">
+        <match key="usb.product_id" int="0x0142">
           <merge key="info.category" type="string">camera</merge>
 	  <append key="info.capabilities" type="strlist">camera</append>
           <merge key="camera.access_method" type="string">libgphoto2</merge>
@@ -1201,6 +1348,13 @@
       </match>
       <match key="usb.vendor_id" int="0x04b0">
         <match key="usb.product_id" int="0x0204">
+          <merge key="info.category" type="string">camera</merge>
+	  <append key="info.capabilities" type="strlist">camera</append>
+          <merge key="camera.access_method" type="string">libgphoto2</merge>
+        </match>
+      </match>
+      <match key="usb.vendor_id" int="0x04b0">
+        <match key="usb.product_id" int="0x0206">
           <merge key="info.category" type="string">camera</merge>
 	  <append key="info.capabilities" type="strlist">camera</append>
           <merge key="camera.access_method" type="string">libgphoto2</merge>
@@ -1242,7 +1396,14 @@
         </match>
       </match>
       <match key="usb.vendor_id" int="0x04b0">
-        <match key="usb.product_id" int="0x040c">
+        <match key="usb.product_id" int="0x040a">
+          <merge key="info.category" type="string">camera</merge>
+	  <append key="info.capabilities" type="strlist">camera</append>
+          <merge key="camera.access_method" type="string">libgphoto2</merge>
+        </match>
+      </match>
+      <match key="usb.vendor_id" int="0x04b0">
+        <match key="usb.product_id" int="0x040e">
           <merge key="info.category" type="string">camera</merge>
 	  <append key="info.capabilities" type="strlist">camera</append>
           <merge key="camera.access_method" type="string">libgphoto2</merge>
@@ -1389,6 +1550,20 @@
         </match>
       </match>
       <match key="usb.vendor_id" int="0x05ca">
+        <match key="usb.product_id" int="0x032d">
+          <merge key="info.category" type="string">camera</merge>
+	  <append key="info.capabilities" type="strlist">camera</append>
+          <merge key="camera.access_method" type="string">libgphoto2</merge>
+        </match>
+      </match>
+      <match key="usb.vendor_id" int="0x05ca">
+        <match key="usb.product_id" int="0x032f">
+          <merge key="info.category" type="string">camera</merge>
+	  <append key="info.capabilities" type="strlist">camera</append>
+          <merge key="camera.access_method" type="string">libgphoto2</merge>
+        </match>
+      </match>
+      <match key="usb.vendor_id" int="0x05ca">
         <match key="usb.product_id" int="0x2202">
           <merge key="info.category" type="string">camera</merge>
 	  <append key="info.capabilities" type="strlist">camera</append>
@@ -1431,6 +1606,13 @@
         </match>
       </match>
       <match key="usb.vendor_id" int="0x05ca">
+        <match key="usb.product_id" int="0x220c">
+          <merge key="info.category" type="string">camera</merge>
+	  <append key="info.capabilities" type="strlist">camera</append>
+          <merge key="camera.access_method" type="string">libgphoto2</merge>
+        </match>
+      </match>
+      <match key="usb.vendor_id" int="0x05ca">
         <match key="usb.product_id" int="0x220d">
           <merge key="info.category" type="string">camera</merge>
 	  <append key="info.capabilities" type="strlist">camera</append>
@@ -1445,7 +1627,35 @@
         </match>
       </match>
       <match key="usb.vendor_id" int="0x05ca">
+        <match key="usb.product_id" int="0x220f">
+          <merge key="info.category" type="string">camera</merge>
+	  <append key="info.capabilities" type="strlist">camera</append>
+          <merge key="camera.access_method" type="string">libgphoto2</merge>
+        </match>
+      </match>
+      <match key="usb.vendor_id" int="0x05ca">
         <match key="usb.product_id" int="0x2212">
+          <merge key="info.category" type="string">camera</merge>
+	  <append key="info.capabilities" type="strlist">camera</append>
+          <merge key="camera.access_method" type="string">libgphoto2</merge>
+        </match>
+      </match>
+      <match key="usb.vendor_id" int="0x05ca">
+        <match key="usb.product_id" int="0x2213">
+          <merge key="info.category" type="string">camera</merge>
+	  <append key="info.capabilities" type="strlist">camera</append>
+          <merge key="camera.access_method" type="string">libgphoto2</merge>
+        </match>
+      </match>
+      <match key="usb.vendor_id" int="0x05ca">
+        <match key="usb.product_id" int="0x2214">
+          <merge key="info.category" type="string">camera</merge>
+	  <append key="info.capabilities" type="strlist">camera</append>
+          <merge key="camera.access_method" type="string">libgphoto2</merge>
+        </match>
+      </match>
+      <match key="usb.vendor_id" int="0x05ca">
+        <match key="usb.product_id" int="0x2216">
           <merge key="info.category" type="string">camera</merge>
 	  <append key="info.capabilities" type="strlist">camera</append>
           <merge key="camera.access_method" type="string">libgphoto2</merge>
@@ -1516,6 +1726,13 @@
       </match>
       <match key="usb.vendor_id" int="0x0784">
         <match key="usb.product_id" int="0x5300">
+          <merge key="info.category" type="string">camera</merge>
+	  <append key="info.capabilities" type="strlist">camera</append>
+          <merge key="camera.access_method" type="string">libgphoto2</merge>
+        </match>
+      </match>
+      <match key="usb.vendor_id" int="0x0797">
+        <match key="usb.product_id" int="0x8001">
           <merge key="info.category" type="string">camera</merge>
 	  <append key="info.capabilities" type="strlist">camera</append>
           <merge key="camera.access_method" type="string">libgphoto2</merge>
@@ -1668,6 +1885,20 @@
           <merge key="camera.access_method" type="string">libgphoto2</merge>
         </match>
       </match>
+      <match key="usb.vendor_id" int="0x0c45">
+        <match key="usb.product_id" int="0x8000">
+          <merge key="info.category" type="string">camera</merge>
+	  <append key="info.capabilities" type="strlist">camera</append>
+          <merge key="camera.access_method" type="string">libgphoto2</merge>
+        </match>
+      </match>
+      <match key="usb.vendor_id" int="0x0c45">
+        <match key="usb.product_id" int="0x800a">
+          <merge key="info.category" type="string">camera</merge>
+	  <append key="info.capabilities" type="strlist">camera</append>
+          <merge key="camera.access_method" type="string">libgphoto2</merge>
+        </match>
+      </match>
       <match key="usb.vendor_id" int="0x0c77">
         <match key="usb.product_id" int="0x1001">
           <merge key="info.category" type="string">camera</merge>
@@ -1766,6 +1997,13 @@
           <merge key="camera.access_method" type="string">libgphoto2</merge>
         </match>
       </match>
+      <match key="usb.vendor_id" int="0x1004">
+        <match key="usb.product_id" int="0x6005">
+          <merge key="info.category" type="string">camera</merge>
+	  <append key="info.capabilities" type="strlist">camera</append>
+          <merge key="camera.access_method" type="string">libgphoto2</merge>
+        </match>
+      </match>
       <match key="usb.vendor_id" int="0x1132">
         <match key="usb.product_id" int="0x4332">
           <merge key="info.category" type="string">camera</merge>
@@ -1830,6 +2068,13 @@
         </match>
       </match>
       <match key="usb.vendor_id" int="0x2770">
+        <match key="usb.product_id" int="0x905c">
+          <merge key="info.category" type="string">camera</merge>
+	  <append key="info.capabilities" type="strlist">camera</append>
+          <merge key="camera.access_method" type="string">libgphoto2</merge>
+        </match>
+      </match>
+      <match key="usb.vendor_id" int="0x2770">
         <match key="usb.product_id" int="0x9120">
           <merge key="info.category" type="string">camera</merge>
 	  <append key="info.capabilities" type="strlist">camera</append>
@@ -1845,6 +2090,34 @@
       </match>
       <match key="usb.vendor_id" int="0x2770">
         <match key="usb.product_id" int="0x9153">
+          <merge key="info.category" type="string">camera</merge>
+	  <append key="info.capabilities" type="strlist">camera</append>
+          <merge key="camera.access_method" type="string">libgphoto2</merge>
+        </match>
+      </match>
+      <match key="usb.vendor_id" int="0x4102">
+        <match key="usb.product_id" int="0x1113">
+          <merge key="info.category" type="string">camera</merge>
+	  <append key="info.capabilities" type="strlist">camera</append>
+          <merge key="camera.access_method" type="string">libgphoto2</merge>
+        </match>
+      </match>
+      <match key="usb.vendor_id" int="0x4102">
+        <match key="usb.product_id" int="0x1117">
+          <merge key="info.category" type="string">camera</merge>
+	  <append key="info.capabilities" type="strlist">camera</append>
+          <merge key="camera.access_method" type="string">libgphoto2</merge>
+        </match>
+      </match>
+      <match key="usb.vendor_id" int="0x4102">
+        <match key="usb.product_id" int="0x1118">
+          <merge key="info.category" type="string">camera</merge>
+	  <append key="info.capabilities" type="strlist">camera</append>
+          <merge key="camera.access_method" type="string">libgphoto2</merge>
+        </match>
+      </match>
+      <match key="usb.vendor_id" int="0x4102">
+        <match key="usb.product_id" int="0x1119">
           <merge key="info.category" type="string">camera</merge>
 	  <append key="info.capabilities" type="strlist">camera</append>
           <merge key="camera.access_method" type="string">libgphoto2</merge>
