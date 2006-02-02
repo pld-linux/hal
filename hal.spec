@@ -162,7 +162,7 @@ obs³ugi kamer cyfrowych w przestrzeni u¿ytkownika.
 	--with-hwdata=%{_sysconfdir} \
 	--with-pid-file=%{_localstatedir}/run/hald.pid
 %{__make} \
-	scriptdir="%{_libdir}/hal/scripts"
+	scriptdir="%{_sbindir}"
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -173,7 +173,7 @@ install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version} \
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
-	scriptdir="%{_libdir}/hal/scripts"
+	scriptdir="%{_sbindir}"
 
 install examples/volumed/*.py $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 
@@ -236,10 +236,6 @@ EOF
 %attr(755,root,root) %{_sbindir}/*
 %dir %{_sysconfdir}/%{name}
 %{_sysconfdir}/%{name}/fdi
-
-%dir %{_libdir}/hal
-%dir %{_libdir}/hal/scripts
-%attr(755,root,root) %{_libdir}/hal/scripts/hal-*
 
 %attr(754,root,root) /etc/rc.d/init.d/*
 %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/hald
