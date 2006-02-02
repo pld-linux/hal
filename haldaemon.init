@@ -24,11 +24,11 @@ case "$1" in
 		# Check if the service is already running?
 		if [ ! -f /var/lock/subsys/haldaemon ]; then
 		    msg_starting haldaemon
-		    # Verbose mode on/off
-			if is_yes "$verbose"; then
-				daemon hald --verbose=yes --retain-privileges
+		    # Syslog output
+			if is_yes "$use_syslog"; then
+				daemon hald --use-syslog --retain-privileges
 			else
-				daemon hald --verbose=no --retain-privileges
+				daemon hald --retain-privileges
 			fi
 		    RETVAL=$?
 		    [ $RETVAL -eq 0 ] && touch /var/lock/subsys/haldaemon
