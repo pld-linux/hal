@@ -1,13 +1,12 @@
 #
 # Conditional build:
 %bcond_without	docs		# disable documentation building
-%bcond_with	fstab_sync	# build with fstab-sync
 #
 Summary:	HAL - Hardware Abstraction Layer
 Summary(pl):	HAL - abstrakcyjna warstwa dostêpu do sprzêtu
 Name:		hal
 Version:	0.5.6
-Release:	5
+Release:	5.1
 License:	AFL v2.0 or GPL v2
 Group:		Libraries
 Source0:	http://freedesktop.org/~david/dist/%{name}-%{version}.tar.gz
@@ -119,6 +118,22 @@ GNOME program for displaying devices detected by HAL.
 %description device-manager -l pl
 Program dla GNOME wy¶wietlaj±cy urz±dzenia wykryte przez HAL.
 
+%package fstab-sync
+Summary:	File system table manager
+Summary(pl):	Zarz±dca tabeli systemu plików
+Group:		Applications
+Requires:	%{name} = %{version}-%{release}
+Obsoletes:	gnome-mount
+Provides:	storage-methods
+
+%description fstab-sync
+Update the /etc/fstab file and and create/remove mount points in /media
+in response to HAL events.
+
+%description fstab-sync -l pl
+Zmienia zawarto¶æ pliku /etc/fstab i tworzy/usuwa punkty mountowania
+w odpowiedzi na zdarzenia generowane przez HAL.
+
 %package gphoto
 Summary:	Userspace support for digital cameras
 Summary(pl):	Wsparcie dla kamer cyfrowych w przestrzeni u¿ytkownika
@@ -160,13 +175,12 @@ obs³ugi kamer cyfrowych w przestrzeni u¿ytkownika.
 	%{!?with_docs:--disable-docbook-docs} \
 	%{?with_docs:--enable-doxygen-docs} \
 	%{!?with_docs:--disable-doxygen-docs} \
-	%{?with_fstab_sync:--enable-fstab-sync} \
+	--enable-fstab-sync \
 	--enable-pcmcia-support \
 	--enable-selinux \
 	--with-hwdata=%{_sysconfdir} \
 	--with-pid-file=%{_localstatedir}/run/hald.pid
-%{__make} \
-	scriptdir="%{_sbindir}"
+%{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -176,8 +190,7 @@ install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version} \
 	$RPM_BUILD_ROOT%{_sysconfdir}/udev/rules.d
 
 %{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT \
-	scriptdir="%{_sbindir}"
+	DESTDIR=$RPM_BUILD_ROOT
 
 install examples/volumed/*.py $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 
@@ -193,6 +206,7 @@ install %{SOURCE5} $RPM_BUILD_ROOT%{_datadir}/%{name}/fdi/information/10freedesk
 install %{SOURCE6} $RPM_BUILD_ROOT%{_sysconfdir}/udev/rules.d/gphoto.rules
 
 rm -rf $RPM_BUILD_ROOT%{_sysconfdir}/hotplug.d
+rm -rf $RPM_BUILD_ROOT%{_libdir}/hal.hotplug
 mv -f $RPM_BUILD_ROOT%{_datadir}/locale/sl{_SI,}
 
 %find_lang %{name}
@@ -227,6 +241,12 @@ WARNING!
 
 EOF
 
+%post fstab-sync
+%service haldaemon restart
+
+%postun fstab-sync
+%service haldaemon restart
+
 %files -f %{name}.lang
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog NEWS README doc/TODO
@@ -237,7 +257,10 @@ EOF
 %attr(755,root,root) %{_bindir}/hal-set-property
 %attr(755,root,root) %{_bindir}/lshal
 %attr(755,root,root) %{_libdir}/hald-*
-%attr(755,root,root) %{_sbindir}/*
+%dir %{_libdir}/hal
+%dir %{_libdir}/hal/scripts
+%attr(755,root,root) %{_libdir}/hal/scripts/*
+
 %dir %{_sysconfdir}/%{name}
 %{_sysconfdir}/%{name}/fdi
 
@@ -248,7 +271,6 @@ EOF
 
 %dir %{_datadir}/%{name}
 %{_datadir}/%{name}/fdi
-%{?with_fstab_sync:%{_mandir}/man8/fstab-sync.8*}
 
 %files libs
 %defattr(644,root,root,755)
@@ -276,6 +298,11 @@ EOF
 %{_datadir}/%{name}/device-manager/*.png
 %{_datadir}/%{name}/device-manager/*.glade
 %{_desktopdir}/*.desktop
+
+%files fstab-sync
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_sbindir}/*
+%{_mandir}/man8/fstab-sync.8*
 
 %files gphoto
 %defattr(644,root,root,755)
