@@ -124,8 +124,6 @@ Summary:	File system table manager
 Summary(pl):	Zarz±dca tabeli systemu plików
 Group:		Applications
 Requires:	%{name} = %{version}-%{release}
-Obsoletes:	gnome-mount
-Provides:	storage-methods
 
 %description fstab-sync
 Update the /etc/fstab file and and create/remove mount points in /media
@@ -207,7 +205,7 @@ install %{SOURCE5} $RPM_BUILD_ROOT%{_datadir}/%{name}/fdi/information/10freedesk
 install %{SOURCE6} $RPM_BUILD_ROOT%{_sysconfdir}/udev/rules.d/gphoto.rules
 
 # policy file to ignore fixed disks.
-install %{SOURCE5} \
+install %{SOURCE7} \
 	$RPM_BUILD_ROOT%{_datadir}/%{name}/fdi/policy/10osvendor/99-storage-policy-fixed-drives.fdi
 
 rm -rf $RPM_BUILD_ROOT%{_sysconfdir}/hotplug.d
@@ -261,6 +259,7 @@ EOF
 %attr(755,root,root) %{_bindir}/hal-get-property
 %attr(755,root,root) %{_bindir}/hal-set-property
 %attr(755,root,root) %{_bindir}/lshal
+%attr(755,root,root) %{_sbindir}/hald
 %attr(755,root,root) %{_libdir}/hald-*
 %dir %{_libdir}/hal
 %dir %{_libdir}/hal/scripts
@@ -306,7 +305,7 @@ EOF
 
 %files fstab-sync
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_sbindir}/*
+%attr(755,root,root) %{_sbindir}/fstab-sync
 %{_mandir}/man8/fstab-sync.8*
 
 %files gphoto
