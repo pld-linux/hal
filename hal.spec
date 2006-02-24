@@ -5,25 +5,20 @@
 Summary:	HAL - Hardware Abstraction Layer
 Summary(pl):	HAL - abstrakcyjna warstwa dostêpu do sprzêtu
 Name:		hal
-Version:	0.5.6
-Release:	6
+Version:	0.5.7
+Release:	0.1
 License:	AFL v2.0 or GPL v2
 Group:		Libraries
 Source0:	http://freedesktop.org/~david/dist/%{name}-%{version}.tar.gz
-# Source0-md5:	1e494b4319bbdfeb25224f914e34d0d3
+# Source0-md5:	4163afb8285db64e00e7b1392b401d92
 Source1:	%{name}daemon.init
 Source2:	%{name}d.sysconfig
 Source3:	%{name}-device-manager.desktop
-Source4:	%{name}.rules
-Source5:	%{name}-libgphoto2.fdi
-Source6:	%{name}-libgphoto_udev.rules
-Source7:	%{name}-storage-policy-fixed-drives.fdi
+Source4:	%{name}-libgphoto2.fdi
+Source5:	%{name}-libgphoto_udev.rules
+Source6:	%{name}-storage-policy-fixed-drives.fdi
 Patch0:		%{name}-device_manager.patch
-Patch1:		%{name}-link.patch
-Patch2:		%{name}-pld_policy.patch
-Patch3:		%{name}-pld_powersave.patch
-Patch4:		%{name}-eject_audiocd.patch
-Patch5:		%{name}-script_path.patch
+Patch1:		%{name}-script_path.patch
 URL:		http://freedesktop.org/Software/hal
 BuildRequires:	autoconf >= 2.57
 BuildRequires:	automake
@@ -59,6 +54,7 @@ Requires:	dmidecode
 Requires:	glib2 >= 1:2.6.0
 Requires:	python-dbus >= 0.60
 Requires:	udev >= 1:079-2
+Obsoletes:	hal-fstab-sync
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -119,20 +115,6 @@ GNOME program for displaying devices detected by HAL.
 %description device-manager -l pl
 Program dla GNOME wy¶wietlaj±cy urz±dzenia wykryte przez HAL.
 
-%package fstab-sync
-Summary:	File system table manager
-Summary(pl):	Zarz±dca tabeli systemu plików
-Group:		Applications
-Requires:	%{name} = %{version}-%{release}
-
-%description fstab-sync
-Update the /etc/fstab file and and create/remove mount points in /media
-in response to HAL events.
-
-%description fstab-sync -l pl
-Zmienia zawarto¶æ pliku /etc/fstab i tworzy/usuwa punkty mountowania
-w odpowiedzi na zdarzenia generowane przez HAL.
-
 %package gphoto
 Summary:	Userspace support for digital cameras
 Summary(pl):	Wsparcie dla kamer cyfrowych w przestrzeni u¿ytkownika
@@ -156,10 +138,6 @@ obs³ugi kamer cyfrowych w przestrzeni u¿ytkownika.
 %setup -q
 %patch0 -p1
 %patch1 -p1
-%patch2 -p1
-%patch3 -p1
-%patch4 -p1
-%patch5 -p1
 
 %build
 %{__glib_gettextize}
@@ -198,14 +176,13 @@ find $RPM_BUILD_ROOT%{_datadir}/hal/device-manager -name "*.py" -exec rm -f {} \
 install %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/haldaemon
 install %{SOURCE2} $RPM_BUILD_ROOT/etc/sysconfig/hald
 install %{SOURCE3} $RPM_BUILD_ROOT%{_desktopdir}
-install %{SOURCE4} $RPM_BUILD_ROOT%{_sysconfdir}/udev/rules.d/hal.rules
 
 # hal-gphoto
-install %{SOURCE5} $RPM_BUILD_ROOT%{_datadir}/%{name}/fdi/information/10freedesktop/10-gphoto.fdi
-install %{SOURCE6} $RPM_BUILD_ROOT%{_sysconfdir}/udev/rules.d/gphoto.rules
+install %{SOURCE4} $RPM_BUILD_ROOT%{_datadir}/%{name}/fdi/information/10freedesktop/10-gphoto.fdi
+install %{SOURCE5} $RPM_BUILD_ROOT%{_sysconfdir}/udev/rules.d/gphoto.rules
 
 # policy file to ignore fixed disks.
-install %{SOURCE7} \
+install %{SOURCE6} \
 	$RPM_BUILD_ROOT%{_datadir}/%{name}/fdi/policy/10osvendor/99-storage-policy-fixed-drives.fdi
 
 rm -rf $RPM_BUILD_ROOT%{_sysconfdir}/hotplug.d
@@ -244,12 +221,6 @@ WARNING!
 
 EOF
 
-%post fstab-sync
-%service haldaemon restart
-
-%postun fstab-sync
-%service haldaemon restart
-
 %files -f %{name}.lang
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog NEWS README doc/TODO
@@ -261,6 +232,7 @@ EOF
 %attr(755,root,root) %{_bindir}/lshal
 %attr(755,root,root) %{_sbindir}/hald
 %attr(755,root,root) %{_libdir}/hald-*
+%attr(755,root,root) %{_libexecdir}/hal-*
 %dir %{_libdir}/hal
 %dir %{_libdir}/hal/scripts
 %attr(755,root,root) %{_libdir}/hal/scripts/*
@@ -271,7 +243,7 @@ EOF
 %attr(754,root,root) /etc/rc.d/init.d/*
 %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/hald
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/dbus*/system.d/*
-%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/udev/rules.d/hal.rules
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/udev/rules.d/*
 
 %dir %{_datadir}/%{name}
 %{_datadir}/%{name}/fdi
@@ -302,11 +274,6 @@ EOF
 %{_datadir}/%{name}/device-manager/*.png
 %{_datadir}/%{name}/device-manager/*.glade
 %{_desktopdir}/*.desktop
-
-%files fstab-sync
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_sbindir}/fstab-sync
-%{_mandir}/man8/fstab-sync.8*
 
 %files gphoto
 %defattr(644,root,root,755)
