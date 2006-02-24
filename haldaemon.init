@@ -25,7 +25,7 @@ case "$1" in
 		if [ ! -f /var/lock/subsys/haldaemon ]; then
 		    msg_starting haldaemon
 		    # Syslog output
-			if is_yes "$use_syslog"; then
+			if is_yes "$USE_SYSLOG"; then
 				daemon hald --use-syslog --retain-privileges
 			else
 				daemon hald --retain-privileges

@@ -1,7 +1,11 @@
 # Customized settings for hal daemon
-
+#
 # Logging output
-use_syslog="yes"
+USE_SYSLOG="yes"
+
+# Suspend type (for future use)
+# possible values: powersave, suspend, suspend2
+SUSPEND_TYPE="suspend2"
 
 # This must be last line !
 # vi:syntax=sh:tw=78:ts=8:sw=4
