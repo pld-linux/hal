@@ -19,7 +19,6 @@ Source5:	%{name}-libgphoto_udev.rules
 Source6:	%{name}-storage-policy-fixed-drives.fdi
 Patch0:		%{name}-device_manager.patch
 Patch1:		%{name}-script_path.patch
-Patch2:		%{name}-typo.patch
 URL:		http://freedesktop.org/Software/hal
 BuildRequires:	autoconf >= 2.57
 BuildRequires:	automake
@@ -139,7 +138,6 @@ obs³ugi kamer cyfrowych w przestrzeni u¿ytkownika.
 %setup -q
 %patch0 -p1
 %patch1 -p1
-%patch2 -p1
 
 %build
 %{__glib_gettextize}
