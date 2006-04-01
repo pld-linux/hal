@@ -178,10 +178,6 @@ find $RPM_BUILD_ROOT%{_datadir}/hal/device-manager -name "*.py" -exec rm -f {} \
 install %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/haldaemon
 install %{SOURCE2} $RPM_BUILD_ROOT/etc/sysconfig/hald
 install %{SOURCE3} $RPM_BUILD_ROOT%{_desktopdir}
-<<<<<<< hal.spec
-sed -e 's|lib|%{_lib}|' %{SOURCE4} > $RPM_BUILD_ROOT%{_sysconfdir}/udev/rules.d/hal.rules
-=======
->>>>>>> 1.105.2.14
 
 # hal-gphoto
 install %{SOURCE4} $RPM_BUILD_ROOT%{_datadir}/%{name}/fdi/information/10freedesktop/10-gphoto.fdi
