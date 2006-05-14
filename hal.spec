@@ -1,31 +1,29 @@
 #
 # Conditional build:
 %bcond_without	docs		# disable documentation building
-%bcond_without	fstab_sync	# build with fstab-sync
 #
 Summary:	HAL - Hardware Abstraction Layer
 Summary(pl):	HAL - abstrakcyjna warstwa dostêpu do sprzêtu
 Name:		hal
-Version:	0.5.5.1
-Release:	5
+Version:	0.5.7
+Release:	1
 License:	AFL v2.0 or GPL v2
 Group:		Libraries
 Source0:	http://freedesktop.org/~david/dist/%{name}-%{version}.tar.gz
-# Source0-md5:	2abd81ed3f5a37789f4fbda2f6a61270
+# Source0-md5:	4163afb8285db64e00e7b1392b401d92
 Source1:	%{name}daemon.init
 Source2:	%{name}d.sysconfig
 Source3:	%{name}-device-manager.desktop
-Source4:	%{name}.rules
-Source5:	%{name}-libgphoto2.fdi
-Source6:	%{name}-libgphoto_udev.rules
+Source4:	%{name}-libgphoto2.fdi
+Source5:	%{name}-libgphoto_udev.rules
+Source6:	%{name}-storage-policy-fixed-drives.fdi
 Patch0:		%{name}-device_manager.patch
-Patch1:		%{name}-link.patch
-Patch2:		%{name}-pld_policy.patch
-Patch3:		%{name}-pld_powersave.patch
+Patch1:		%{name}-script_path.patch
+Patch2:		%{name}-tools.patch
 URL:		http://freedesktop.org/Software/hal
 BuildRequires:	autoconf >= 2.57
 BuildRequires:	automake
-BuildRequires:	dbus-glib-devel >= 0.33
+BuildRequires:	dbus-glib-devel >= 0.60
 %if %{with docs}
 BuildRequires:	docbook-dtd412-xml
 BuildRequires:	docbook-dtd41-sgml
@@ -50,14 +48,14 @@ Requires(pre):	/bin/id
 Requires(pre):	/usr/sbin/groupadd
 Requires(pre):	/usr/sbin/useradd
 Requires(post,preun):	/sbin/chkconfig
-Requires:	%{name}-libs = %{version}-%{release}
-Requires:	dbus >= 0.33
-Requires:	glib2 >= 1:2.6.0
-Requires:	mount >= 2.12-14
 %pyrequires_eq	python
-Requires:	python-dbus >= 0.33
-Requires:	udev >= 1:071
-# Recommended:	dmidecode
+Requires:	%{name}-libs = %{version}-%{release}
+Requires:	dbus >= 0.60-4
+Requires:	dmidecode
+Requires:	glib2 >= 1:2.6.0
+Requires:	python-dbus >= 0.60
+Requires:	udev >= 1:079-2
+Obsoletes:	hal-fstab-sync
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -142,7 +140,6 @@ obs³ugi kamer cyfrowych w przestrzeni u¿ytkownika.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
-%patch3 -p1
 
 %build
 %{__glib_gettextize}
@@ -157,7 +154,7 @@ obs³ugi kamer cyfrowych w przestrzeni u¿ytkownika.
 	%{!?with_docs:--disable-docbook-docs} \
 	%{?with_docs:--enable-doxygen-docs} \
 	%{!?with_docs:--disable-doxygen-docs} \
-	%{?with_fstab_sync:--enable-fstab-sync} \
+	--enable-fstab-sync \
 	--enable-pcmcia-support \
 	--enable-selinux \
 	--with-hwdata=%{_sysconfdir} \
@@ -181,13 +178,17 @@ find $RPM_BUILD_ROOT%{_datadir}/hal/device-manager -name "*.py" -exec rm -f {} \
 install %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/haldaemon
 install %{SOURCE2} $RPM_BUILD_ROOT/etc/sysconfig/hald
 install %{SOURCE3} $RPM_BUILD_ROOT%{_desktopdir}
-sed -e 's,/lib/,/%{_lib}/,' %{SOURCE4} > $RPM_BUILD_ROOT%{_sysconfdir}/udev/rules.d/hal.rules
 
 # hal-gphoto
-install %{SOURCE5} $RPM_BUILD_ROOT%{_datadir}/%{name}/fdi/information/10freedesktop/10-gphoto.fdi
-install %{SOURCE6} $RPM_BUILD_ROOT%{_sysconfdir}/udev/rules.d/gphoto.rules
+install %{SOURCE4} $RPM_BUILD_ROOT%{_datadir}/%{name}/fdi/information/10freedesktop/10-gphoto.fdi
+install %{SOURCE5} $RPM_BUILD_ROOT%{_sysconfdir}/udev/rules.d/gphoto.rules
+
+# policy file to ignore fixed disks.
+install %{SOURCE6} \
+	$RPM_BUILD_ROOT%{_datadir}/%{name}/fdi/policy/10osvendor/99-storage-policy-fixed-drives.fdi
 
 rm -rf $RPM_BUILD_ROOT%{_sysconfdir}/hotplug.d
+rm -rf $RPM_BUILD_ROOT%{_libdir}/hal.hotplug
 mv -f $RPM_BUILD_ROOT%{_datadir}/locale/sl{_SI,}
 
 %find_lang %{name}
@@ -231,20 +232,23 @@ EOF
 %attr(755,root,root) %{_bindir}/hal-get-property
 %attr(755,root,root) %{_bindir}/hal-set-property
 %attr(755,root,root) %{_bindir}/lshal
+%attr(755,root,root) %{_sbindir}/hald
 %attr(755,root,root) %{_libdir}/hald-*
-%attr(755,root,root) %{_sbindir}/*
+%attr(755,root,root) %{_libexecdir}/hal-*
+%dir %{_libdir}/hal
+%dir %{_libdir}/hal/scripts
+%attr(755,root,root) %{_libdir}/hal/scripts/*
+
 %dir %{_sysconfdir}/%{name}
 %{_sysconfdir}/%{name}/fdi
 
 %attr(754,root,root) /etc/rc.d/init.d/*
-%attr(755,root,root) %{_libdir}/hal.hotplug
 %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/hald
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/dbus*/system.d/*
-%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/udev/rules.d/hal.rules
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/udev/rules.d/*
 
 %dir %{_datadir}/%{name}
 %{_datadir}/%{name}/fdi
-%{?with_fstab_sync:%{_mandir}/man8/fstab-sync.8*}
 
 %files libs
 %defattr(644,root,root,755)
@@ -271,7 +275,6 @@ EOF
 %{_datadir}/%{name}/device-manager/*.py[co]
 %{_datadir}/%{name}/device-manager/*.png
 %{_datadir}/%{name}/device-manager/*.glade
-%attr(755,root,root) %{_datadir}/%{name}/device-manager/hal-device-manager
 %{_desktopdir}/*.desktop
 
 %files gphoto
