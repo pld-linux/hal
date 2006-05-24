@@ -74,7 +74,7 @@ case "$1" in
 	exit $?
 	;;
   status)
-	status haldaemon
+	status hald
 	RETVAL=$?
 	;;
   *)
