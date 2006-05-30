@@ -60,7 +60,7 @@ case "$1" in
 		killproc hald -HUP
 		RETVAL=$?
 	else
-		msg_not_running haldaemon >&2
+		msg_not_running haldaemon
 		RETVAL=7
 	fi
 	;;
