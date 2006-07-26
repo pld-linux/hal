@@ -5,12 +5,12 @@
 Summary:	HAL - Hardware Abstraction Layer
 Summary(pl):	HAL - abstrakcyjna warstwa dostêpu do sprzêtu
 Name:		hal
-Version:	0.5.7
-Release:	4
+Version:	0.5.7.1
+Release:	1
 License:	AFL v2.0 or GPL v2
 Group:		Libraries
 Source0:	http://freedesktop.org/~david/dist/%{name}-%{version}.tar.gz
-# Source0-md5:	4163afb8285db64e00e7b1392b401d92
+# Source0-md5:	d7a7741808ba130f8aff3f5d3b5689e4
 Source1:	%{name}daemon.init
 Source2:	%{name}d.sysconfig
 Source3:	%{name}-device-manager.desktop
@@ -21,10 +21,11 @@ Patch0:		%{name}-device_manager.patch
 Patch1:		%{name}-script_path.patch
 Patch2:		%{name}-tools.patch
 Patch3:		%{name}-is_mounted_read_only_property.patch
+Patch4:		%{name}-samsung_yp_z5.patch
 URL:		http://freedesktop.org/Software/hal
 BuildRequires:	autoconf >= 2.57
 BuildRequires:	automake
-BuildRequires:	dbus-glib-devel >= 0.60
+BuildRequires:	dbus-glib-devel >= 0.62
 %if %{with docs}
 BuildRequires:	docbook-dtd412-xml
 BuildRequires:	docbook-dtd41-sgml
@@ -33,7 +34,7 @@ BuildRequires:	doxygen
 %endif
 BuildRequires:	expat-devel
 BuildRequires:	gettext-devel
-BuildRequires:	glib2-devel >= 1:2.6.0
+BuildRequires:	glib2-devel >= 1:2.12.1
 BuildRequires:	intltool
 BuildRequires:	libcap-devel
 BuildRequires:	libselinux-devel >= 1.17.13
@@ -51,10 +52,10 @@ Requires(pre):	/usr/sbin/useradd
 Requires(post,preun):	/sbin/chkconfig
 %pyrequires_eq	python
 Requires:	%{name}-libs = %{version}-%{release}
-Requires:	dbus >= 0.60-4
+Requires:	dbus >= 0.62
 Requires:	dmidecode
-Requires:	glib2 >= 1:2.6.0
-Requires:	python-dbus >= 0.60
+Requires:	glib2 >= 1:2.12.1
+Requires:	python-dbus >= 0.62
 Requires:	udev >= 1:079-2
 Obsoletes:	hal-fstab-sync
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -69,7 +70,7 @@ HAL jest implementacj± abstrakcyjnej warstwy dostêpu do sprzêtu.
 Summary:	HAL library
 Summary(pl):	Biblioteka HAL
 Group:		Libraries
-Requires:	dbus-libs >= 0.33
+Requires:	dbus-libs >= 0.62
 
 %description libs
 HAL library.
@@ -82,7 +83,7 @@ Summary:	Header files for HAL library
 Summary(pl):	Pliki nag³ówkowe biblioteki HAL
 Group:		Development/Libraries
 Requires:	%{name}-libs = %{version}-%{release}
-Requires:	dbus-devel >= 0.33
+Requires:	dbus-devel >= 0.62
 
 %description devel
 Header files for HAL library.
@@ -142,6 +143,7 @@ obs³ugi kamer cyfrowych w przestrzeni u¿ytkownika.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1
 
 %build
 %{__glib_gettextize}
