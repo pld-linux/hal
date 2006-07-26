@@ -1,10 +1,10 @@
 diff -aurN hal-0.5.7.1.orig/fdi/information/10freedesktop/10-usb-music-players.fdi hal-0.5.7.1/fdi/information/10freedesktop/10-usb-music-players.fdi
 --- hal-0.5.7.1.orig/fdi/information/10freedesktop/10-usb-music-players.fdi	2006-02-04 18:27:35.000000000 +0100
-+++ hal-0.5.7.1/fdi/information/10freedesktop/10-usb-music-players.fdi	2006-07-26 21:15:27.637921204 +0200
-@@ -273,6 +273,16 @@
-             <append key="portable_audio_player.output_formats" type="strlist">audio/x-ms-wma</append>
++++ hal-0.5.7.1/fdi/information/10freedesktop/10-usb-music-players.fdi	2006-07-26 21:35:59.718616468 +0200
+@@ -274,6 +274,17 @@
              <append key="portable_audio_player.output_formats" type="strlist">application/ogg</append>
              <append key="portable_audio_player.input_formats" type="strlist">audio/x-wav</append>
+           </match>  
 +          <!-- Samsung YP-Z5 -->
 +          <match key="@storage.physical_device:usb.product_id" int="0x503c">
 +            <append key="info.capabilities" type="strlist">portable_audio_player</append>
@@ -15,6 +15,7 @@ diff -aurN hal-0.5.7.1.orig/fdi/information/10freedesktop/10-usb-music-players.f
 +            <append key="portable_audio_player.output_formats" type="strlist">audio/mpeg</append>
 +            <append key="portable_audio_player.output_formats" type="strlist">audio/x-ms-wma</append>
 +            <append key="portable_audio_player.output_formats" type="strlist">application/ogg</append>
-           </match>  
++          </match>
  	</match>
        </match>
+     </match>      
