@@ -5,12 +5,12 @@
 Summary:	HAL - Hardware Abstraction Layer
 Summary(pl):	HAL - abstrakcyjna warstwa dostêpu do sprzêtu
 Name:		hal
-Version:	0.5.7
-Release:	3
+Version:	0.5.7.1
+Release:	1
 License:	AFL v2.0 or GPL v2
 Group:		Libraries
 Source0:	http://freedesktop.org/~david/dist/%{name}-%{version}.tar.gz
-# Source0-md5:	4163afb8285db64e00e7b1392b401d92
+# Source0-md5:	d7a7741808ba130f8aff3f5d3b5689e4
 Source1:	%{name}daemon.init
 Source2:	%{name}d.sysconfig
 Source3:	%{name}-device-manager.desktop
@@ -21,6 +21,8 @@ Patch0:		%{name}-device_manager.patch
 Patch1:		%{name}-script_path.patch
 Patch2:		%{name}-tools.patch
 Patch3:		%{name}-is_mounted_read_only_property.patch
+Patch4:		%{name}-samsung_yp_z5.patch
+Patch5:		%{name}-suspend2.patch
 URL:		http://freedesktop.org/Software/hal
 BuildRequires:	autoconf >= 2.57
 BuildRequires:	automake
@@ -142,6 +144,8 @@ obs³ugi kamer cyfrowych w przestrzeni u¿ytkownika.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1
+%patch5 -p1
 
 %build
 %{__glib_gettextize}
