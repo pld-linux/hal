@@ -6,7 +6,7 @@ Summary:	HAL - Hardware Abstraction Layer
 Summary(pl):	HAL - abstrakcyjna warstwa dostêpu do sprzêtu
 Name:		hal
 Version:	0.5.7.1
-Release:	3
+Release:	4
 License:	AFL v2.0 or GPL v2
 Group:		Libraries
 Source0:	http://freedesktop.org/~david/dist/%{name}-%{version}.tar.gz
@@ -189,7 +189,7 @@ install %{SOURCE3} $RPM_BUILD_ROOT%{_desktopdir}
 
 # hal-gphoto
 install %{SOURCE4} $RPM_BUILD_ROOT%{_datadir}/%{name}/fdi/information/10freedesktop/10-gphoto.fdi
-install %{SOURCE5} $RPM_BUILD_ROOT%{_sysconfdir}/udev/rules.d/gphoto.rules
+install %{SOURCE5} $RPM_BUILD_ROOT%{_sysconfdir}/udev/rules.d/52-udev-gphoto.rules
 
 # policy file to ignore fixed disks.
 install %{SOURCE6} \
@@ -287,5 +287,5 @@ EOF
 
 %files gphoto
 %defattr(644,root,root,755)
-%{_sysconfdir}/udev/rules.d/gphoto.rules
+%{_sysconfdir}/udev/rules.d/52-udev-gphoto.rules
 %{_datadir}/%{name}/fdi/information/10freedesktop/10-gphoto.fdi
