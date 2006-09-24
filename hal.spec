@@ -24,6 +24,7 @@ Patch3:		%{name}-is_mounted_read_only_property.patch
 Patch4:		%{name}-samsung_yp_z5.patch
 Patch5:		%{name}-suspend2.patch
 Patch6:		%{name}-dbus.patch
+Patch7:		%{name}-80211.patch
 URL:		http://freedesktop.org/Software/hal
 BuildRequires:	autoconf >= 2.57
 BuildRequires:	automake
@@ -148,6 +149,7 @@ obs³ugi kamer cyfrowych w przestrzeni u¿ytkownika.
 %patch4 -p1
 %patch5 -p1
 %patch6 -p0
+%patch7 -p1
 
 %build
 %{__glib_gettextize}
