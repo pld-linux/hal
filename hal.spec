@@ -17,6 +17,7 @@ Source3:	%{name}-device-manager.desktop
 Source4:	%{name}-libgphoto2.fdi
 Source5:	%{name}-libgphoto_udev.rules
 Source6:	%{name}-storage-policy-fixed-drives.fdi
+Patch0:		%{name}-ac.patch
 Patch1:		%{name}-device_manager.patch
 Patch2:		%{name}-tools.patch
 Patch3:		%{name}-samsung_yp_z5.patch
@@ -33,7 +34,7 @@ BuildRequires:	doxygen
 BuildRequires:	expat-devel
 BuildRequires:	gettext-devel
 BuildRequires:	glib2-devel >= 1:2.12.1
-BuildRequires:	intltool
+BuildRequires:	intltool >= 0.22
 BuildRequires:	libcap-devel
 BuildRequires:	libselinux-devel >= 1.17.13
 BuildRequires:	libtool
@@ -44,6 +45,8 @@ BuildRequires:	popt-devel
 BuildRequires:	python-modules
 BuildRequires:	rpmbuild(macros) >= 1.228
 BuildRequires:	which
+# polkit >= 0.2 (strongly advised by configure for security)
+# libparted == 1.7.1 (optional, but needs EQUAL version)
 Requires(pre):	/usr/bin/getgid
 Requires(pre):	/bin/id
 Requires(pre):	/usr/sbin/groupadd
@@ -138,6 +141,7 @@ obs³ugi kamer cyfrowych w przestrzeni u¿ytkownika.
 
 %prep
 %setup -q
+%patch0 -p1
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
