@@ -5,26 +5,21 @@
 Summary:	HAL - Hardware Abstraction Layer
 Summary(pl):	HAL - abstrakcyjna warstwa dostêpu do sprzêtu
 Name:		hal
-Version:	0.5.7.1
-Release:	5
+Version:	0.5.8.1
+Release:	1
 License:	AFL v2.0 or GPL v2
 Group:		Libraries
 Source0:	http://freedesktop.org/~david/dist/%{name}-%{version}.tar.gz
-# Source0-md5:	d7a7741808ba130f8aff3f5d3b5689e4
+# Source0-md5:	568d7ce9831c18a5e6e502abd6781257
 Source1:	%{name}daemon.init
 Source2:	%{name}d.sysconfig
 Source3:	%{name}-device-manager.desktop
 Source4:	%{name}-libgphoto2.fdi
 Source5:	%{name}-libgphoto_udev.rules
 Source6:	%{name}-storage-policy-fixed-drives.fdi
-Patch0:		%{name}-device_manager.patch
-Patch1:		%{name}-script_path.patch
+Patch1:		%{name}-device_manager.patch
 Patch2:		%{name}-tools.patch
-Patch3:		%{name}-is_mounted_read_only_property.patch
-Patch4:		%{name}-samsung_yp_z5.patch
-Patch5:		%{name}-suspend2.patch
-Patch6:		%{name}-dbus.patch
-Patch7:		%{name}-80211.patch
+Patch3:		%{name}-samsung_yp_z5.patch
 URL:		http://freedesktop.org/Software/hal
 BuildRequires:	autoconf >= 2.57
 BuildRequires:	automake
@@ -42,6 +37,7 @@ BuildRequires:	intltool
 BuildRequires:	libcap-devel
 BuildRequires:	libselinux-devel >= 1.17.13
 BuildRequires:	libtool
+BuildRequires:	libvolume_id-devel >= 0.97
 BuildRequires:	pciutils
 BuildRequires:	pkgconfig
 BuildRequires:	popt-devel
@@ -142,14 +138,9 @@ obs³ugi kamer cyfrowych w przestrzeni u¿ytkownika.
 
 %prep
 %setup -q
-%patch0 -p1
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
-%patch4 -p1
-%patch5 -p1
-%patch6 -p0
-%patch7 -p1
 
 %build
 %{__glib_gettextize}
@@ -167,6 +158,7 @@ obs³ugi kamer cyfrowych w przestrzeni u¿ytkownika.
 	--enable-fstab-sync \
 	--enable-pcmcia-support \
 	--enable-selinux \
+	--disable-policy-kit \
 	--with-hwdata=%{_sysconfdir} \
 	--with-pid-file=%{_localstatedir}/run/hald.pid
 %{__make}
@@ -181,7 +173,7 @@ install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version} \
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-install examples/volumed/*.py $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
+install doc/spec/*.py $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 
 find $RPM_BUILD_ROOT%{_datadir}/hal/device-manager -name "*.py" -exec rm -f {} \;
 
