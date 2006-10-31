@@ -1,0 +1,18 @@
+--- hal-0.5.8.1/configure.in.orig	2006-09-19 22:24:05.000000000 +0200
++++ hal-0.5.8.1/configure.in	2006-10-31 23:13:09.103350500 +0100
+@@ -243,9 +243,12 @@
+ dnl Check for libpci
+ AC_CHECK_HEADERS(pci/pci.h, [
+ 	AC_CHECK_LIB(pci, pci_init, [
+-		USE_LIBPCI=yes AM_CONDITIONAL(HAVE_LIBPCI,true)], [
+-		USE_LIBPCI=no AM_CONDITIONAL(HAVE_LIBPCI,false)])], [
+-	USE_LIBPCI=no AM_CONDITIONAL(HAVE_LIBPCI,false)])
++		USE_LIBPCI=yes
++	       	AM_CONDITIONAL(HAVE_LIBPCI,true)], [
++		USE_LIBPCI=no
++	       	AM_CONDITIONAL(HAVE_LIBPCI,false)])], [
++	USE_LIBPCI=no
++       	AM_CONDITIONAL(HAVE_LIBPCI,false)])
+ 
+ dnl see if we should build macbookpro utils
+ AC_ARG_WITH(macbookpro,     [  --with-macbookpro       Whether to build Macbook Pro utils (auto)])
