@@ -21,6 +21,7 @@ Patch0:		%{name}-ac.patch
 Patch1:		%{name}-device_manager.patch
 Patch2:		%{name}-tools.patch
 Patch3:		%{name}-samsung_yp_z5.patch
+Patch4:		%{name}-libpci.patch
 URL:		http://freedesktop.org/Software/hal
 BuildRequires:	autoconf >= 2.57
 BuildRequires:	automake
@@ -147,6 +148,7 @@ obs³ugi kamer cyfrowych w przestrzeni u¿ytkownika.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1
 
 %build
 %{__glib_gettextize}
@@ -165,6 +167,7 @@ obs³ugi kamer cyfrowych w przestrzeni u¿ytkownika.
 	--enable-pcmcia-support \
 	--enable-selinux \
 	--disable-policy-kit \
+	--with-html-dir=%{_gtkdocdir} \
 	--with-hwdata=%{_sysconfdir} \
 	--with-pid-file=%{_localstatedir}/run/hald.pid
 %{__make}
@@ -266,6 +269,8 @@ EOF
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/lib*.so
 %{_libdir}/lib*.la
+# apidocs?
+%{_gtkdocdir}/hal
 
 %dir %{_examplesdir}/%{name}-%{version}
 %attr(755,root,root) %{_examplesdir}/%{name}-%{version}/*.py
