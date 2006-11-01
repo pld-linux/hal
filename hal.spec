@@ -31,22 +31,24 @@ BuildRequires:	docbook-dtd41-sgml
 BuildRequires:	docbook-utils
 BuildRequires:	doxygen
 %endif
-BuildRequires:	expat-devel
+BuildRequires:	expat-devel >= 1:1.95.8
 BuildRequires:	gettext-devel
 BuildRequires:	glib2-devel >= 1:2.12.1
 BuildRequires:	intltool >= 0.22
 BuildRequires:	libcap-devel
 BuildRequires:	libselinux-devel >= 1.17.13
 BuildRequires:	libtool
+BuildRequires:	libusb-devel >= 0.1.10a
 BuildRequires:	libvolume_id-devel >= 0.97
-BuildRequires:	pciutils
+BuildRequires:	pciutils-devel >= 2.2.3
 BuildRequires:	pkgconfig
 BuildRequires:	popt-devel
 BuildRequires:	python-modules
 BuildRequires:	rpmbuild(macros) >= 1.228
 BuildRequires:	which
-# polkit >= 0.2 (strongly advised by configure for security)
-# libparted == 1.7.1 (optional, but needs EQUAL version)
+# BR: polkit >= 0.2 (strongly advised by configure for security)
+# BR: libparted-devel == 1.7.1 (optional, used with --enable-parted only, needs EQUAL version)
+# R: cryptsetup-luks >= 1.0.1 (at runtime)
 Requires(pre):	/usr/bin/getgid
 Requires(pre):	/bin/id
 Requires(pre):	/usr/sbin/groupadd
@@ -55,10 +57,10 @@ Requires(post,preun):	/sbin/chkconfig
 %pyrequires_eq	python
 Requires:	%{name}-libs = %{version}-%{release}
 Requires:	dbus >= 0.91
-Requires:	dmidecode
+Requires:	dmidecode >= 2.7
 Requires:	glib2 >= 1:2.12.1
 Requires:	python-dbus >= 0.71
-Requires:	udev >= 1:079-2
+Requires:	udev >= 1:089
 Obsoletes:	hal-fstab-sync
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -125,8 +127,8 @@ Summary:	Userspace support for digital cameras
 Summary(pl):	Wsparcie dla kamer cyfrowych w przestrzeni u¿ytkownika
 Group:		Applications/System
 Requires:	%{name} = %{version}-%{release}
-Requires:	libusb >= 0.1.10-2
-Requires:	udev >= 1:079-2
+Requires:	libusb >= 0.1.10a
+Requires:	udev >= 1:089
 Obsoletes:	hotplug-digicam
 Obsoletes:	udev-digicam
 Provides:	udev-digicam
