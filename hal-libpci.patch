@@ -1,0 +1,11 @@
+--- hal-0.5.8.1/hald/linux/addons/Makefile.am.orig	2006-09-19 22:23:25.000000000 +0200
++++ hal-0.5.8.1/hald/linux/addons/Makefile.am	2006-11-01 01:07:43.981003500 +0100
+@@ -44,7 +44,7 @@
+ 
+ if BUILD_MACBOOKPRO
+ hald_addon_macbookpro_backlight_SOURCES = addon-macbookpro-backlight.c ../../logger.c
+-hald_addon_macbookpro_backlight_LDADD = $(top_builddir)/libhal/libhal.la -lpci @GLIB_LIBS@
++hald_addon_macbookpro_backlight_LDADD = $(top_builddir)/libhal/libhal.la -lpci -lz @GLIB_LIBS@
+ endif
+ 
+ hald_addon_pmu_SOURCES = addon-pmu.c ../../logger.c ../../util_helper.c
