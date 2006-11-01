@@ -108,6 +108,18 @@ Static HAL library.
 %description static -l pl
 Statyczna biblioteka HAL.
 
+%package apidocs
+Summary:	HAL API documentation
+Summary(pl):	Dokumentacja API biblioteki HAL
+Group:		Documentation
+Requires:	gtk-doc-common
+
+%description apidocs
+HAL API documentation.
+
+%description apidocs -l pl
+Dokumentacja API biblioteki HAL.
+
 %package device-manager
 Summary:	HAL device manager for GNOME
 Summary(pl):	Zarz±dca urz±dzeñ HALa dla GNOME
@@ -269,17 +281,18 @@ EOF
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/lib*.so
 %{_libdir}/lib*.la
-# apidocs?
-%{_gtkdocdir}/hal
-
-%dir %{_examplesdir}/%{name}-%{version}
-%attr(755,root,root) %{_examplesdir}/%{name}-%{version}/*.py
 %{_includedir}/%{name}
 %{_pkgconfigdir}/*.pc
+%dir %{_examplesdir}/%{name}-%{version}
+%attr(755,root,root) %{_examplesdir}/%{name}-%{version}/*.py
 
 %files static
 %defattr(644,root,root,755)
 %{_libdir}/lib*.a
+
+%files apidocs
+%defattr(644,root,root,755)
+%{_gtkdocdir}/hal
 
 %files device-manager
 %defattr(644,root,root,755)
