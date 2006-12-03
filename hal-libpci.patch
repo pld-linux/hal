@@ -1,5 +1,18 @@
---- hal-0.5.8.1/hald/linux/addons/Makefile.am.orig	2006-09-19 22:23:25.000000000 +0200
-+++ hal-0.5.8.1/hald/linux/addons/Makefile.am	2006-11-01 01:07:43.981003500 +0100
+diff -urN hal-0.5.8.1.org/configure.in hal-0.5.8.1/configure.in
+--- hal-0.5.8.1.org/configure.in	2006-09-19 22:24:05.000000000 +0200
++++ hal-0.5.8.1/configure.in	2006-12-04 00:30:54.565296750 +0100
+@@ -246,7 +246,7 @@
+ 		USE_LIBPCI=yes
+ 	       	AM_CONDITIONAL(HAVE_LIBPCI,true)], [
+ 		USE_LIBPCI=no
+-	       	AM_CONDITIONAL(HAVE_LIBPCI,false)])], [
++	       	AM_CONDITIONAL(HAVE_LIBPCI,false)],[-lz])], [
+ 	USE_LIBPCI=no
+        	AM_CONDITIONAL(HAVE_LIBPCI,false)])
+ 
+diff -urN hal-0.5.8.1.org/hald/linux/addons/Makefile.am hal-0.5.8.1/hald/linux/addons/Makefile.am
+--- hal-0.5.8.1.org/hald/linux/addons/Makefile.am	2006-09-19 22:23:25.000000000 +0200
++++ hal-0.5.8.1/hald/linux/addons/Makefile.am	2006-12-04 00:29:16.623175750 +0100
 @@ -44,7 +44,7 @@
  
  if BUILD_MACBOOKPRO
