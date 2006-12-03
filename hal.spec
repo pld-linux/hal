@@ -6,7 +6,7 @@ Summary:	HAL - Hardware Abstraction Layer
 Summary(pl):	HAL - abstrakcyjna warstwa dostêpu do sprzêtu
 Name:		hal
 Version:	0.5.8.1
-Release:	2
+Release:	3
 License:	AFL v2.0 or GPL v2
 Group:		Libraries
 Source0:	http://freedesktop.org/~david/dist/%{name}-%{version}.tar.gz
@@ -23,12 +23,13 @@ Patch2:		%{name}-tools.patch
 Patch3:		%{name}-samsung_yp_z5.patch
 Patch4:		%{name}-libpci.patch
 URL:		http://freedesktop.org/Software/hal
+BuildRequires:	PolicyKit-devel
 BuildRequires:	autoconf >= 2.57
 BuildRequires:	automake
 BuildRequires:	dbus-glib-devel >= 0.71
 %if %{with docs}
-BuildRequires:	docbook-dtd412-xml
 BuildRequires:	docbook-dtd41-sgml
+BuildRequires:	docbook-dtd412-xml
 BuildRequires:	docbook-utils
 BuildRequires:	doxygen
 %endif
@@ -47,14 +48,13 @@ BuildRequires:	popt-devel
 BuildRequires:	python-modules
 BuildRequires:	rpmbuild(macros) >= 1.228
 BuildRequires:	which
-# BR: polkit >= 0.2 (strongly advised by configure for security)
 # BR: libparted-devel == 1.7.1 (optional, used with --enable-parted only, needs EQUAL version)
 # R: cryptsetup-luks >= 1.0.1 (at runtime)
-Requires(pre):	/usr/bin/getgid
+Requires(post,preun):	/sbin/chkconfig
 Requires(pre):	/bin/id
+Requires(pre):	/usr/bin/getgid
 Requires(pre):	/usr/sbin/groupadd
 Requires(pre):	/usr/sbin/useradd
-Requires(post,preun):	/sbin/chkconfig
 %pyrequires_eq	python
 Requires:	%{name}-libs = %{version}-%{release}
 Requires:	dbus >= 0.91
@@ -124,10 +124,10 @@ Dokumentacja API biblioteki HAL.
 Summary:	HAL device manager for GNOME
 Summary(pl):	Zarz±dca urz±dzeñ HALa dla GNOME
 Group:		X11/Applications
+Requires:	%{name} = %{version}-%{release}
 Requires:	python-gnome-ui
 Requires:	python-gnome-vfs
 Requires:	python-pygtk-glade
-Requires:	%{name} = %{version}-%{release}
 
 %description device-manager
 GNOME program for displaying devices detected by HAL.
@@ -142,17 +142,17 @@ Group:		Applications/System
 Requires:	%{name} = %{version}-%{release}
 Requires:	libusb >= 0.1.10a
 Requires:	udev >= 1:089
+Provides:	udev-digicam
 Obsoletes:	hotplug-digicam
 Obsoletes:	udev-digicam
-Provides:	udev-digicam
 
 %description gphoto
 Set of Udev rules and HAL device information file to handle digital
 cameras in userspace.
 
 %description gphoto -l pl
-Zestaw regu³ Udev i plik z informacjami o urz±dzeniach HALa do
-obs³ugi kamer cyfrowych w przestrzeni u¿ytkownika.
+Zestaw regu³ Udev i plik z informacjami o urz±dzeniach HALa do obs³ugi
+kamer cyfrowych w przestrzeni u¿ytkownika.
 
 %prep
 %setup -q
@@ -178,7 +178,6 @@ obs³ugi kamer cyfrowych w przestrzeni u¿ytkownika.
 	--enable-fstab-sync \
 	--enable-pcmcia-support \
 	--enable-selinux \
-	--disable-policy-kit \
 	--with-html-dir=%{_gtkdocdir} \
 	--with-hwdata=%{_sysconfdir} \
 	--with-pid-file=%{_localstatedir}/run/hald.pid
@@ -269,6 +268,8 @@ EOF
 %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/hald
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/dbus*/system.d/*
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/udev/rules.d/*
+
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/PolicyKit/privilege.d/*
 
 %dir %{_datadir}/%{name}
 %{_datadir}/%{name}/fdi
