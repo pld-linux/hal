@@ -24,7 +24,7 @@ Patch3:		%{name}-samsung_yp_z5.patch
 Patch4:		%{name}-libpci.patch
 Patch5:		%{name}-free.patch
 URL:		http://freedesktop.org/Software/hal
-BuildRequires:	PolicyKit-devel
+BuildRequires:	PolicyKit-devel >= 0.2
 BuildRequires:	autoconf >= 2.57
 BuildRequires:	automake
 BuildRequires:	dbus-glib-devel >= 0.71
@@ -58,6 +58,7 @@ Requires(pre):	/usr/sbin/groupadd
 Requires(pre):	/usr/sbin/useradd
 %pyrequires_eq	python
 Requires:	%{name}-libs = %{version}-%{release}
+Requires:	PolicyKit >= 0.2
 Requires:	dbus >= 0.91
 Requires:	dmidecode >= 2.7
 Requires:	glib2 >= 1:2.12.1
