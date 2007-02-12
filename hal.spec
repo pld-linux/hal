@@ -3,7 +3,7 @@
 %bcond_without	docs		# disable documentation building
 #
 Summary:	HAL - Hardware Abstraction Layer
-Summary(pl):	HAL - abstrakcyjna warstwa dostÍpu do sprzÍtu
+Summary(pl.UTF-8):   HAL - abstrakcyjna warstwa dostƒôpu do sprzƒôtu
 Name:		hal
 Version:	0.5.8.1
 Release:	4
@@ -70,24 +70,24 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %description
 HAL is an implementation of a hardware abstraction layer.
 
-%description -l pl
-HAL jest implementacj± abstrakcyjnej warstwy dostÍpu do sprzÍtu.
+%description -l pl.UTF-8
+HAL jest implementacjƒÖ abstrakcyjnej warstwy dostƒôpu do sprzƒôtu.
 
 %package libs
 Summary:	HAL library
-Summary(pl):	Biblioteka HAL
+Summary(pl.UTF-8):   Biblioteka HAL
 Group:		Libraries
 Requires:	dbus-libs >= 0.91
 
 %description libs
 HAL library.
 
-%description libs -l pl
+%description libs -l pl.UTF-8
 Biblioteka HAL.
 
 %package devel
 Summary:	Header files for HAL library
-Summary(pl):	Pliki nag≥Ûwkowe biblioteki HAL
+Summary(pl.UTF-8):   Pliki nag≈Ç√≥wkowe biblioteki HAL
 Group:		Development/Libraries
 Requires:	%{name}-libs = %{version}-%{release}
 Requires:	dbus-devel >= 0.91
@@ -95,36 +95,36 @@ Requires:	dbus-devel >= 0.91
 %description devel
 Header files for HAL library.
 
-%description devel -l pl
-Pliki nag≥Ûwkowe biblioteki HAL.
+%description devel -l pl.UTF-8
+Pliki nag≈Ç√≥wkowe biblioteki HAL.
 
 %package static
 Summary:	Static HAL library
-Summary(pl):	Statyczna biblioteka HAL
+Summary(pl.UTF-8):   Statyczna biblioteka HAL
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 
 %description static
 Static HAL library.
 
-%description static -l pl
+%description static -l pl.UTF-8
 Statyczna biblioteka HAL.
 
 %package apidocs
 Summary:	HAL API documentation
-Summary(pl):	Dokumentacja API biblioteki HAL
+Summary(pl.UTF-8):   Dokumentacja API biblioteki HAL
 Group:		Documentation
 Requires:	gtk-doc-common
 
 %description apidocs
 HAL API documentation.
 
-%description apidocs -l pl
+%description apidocs -l pl.UTF-8
 Dokumentacja API biblioteki HAL.
 
 %package device-manager
 Summary:	HAL device manager for GNOME
-Summary(pl):	Zarz±dca urz±dzeÒ HALa dla GNOME
+Summary(pl.UTF-8):   ZarzƒÖdca urzƒÖdze≈Ñ HALa dla GNOME
 Group:		X11/Applications
 Requires:	%{name} = %{version}-%{release}
 Requires:	python-gnome-ui
@@ -134,12 +134,12 @@ Requires:	python-pygtk-glade
 %description device-manager
 GNOME program for displaying devices detected by HAL.
 
-%description device-manager -l pl
-Program dla GNOME wy∂wietlaj±cy urz±dzenia wykryte przez HAL.
+%description device-manager -l pl.UTF-8
+Program dla GNOME wy≈õwietlajƒÖcy urzƒÖdzenia wykryte przez HAL.
 
 %package gphoto
 Summary:	Userspace support for digital cameras
-Summary(pl):	Wsparcie dla kamer cyfrowych w przestrzeni uøytkownika
+Summary(pl.UTF-8):   Wsparcie dla kamer cyfrowych w przestrzeni u≈ºytkownika
 Group:		Applications/System
 Requires:	%{name} = %{version}-%{release}
 Requires:	libusb >= 0.1.10a
@@ -152,9 +152,9 @@ Obsoletes:	udev-digicam
 Set of Udev rules and HAL device information file to handle digital
 cameras in userspace.
 
-%description gphoto -l pl
-Zestaw regu≥ Udev i plik z informacjami o urz±dzeniach HALa do obs≥ugi
-kamer cyfrowych w przestrzeni uøytkownika.
+%description gphoto -l pl.UTF-8
+Zestaw regu≈Ç Udev i plik z informacjami o urzƒÖdzeniach HALa do obs≈Çugi
+kamer cyfrowych w przestrzeni u≈ºytkownika.
 
 %prep
 %setup -q
