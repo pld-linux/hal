@@ -3,7 +3,7 @@
 %bcond_without	docs		# disable documentation building
 #
 Summary:	HAL - Hardware Abstraction Layer
-Summary(pl.UTF-8):   HAL - abstrakcyjna warstwa dostępu do sprzętu
+Summary(pl.UTF-8):	HAL - abstrakcyjna warstwa dostępu do sprzętu
 Name:		hal
 Version:	0.5.8.1
 Release:	4
@@ -75,7 +75,7 @@ HAL jest implementacją abstrakcyjnej warstwy dostępu do sprzętu.
 
 %package libs
 Summary:	HAL library
-Summary(pl.UTF-8):   Biblioteka HAL
+Summary(pl.UTF-8):	Biblioteka HAL
 Group:		Libraries
 Requires:	dbus-libs >= 0.91
 
@@ -87,7 +87,7 @@ Biblioteka HAL.
 
 %package devel
 Summary:	Header files for HAL library
-Summary(pl.UTF-8):   Pliki nagłówkowe biblioteki HAL
+Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki HAL
 Group:		Development/Libraries
 Requires:	%{name}-libs = %{version}-%{release}
 Requires:	dbus-devel >= 0.91
@@ -100,7 +100,7 @@ Pliki nagłówkowe biblioteki HAL.
 
 %package static
 Summary:	Static HAL library
-Summary(pl.UTF-8):   Statyczna biblioteka HAL
+Summary(pl.UTF-8):	Statyczna biblioteka HAL
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 
@@ -112,7 +112,7 @@ Statyczna biblioteka HAL.
 
 %package apidocs
 Summary:	HAL API documentation
-Summary(pl.UTF-8):   Dokumentacja API biblioteki HAL
+Summary(pl.UTF-8):	Dokumentacja API biblioteki HAL
 Group:		Documentation
 Requires:	gtk-doc-common
 
@@ -124,7 +124,7 @@ Dokumentacja API biblioteki HAL.
 
 %package device-manager
 Summary:	HAL device manager for GNOME
-Summary(pl.UTF-8):   Zarządca urządzeń HALa dla GNOME
+Summary(pl.UTF-8):	Zarządca urządzeń HALa dla GNOME
 Group:		X11/Applications
 Requires:	%{name} = %{version}-%{release}
 Requires:	python-gnome-ui
@@ -139,7 +139,7 @@ Program dla GNOME wyświetlający urządzenia wykryte przez HAL.
 
 %package gphoto
 Summary:	Userspace support for digital cameras
-Summary(pl.UTF-8):   Wsparcie dla kamer cyfrowych w przestrzeni użytkownika
+Summary(pl.UTF-8):	Wsparcie dla kamer cyfrowych w przestrzeni użytkownika
 Group:		Applications/System
 Requires:	%{name} = %{version}-%{release}
 Requires:	libusb >= 0.1.10a
