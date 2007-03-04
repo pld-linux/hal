@@ -49,6 +49,7 @@ BuildRequires:	pciutils-devel >= 2.2.3
 BuildRequires:	pkgconfig
 BuildRequires:	popt-devel
 BuildRequires:	python-modules
+BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.228
 BuildRequires:	which
 # BR: libparted-devel == 1.7.1 (optional, used with --enable-parted only, needs EQUAL version)
