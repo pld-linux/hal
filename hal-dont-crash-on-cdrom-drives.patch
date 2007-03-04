@@ -1,0 +1,15 @@
+diff -urN hal-0.5.8.1.orig/hald/linux/probing/probe-storage.c hal-0.5.8.1/hald/linux/probing/probe-storage.c
+--- hal-0.5.8.1.orig/hald/linux/probing/probe-storage.c	2007-03-04 18:57:02.987765366 +0100
++++ hal-0.5.8.1/hald/linux/probing/probe-storage.c	2007-03-04 19:00:20.347534611 +0100
+@@ -254,8 +254,10 @@
+ 						free (write_speeds);
+ 					}
+ 				} else {
++					gchar *wspeeds[1] = {NULL};
+ 					libhal_changeset_set_property_int (cs, "storage.cdrom.write_speed", 0);
+-					libhal_changeset_set_property_strlist (cs, "storage.cdrom.write_speeds", NULL);
++					libhal_changeset_set_property_strlist (cs, "storage.cdrom.write_speeds", 
++										    (const char **) wspeeds);
+ 				}
+ 			}
+ 			
