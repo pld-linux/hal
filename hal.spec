@@ -21,7 +21,7 @@ Patch0:		%{name}-device_manager.patch
 Patch1:		%{name}-tools.patch
 Patch2:		%{name}-samsung_yp_z5.patch
 URL:		http://freedesktop.org/Software/hal
-BuildRequires:	ConsoleKit-devel
+#BuildRequires:	ConsoleKit-devel
 BuildRequires:	PolicyKit-devel >= 0.2
 BuildRequires:	autoconf >= 2.57
 BuildRequires:	automake
@@ -58,7 +58,7 @@ Requires(pre):	/usr/sbin/groupadd
 Requires(pre):	/usr/sbin/useradd
 %pyrequires_eq	python
 Requires:	%{name}-libs = %{version}-%{release}
-Requires:	ConsoleKit
+#Requires:	ConsoleKit
 Requires:	PolicyKit >= 0.2
 Requires:	dbus >= 0.91
 Requires:	dmidecode >= 2.7
@@ -180,7 +180,7 @@ kamer cyfrowych w przestrzeni użytkownika.
 	--enable-pcmcia-support \
 	--enable-selinux \
 	--enable-policy-kit \
-	--enable-console-kit \
+	--disable-console-kit \
 	--enable-parted \
 	--with-html-dir=%{_gtkdocdir} \
 	--with-hwdata=%{_sysconfdir} \
