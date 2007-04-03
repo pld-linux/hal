@@ -5,27 +5,23 @@
 Summary:	HAL - Hardware Abstraction Layer
 Summary(pl.UTF-8):	HAL - abstrakcyjna warstwa dostępu do sprzętu
 Name:		hal
-Version:	0.5.8.1
-Release:	5
+Version:	0.5.9
+Release:	1
 License:	AFL v2.0 or GPL v2
 Group:		Libraries
 Source0:	http://freedesktop.org/~david/dist/%{name}-%{version}.tar.gz
-# Source0-md5:	568d7ce9831c18a5e6e502abd6781257
+# Source0-md5:	a6f532770cf9286e1de38d6570cbc6bc
 Source1:	%{name}daemon.init
 Source2:	%{name}d.sysconfig
 Source3:	%{name}-device-manager.desktop
 Source4:	%{name}-libgphoto2.fdi
 Source5:	%{name}-libgphoto_udev.rules
 Source6:	%{name}-storage-policy-fixed-drives.fdi
-Patch0:		%{name}-ac.patch
-Patch1:		%{name}-device_manager.patch
-Patch2:		%{name}-tools.patch
-Patch3:		%{name}-samsung_yp_z5.patch
-Patch4:		%{name}-libpci.patch
-Patch5:		%{name}-free.patch
-Patch6:		%{name}-dont-crash-on-cdrom-drives.patch
-Patch7:		%{name}-stat-devicefile-not-mountpoint.patch
+Patch0:		%{name}-device_manager.patch
+Patch1:		%{name}-tools.patch
+Patch2:		%{name}-samsung_yp_z5.patch
 URL:		http://freedesktop.org/Software/hal
+BuildRequires:	ConsoleKit-devel
 BuildRequires:	PolicyKit-devel >= 0.2
 BuildRequires:	autoconf >= 2.57
 BuildRequires:	automake
@@ -45,6 +41,7 @@ BuildRequires:	libselinux-devel >= 1.17.13
 BuildRequires:	libtool
 BuildRequires:	libusb-devel >= 0.1.10a
 BuildRequires:	libvolume_id-devel >= 0.97
+BuildRequires:	parted-devel
 BuildRequires:	pciutils-devel >= 2.2.3
 BuildRequires:	pkgconfig
 BuildRequires:	popt-devel
@@ -61,6 +58,7 @@ Requires(pre):	/usr/sbin/groupadd
 Requires(pre):	/usr/sbin/useradd
 %pyrequires_eq	python
 Requires:	%{name}-libs = %{version}-%{release}
+Requires:	ConsoleKit
 Requires:	PolicyKit >= 0.2
 Requires:	dbus >= 0.91
 Requires:	dmidecode >= 2.7
@@ -163,12 +161,7 @@ kamer cyfrowych w przestrzeni użytkownika.
 %setup -q
 %patch0 -p1
 %patch1 -p1
-%patch2 -p1
-%patch3 -p1
-%patch4 -p1
-%patch5 -p1
-%patch6 -p1
-%patch7 -p1
+#%patch2 -p1
 
 %build
 %{__glib_gettextize}
@@ -186,6 +179,9 @@ kamer cyfrowych w przestrzeni użytkownika.
 	--enable-fstab-sync \
 	--enable-pcmcia-support \
 	--enable-selinux \
+	--enable-policy-kit \
+	--enable-console-kit \
+	--enable-parted \
 	--with-html-dir=%{_gtkdocdir} \
 	--with-hwdata=%{_sysconfdir} \
 	--with-pid-file=%{_localstatedir}/run/hald.pid
@@ -200,8 +196,6 @@ install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version} \
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
-
-install doc/spec/*.py $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 
 find $RPM_BUILD_ROOT%{_datadir}/hal/device-manager -name "*.py" -exec rm -f {} \;
 
@@ -257,9 +251,12 @@ EOF
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog NEWS README doc/TODO
 %attr(755,root,root) %{_bindir}/hal-device
+%attr(755,root,root) %{_bindir}/hal-disable-polling
 %attr(755,root,root) %{_bindir}/hal-find-by-capability
 %attr(755,root,root) %{_bindir}/hal-find-by-property
 %attr(755,root,root) %{_bindir}/hal-get-property
+%attr(755,root,root) %{_bindir}/hal-is-caller-locked-out
+%attr(755,root,root) %{_bindir}/hal-lock
 %attr(755,root,root) %{_bindir}/hal-set-property
 %attr(755,root,root) %{_bindir}/lshal
 %attr(755,root,root) %{_sbindir}/hald
@@ -282,6 +279,14 @@ EOF
 %dir %{_datadir}/%{name}
 %{_datadir}/%{name}/fdi
 
+%dir /var/cache/hald
+%dir /var/lib/hal
+%dir /var/run/hald
+%dir /var/run/hald/hald-local
+%dir /var/run/hald/hald-runner
+
+%{_mandir}/man?/*.gz
+
 %files libs
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/lib*.so.*.*.*
@@ -292,8 +297,6 @@ EOF
 %{_libdir}/lib*.la
 %{_includedir}/%{name}
 %{_pkgconfigdir}/*.pc
-%dir %{_examplesdir}/%{name}-%{version}
-%attr(755,root,root) %{_examplesdir}/%{name}-%{version}/*.py
 
 %files static
 %defattr(644,root,root,755)
@@ -301,7 +304,8 @@ EOF
 
 %files apidocs
 %defattr(644,root,root,755)
-%{_gtkdocdir}/hal
+%{_gtkdocdir}/libhal
+%{_gtkdocdir}/libhal-storage
 
 %files device-manager
 %defattr(644,root,root,755)

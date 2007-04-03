@@ -1,12 +1,12 @@
-diff -urN hal-0.5.8.1.org/tools/linux/hal-system-power-hibernate-linux hal-0.5.8.1/tools/linux/hal-system-power-hibernate-linux
---- hal-0.5.8.1.org/tools/linux/hal-system-power-hibernate-linux	2006-09-19 22:23:25.000000000 +0200
-+++ hal-0.5.8.1/tools/linux/hal-system-power-hibernate-linux	2006-10-31 21:21:28.542805500 +0100
-@@ -10,56 +10,29 @@
- 	exit 1
- }
+diff -ruN hal-0.5.9./tools/linux/hal-system-power-hibernate-linux hal-0.5.9/tools/linux/hal-system-power-hibernate-linux
+--- hal-0.5.9./tools/linux/hal-system-power-hibernate-linux	2007-04-03 18:00:30.000000000 +0200
++++ hal-0.5.9/tools/linux/hal-system-power-hibernate-linux	2007-04-03 18:03:26.931971198 +0200
+@@ -24,57 +24,29 @@
+ [ "$HAL_PROP_POWER_MANAGEMENT_QUIRK_VBE_POST" = "true" ] && QUIRKS="$QUIRKS --quirk-vbepost"
+ [ "$HAL_PROP_POWER_MANAGEMENT_QUIRK_RADEON_OFF" = "true" ] && QUIRKS="$QUIRKS --quirk-radeon-off"
  
--#SuSE and ALTLinux only support powersave
--if [ -f /etc/altlinux-release ] || [ -f "/etc/SuSE-release" ] ; then
+-#ALTLinux only supports powersave
+-if [ -f /etc/altlinux-release ] ; then
 -	if [ -x /usr/bin/powersave ] ; then
 -	        $POWERSAVED_SUSPEND2DISK
 -		RET=$?
@@ -17,42 +17,41 @@ diff -urN hal-0.5.8.1.org/tools/linux/hal-system-power-hibernate-linux hal-0.5.8
 -#Mandriva support suspend-scripts 
 -elif [ -f /etc/mandriva-release ] ; then 
 -    if [ -x /usr/sbin/pmsuspend ] ; then 
--	/usr/sbin/pmsuspend disk 
--	RET=$? 
++if [ -x /usr/sbin/s2disk ] ; then
++	/usr/sbin/s2disk
++	RET=$?
++elif [ -x "/usr/sbin/hibernate" ] ; then
++	# Suspend2 tools installed
++	/usr/sbin/hibernate --force
++	RET=$?
++elif [ -x /usr/bin/powersave ] ; then
++	$POWERSAVED_SUSPEND2DISK
++	RET=$?
++elif [ -x /usr/sbin/pmsuspend ] ; then 
+ 	/usr/sbin/pmsuspend disk 
+ 	RET=$? 
 -    else 
 -	unsupported 
 -    fi 
 -
--#RedHat/Fedora only support pm-utils
--elif [ -f /etc/redhat-release ] || [ -f /etc/fedora-release ] ; then
+-#RedHat/Fedora and SUSE support support pm-utils
+-elif [ -f /etc/redhat-release ] || [ -f /etc/fedora-release ] \
+-		 || [ -f "/etc/SuSE-release" ] ; then
 -	if [ -x /usr/sbin/pm-hibernate ] ; then
--		/usr/sbin/pm-hibernate
+-		/usr/sbin/pm-hibernate $QUIRKS
 -		RET=$?
 -	else
 -		unsupported
 -	fi
 -
 -#Other distros just need to have *any* tools installed
-+if [ -x /usr/sbin/s2disk ] ; then
-+    /usr/sbin/s2disk
-+    RET=$?
-+elif [ -x "/usr/sbin/hibernate" ] ; then
-+    # Suspend2 tools installed
-+    /usr/sbin/hibernate --force
-+    RET=$?
-+elif [ -x /usr/bin/powersave ] ; then
-+    $POWERSAVED_SUSPEND2DISK
-+    RET=$?
-+elif [ -x /usr/sbin/pmsuspend ] ; then 
-+    /usr/sbin/pmsuspend disk 
-+    RET=$? 
 +elif [ -x /usr/sbin/pm-hibernate ] ; then
-+    /usr/sbin/pm-hibernate
-+    RET=$?
++	/usr/sbin/pm-hibernate
++	RET=$?
 +elif [ -w "/sys/power/state" ] ; then
-+    # Use the raw kernel sysfs interface
-+    echo "disk" > /sys/power/state
-+    RET=$?
++	# Use the raw kernel sysfs interface
++	echo "disk" > /sys/power/state
++	RET=$?
  else
 -	if [ -x "/usr/bin/powersave" ] ; then
 -	        $POWERSAVED_SUSPEND2DISK
@@ -61,7 +60,7 @@ diff -urN hal-0.5.8.1.org/tools/linux/hal-system-power-hibernate-linux hal-0.5.8
 -		/usr/sbin/pmi action hibernate force
 -		RET=$?
 -	elif [ -x "/usr/sbin/pm-hibernate" ] ; then
--		/usr/sbin/pm-hibernate
+-		/usr/sbin/pm-hibernate $QUIRKS
 -		RET=$?
 -	elif [ -x "/usr/sbin/hibernate" ] ; then
 -		# Suspend2 tools installed
@@ -75,20 +74,20 @@ diff -urN hal-0.5.8.1.org/tools/linux/hal-system-power-hibernate-linux hal-0.5.8
 -		unsupported
 -		fi
 -	fi
-+    unsupported
++	unsupported
 +fi
  
  #Refresh devices as a resume can do funny things
  for type in button battery ac_adapter
-diff -urN hal-0.5.8.1.org/tools/linux/hal-system-power-set-power-save-linux hal-0.5.8.1/tools/linux/hal-system-power-set-power-save-linux
---- hal-0.5.8.1.org/tools/linux/hal-system-power-set-power-save-linux	2006-09-19 22:23:25.000000000 +0200
-+++ hal-0.5.8.1/tools/linux/hal-system-power-set-power-save-linux	2006-10-31 21:18:22.463176250 +0100
-@@ -7,38 +7,25 @@
+diff -ruN hal-0.5.9./tools/linux/hal-system-power-set-power-save-linux hal-0.5.9/tools/linux/hal-system-power-set-power-save-linux
+--- hal-0.5.9./tools/linux/hal-system-power-set-power-save-linux	2007-04-03 18:00:30.000000000 +0200
++++ hal-0.5.9/tools/linux/hal-system-power-set-power-save-linux	2007-04-03 18:04:56.977234228 +0200
+@@ -8,39 +8,27 @@
  	exit 1
  }
  
--#SuSE and ALTLinux only support powersave
--if [ -f /etc/altlinux-release ] || [ -f /etc/SuSE-release ] ; then
+-#ALTLinux only supports powersave
+-if [ -f /etc/altlinux-release ] ; then
 -	if [ -x "/usr/bin/powersave" ] ; then
 -		if [ $value = "true" ]; then
 -			/usr/bin/powersave -e Powersave
@@ -99,6 +98,7 @@ diff -urN hal-0.5.8.1.org/tools/linux/hal-system-power-set-power-save-linux hal-
 -		fi
 -	else
 -		unsupported
+-	fi
 +if [ -x "/usr/bin/powersave" ] ; then
 +	if [ $value = "true" ]; then
 +		/usr/bin/powersave -e Powersave
@@ -106,10 +106,11 @@ diff -urN hal-0.5.8.1.org/tools/linux/hal-system-power-set-power-save-linux hal-
 +	elif [ $value = "false" ]; then
 +		/usr/bin/powersave -e Performance
 +		RET=$?
- 	fi
--
--#RedHat/Fedora only support pm-utils
--elif [ -f /etc/redhat-release ] || [ -f /etc/fedora-release ] ; then
++ 	fi
+ 
+-#RedHat/Fedora and SUSE support pm-utils
+-elif [ -f /etc/redhat-release ] || [ -f /etc/fedora-release ] \
+-		|| [ -f /etc/SuSE-release ] ; then
 -	if [ -x "/usr/sbin/pm-powersave" ] ; then
 -		if [ $value = "true" ]; then
 -			/usr/sbin/pm-powersave true
@@ -120,6 +121,7 @@ diff -urN hal-0.5.8.1.org/tools/linux/hal-system-power-set-power-save-linux hal-
 -		fi
 -	else
 -		unsupported
+-	fi
 +elif [ -x "/usr/sbin/pm-powersave" ] ; then
 +	if [ $value = "true" ]; then
 +		/usr/sbin/pm-powersave true
@@ -127,8 +129,8 @@ diff -urN hal-0.5.8.1.org/tools/linux/hal-system-power-set-power-save-linux hal-
 +	elif [ $value = "false" ]; then
 +		/usr/sbin/pm-powersave false
 +		RET=$?
- 	fi
--
++ 	fi
+ 
  else
 -	# cannot set proc stuff here, so error out
  	unsupported
@@ -137,15 +139,15 @@ diff -urN hal-0.5.8.1.org/tools/linux/hal-system-power-set-power-save-linux hal-
  
  exit $RET
  
-diff -urN hal-0.5.8.1.org/tools/linux/hal-system-power-suspend-linux hal-0.5.8.1/tools/linux/hal-system-power-suspend-linux
---- hal-0.5.8.1.org/tools/linux/hal-system-power-suspend-linux	2006-09-19 22:23:25.000000000 +0200
-+++ hal-0.5.8.1/tools/linux/hal-system-power-suspend-linux	2006-10-31 21:20:50.544430750 +0100
-@@ -28,73 +28,26 @@
+diff -ruN hal-0.5.9./tools/linux/hal-system-power-suspend-linux hal-0.5.9/tools/linux/hal-system-power-suspend-linux
+--- hal-0.5.9./tools/linux/hal-system-power-suspend-linux	2007-04-03 18:00:30.000000000 +0200
++++ hal-0.5.9/tools/linux/hal-system-power-suspend-linux	2007-04-03 18:06:21.240379357 +0200
+@@ -42,68 +42,26 @@
  	exit 0
  fi
  
--#SuSE and ALTLinux only support powersave
--if [ -f "/etc/altlinux-release" ] || [ -f "/etc/SuSE-release" ] ; then
+-#ALTLinux only supports powersave
+-if [ -f "/etc/altlinux-release" ]; then
 -	if [ -x /usr/bin/powersave ] ; then
 -	        $POWERSAVED_SUSPEND2RAM
 -		RET=$?
@@ -169,8 +171,9 @@ diff -urN hal-0.5.8.1.org/tools/linux/hal-system-power-suspend-linux hal-0.5.8.1
 -	unsupported 
 -    fi 
 -
--#RedHat/Fedora only support pm-utils
--elif [ -f "/etc/redhat-release" ] || [ -f "/etc/fedora-release" ] ; then
+-#RedHat/Fedora and SUSE support pm-utils
+-elif [ -f "/etc/redhat-release" ] || [ -f "/etc/fedora-release" ] \
+-		|| [ -f "/etc/SuSE-release" ] ; then
 -	# TODO: fix pm-suspend to take a --wakeup-alarm argument
 -	if [ $seconds_to_sleep != "0" ] ; then
 -		alarm_not_supported
@@ -178,19 +181,10 @@ diff -urN hal-0.5.8.1.org/tools/linux/hal-system-power-suspend-linux hal-0.5.8.1
 -	# TODO: fixup pm-suspend to define erroc code (see alarm above) and throw
 -	#	   the appropriate exception
 -	if [ -x "/usr/sbin/pm-suspend" ] ; then
--		/usr/sbin/pm-suspend
+-		/usr/sbin/pm-suspend $QUIRKS
 -		RET=$?
 -	else
 -		# TODO: add support
--		unsupported
--	fi
--
--#FreeBSD uses zzz to suspend for both ACPI and APM
--elif [ "x`uname -s`" = "xFreeBSD" ] ; then
--	if [ -x /usr/sbin/zzz ] ; then
--		/usr/sbin/zzz
--		RET=$?
--	else
 -		unsupported
 -	fi
 -
@@ -199,17 +193,17 @@ diff -urN hal-0.5.8.1.org/tools/linux/hal-system-power-suspend-linux hal-0.5.8.1
 +	/usr/sbin/s2ram
 +	RET=$?
 +elif [ -x /usr/bin/powersave ] ; then
-+        $POWERSAVED_SUSPEND2RAM
++	$POWERSAVED_SUSPEND2RAM
 +	RET=$?
 +elif [ -x "/usr/sbin/pm-suspend" ] ; then
 +	/usr/sbin/pm-suspend
 +	RET=$?
 +elif [ -x "/usr/sbin/pmi" ] ; then
-+        /usr/sbin/pmi action suspend force
++	/usr/sbin/pmi action suspend force
 +	RET=$?
 +elif [ -w "/sys/power/state" ] ; then
-+        # Use the raw kernel sysfs interface
-+        echo "mem" > /sys/power/state
++	# Use the raw kernel sysfs interface
++	echo "mem" > /sys/power/state
 +	RET=$?
  else
 -	if [ -x "/usr/bin/powersave" ] ; then
@@ -218,6 +212,9 @@ diff -urN hal-0.5.8.1.org/tools/linux/hal-system-power-suspend-linux hal-0.5.8.1
 -	elif [ -x "/usr/sbin/pmi" ] ; then
 -	    /usr/sbin/pmi action suspend force
 -	    RET=$?
+-	elif [ -x "/usr/sbin/pm-suspend" ] ; then
+-		/usr/sbin/pm-suspend $QUIRKS
+-		RET=$?
 -	elif [ -w "/sys/power/state" ] ; then
 -	    # Use the raw kernel sysfs interface
 -	    echo "mem" > /sys/power/state
@@ -227,8 +224,8 @@ diff -urN hal-0.5.8.1.org/tools/linux/hal-system-power-suspend-linux hal-0.5.8.1
 -	    unsupported
 -	    fi
 -	fi
-+        # TODO: add other scripts support
-+        unsupported
++	# TODO: add other scripts support
++	unsupported
 +fi
  
  #Refresh devices as a resume can do funny things
