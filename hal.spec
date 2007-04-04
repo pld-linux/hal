@@ -41,7 +41,8 @@ BuildRequires:	libselinux-devel >= 1.17.13
 BuildRequires:	libtool
 BuildRequires:	libusb-devel >= 0.1.10a
 BuildRequires:	libvolume_id-devel >= 0.97
-BuildRequires:	parted-devel
+# 1.7.1/1.8.0/1.8.1/1.8.2 or 1.8.6
+BuildRequires:	parted-devel >= 1.7.1
 BuildRequires:	pciutils-devel >= 2.2.3
 BuildRequires:	pkgconfig
 BuildRequires:	popt-devel
@@ -49,7 +50,6 @@ BuildRequires:	python-modules
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.228
 BuildRequires:	which
-# BR: libparted-devel == 1.7.1 (optional, used with --enable-parted only, needs EQUAL version)
 # R: cryptsetup-luks >= 1.0.1 (at runtime)
 Requires(post,preun):	/sbin/chkconfig
 Requires(pre):	/bin/id
@@ -285,7 +285,7 @@ EOF
 %dir /var/run/hald/hald-local
 %dir /var/run/hald/hald-runner
 
-%{_mandir}/man?/*.gz
+%{_mandir}/man[18]/*
 
 %files libs
 %defattr(644,root,root,755)
