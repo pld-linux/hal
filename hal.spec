@@ -1,6 +1,6 @@
 #
 # Conditional build:
-%bcond_without	docs		# disable documentation building
+%bcond_without	doc		# disable documentation building
 #
 Summary:	HAL - Hardware Abstraction Layer
 Summary(pl.UTF-8):	HAL - abstrakcyjna warstwa dostępu do sprzętu
@@ -26,7 +26,7 @@ BuildRequires:	PolicyKit-devel >= 0.2
 BuildRequires:	autoconf >= 2.57
 BuildRequires:	automake
 BuildRequires:	dbus-glib-devel >= 0.71
-%if %{with docs}
+%if %{with doc}
 BuildRequires:	docbook-dtd41-sgml
 BuildRequires:	docbook-dtd412-xml
 BuildRequires:	docbook-utils
@@ -172,10 +172,10 @@ kamer cyfrowych w przestrzeni użytkownika.
 %{__autoconf}
 %{__automake}
 %configure \
-	%{?with_docs:--enable-docbook-docs} \
-	%{!?with_docs:--disable-docbook-docs} \
-	%{?with_docs:--enable-doxygen-docs} \
-	%{!?with_docs:--disable-doxygen-docs} \
+	%{?with_doc:--enable-docbook-docs} \
+	%{!?with_doc:--disable-docbook-docs} \
+	%{?with_doc:--enable-doxygen-docs} \
+	%{!?with_doc:--disable-doxygen-docs} \
 	--enable-fstab-sync \
 	--enable-pcmcia-support \
 	--enable-selinux \
@@ -239,7 +239,7 @@ fi
 
 
 %post gphoto
-%service haldaemon restart
+%service -q haldaemon restart
 %banner %{name} -e << EOF
 WARNING!
  hal-gphoto NO LONGER uses special "digicam" group.
