@@ -19,7 +19,6 @@ Source5:	%{name}-libgphoto_udev.rules
 Source6:	%{name}-storage-policy-fixed-drives.fdi
 Patch0:		%{name}-device_manager.patch
 Patch1:		%{name}-tools.patch
-Patch2:		%{name}-samsung_yp_z5.patch
 URL:		http://freedesktop.org/Software/hal
 #BuildRequires:	ConsoleKit-devel
 BuildRequires:	PolicyKit-devel >= 0.2
@@ -161,7 +160,6 @@ kamer cyfrowych w przestrzeni użytkownika.
 %setup -q
 %patch0 -p1
 %patch1 -p1
-#%patch2 -p1
 
 %build
 %{__glib_gettextize}
