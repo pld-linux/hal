@@ -1,3 +1,4 @@
+# TODO: move -gphoto to hal-gphoto.spec? (it's fully independent)
 #
 # Conditional build:
 %bcond_without	doc		# disable documentation building
@@ -19,6 +20,7 @@ Source5:	%{name}-libgphoto_udev.rules
 Source6:	%{name}-storage-policy-fixed-drives.fdi
 Patch0:		%{name}-device_manager.patch
 Patch1:		%{name}-tools.patch
+Patch2:		%{name}-parted.patch
 URL:		http://freedesktop.org/Software/hal
 #BuildRequires:	ConsoleKit-devel
 BuildRequires:	PolicyKit-devel >= 0.2
@@ -160,6 +162,7 @@ kamer cyfrowych w przestrzeni użytkownika.
 %setup -q
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %build
 %{__glib_gettextize}
@@ -269,10 +272,9 @@ EOF
 
 %attr(754,root,root) /etc/rc.d/init.d/*
 %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/hald
-%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/dbus*/system.d/*
-%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/udev/rules.d/*
-
-%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/PolicyKit/privilege.d/*
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/dbus*/system.d/hal.conf
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/udev/rules.d/90-hal.rules
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/PolicyKit/privilege.d/hal-*.privilege
 
 %dir %{_datadir}/%{name}
 %{_datadir}/%{name}/fdi
@@ -287,18 +289,22 @@ EOF
 
 %files libs
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/lib*.so.*.*.*
+%attr(755,root,root) %{_libdir}/libhal.so.*.*.*
+%attr(755,root,root) %{_libdir}/libhal-storage.so.*.*.*
 
 %files devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/lib*.so
-%{_libdir}/lib*.la
+%attr(755,root,root) %{_libdir}/libhal.so
+%attr(755,root,root) %{_libdir}/libhal-storage.so
+%{_libdir}/libhal.la
+%{_libdir}/libhal-storage.la
 %{_includedir}/%{name}
 %{_pkgconfigdir}/*.pc
 
 %files static
 %defattr(644,root,root,755)
-%{_libdir}/lib*.a
+%{_libdir}/libhal.a
+%{_libdir}/libhal-storage.a
 
 %files apidocs
 %defattr(644,root,root,755)
