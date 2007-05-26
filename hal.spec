@@ -1,4 +1,3 @@
-# TODO: move -gphoto to hal-gphoto.spec? (it's fully independent)
 #
 # Conditional build:
 %bcond_without	doc		# disable documentation building
@@ -7,7 +6,7 @@ Summary:	HAL - Hardware Abstraction Layer
 Summary(pl.UTF-8):	HAL - abstrakcyjna warstwa dostępu do sprzętu
 Name:		hal
 Version:	0.5.9
-Release:	1
+Release:	2
 License:	AFL v2.0 or GPL v2
 Group:		Libraries
 Source0:	http://freedesktop.org/~david/dist/%{name}-%{version}.tar.gz
@@ -15,9 +14,7 @@ Source0:	http://freedesktop.org/~david/dist/%{name}-%{version}.tar.gz
 Source1:	%{name}daemon.init
 Source2:	%{name}d.sysconfig
 Source3:	%{name}-device-manager.desktop
-Source4:	%{name}-libgphoto2.fdi
-Source5:	%{name}-libgphoto_udev.rules
-Source6:	%{name}-storage-policy-fixed-drives.fdi
+Source4:	%{name}-storage-policy-fixed-drives.fdi
 Patch0:		%{name}-device_manager.patch
 Patch1:		%{name}-tools.patch
 Patch2:		%{name}-parted.patch
@@ -139,25 +136,6 @@ GNOME program for displaying devices detected by HAL.
 %description device-manager -l pl.UTF-8
 Program dla GNOME wyświetlający urządzenia wykryte przez HAL.
 
-%package gphoto
-Summary:	Userspace support for digital cameras
-Summary(pl.UTF-8):	Wsparcie dla kamer cyfrowych w przestrzeni użytkownika
-Group:		Applications/System
-Requires:	%{name} = %{version}-%{release}
-Requires:	libusb >= 0.1.10a
-Requires:	udev >= 1:089
-Provides:	udev-digicam
-Obsoletes:	hotplug-digicam
-Obsoletes:	udev-digicam
-
-%description gphoto
-Set of Udev rules and HAL device information file to handle digital
-cameras in userspace.
-
-%description gphoto -l pl.UTF-8
-Zestaw reguł Udev i plik z informacjami o urządzeniach HALa do obsługi
-kamer cyfrowych w przestrzeni użytkownika.
-
 %prep
 %setup -q
 %patch0 -p1
@@ -204,12 +182,8 @@ install %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/haldaemon
 install %{SOURCE2} $RPM_BUILD_ROOT/etc/sysconfig/hald
 install %{SOURCE3} $RPM_BUILD_ROOT%{_desktopdir}
 
-# hal-gphoto
-install %{SOURCE4} $RPM_BUILD_ROOT%{_datadir}/%{name}/fdi/information/10freedesktop/10-gphoto.fdi
-install %{SOURCE5} $RPM_BUILD_ROOT%{_sysconfdir}/udev/rules.d/52-udev-gphoto.rules
-
 # policy file to ignore fixed disks.
-install %{SOURCE6} \
+install %{SOURCE4} \
 	$RPM_BUILD_ROOT%{_datadir}/%{name}/fdi/policy/10osvendor/99-storage-policy-fixed-drives.fdi
 
 rm -rf $RPM_BUILD_ROOT%{_sysconfdir}/hotplug.d
@@ -238,15 +212,6 @@ fi
 %post	libs -p /sbin/ldconfig
 %postun	libs -p /sbin/ldconfig
 
-
-%post gphoto
-%service -q haldaemon restart
-%banner %{name} -e << EOF
-WARNING!
- hal-gphoto NO LONGER uses special "digicam" group.
- Please add yourself to more common "usb" group instead.
-
-EOF
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
@@ -319,8 +284,3 @@ EOF
 %{_datadir}/%{name}/device-manager/*.png
 %{_datadir}/%{name}/device-manager/*.glade
 %{_desktopdir}/*.desktop
-
-%files gphoto
-%defattr(644,root,root,755)
-%{_sysconfdir}/udev/rules.d/52-udev-gphoto.rules
-%{_datadir}/%{name}/fdi/information/10freedesktop/10-gphoto.fdi
