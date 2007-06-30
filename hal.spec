@@ -5,12 +5,12 @@
 Summary:	HAL - Hardware Abstraction Layer
 Summary(pl.UTF-8):	HAL - abstrakcyjna warstwa dostępu do sprzętu
 Name:		hal
-Version:	0.5.9
-Release:	4
+Version:	0.5.9.1
+Release:	1
 License:	AFL v2.0 or GPL v2
 Group:		Libraries
 Source0:	http://freedesktop.org/~david/dist/%{name}-%{version}.tar.gz
-# Source0-md5:	a6f532770cf9286e1de38d6570cbc6bc
+# Source0-md5:	6a40f49f964e64358e53652038f3059f
 Source1:	%{name}daemon.init
 Source2:	%{name}d.sysconfig
 Source3:	%{name}-device-manager.desktop
@@ -20,7 +20,7 @@ Patch1:		%{name}-tools.patch
 Patch2:		%{name}-parted.patch
 URL:		http://freedesktop.org/Software/hal
 #BuildRequires:	ConsoleKit-devel
-BuildRequires:	PolicyKit-devel >= 0.3
+BuildRequires:	PolicyKit-devel >= 0.2
 BuildRequires:	autoconf >= 2.57
 BuildRequires:	automake
 BuildRequires:	dbus-glib-devel >= 0.71
@@ -161,6 +161,15 @@ Program dla GNOME wyświetlający urządzenia wykryte przez HAL.
 	--enable-policy-kit \
 	--disable-console-kit \
 	--enable-parted \
+	--enable-acpi-ibm \
+	--enable-acpi-toshiba \
+	--enable-acl-management \
+	--enable-sonypic \
+	--enable-umount-helper \
+	--with-macbook \
+	--with-macbookpro \
+	--with-cpufreq \
+	--with-usb-csr \
 	--with-html-dir=%{_gtkdocdir} \
 	--with-hwdata=%{_sysconfdir} \
 	--with-pid-file=%{_localstatedir}/run/hald.pid
