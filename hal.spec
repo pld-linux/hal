@@ -6,7 +6,7 @@ Summary:	HAL - Hardware Abstraction Layer
 Summary(pl.UTF-8):	HAL - abstrakcyjna warstwa dostępu do sprzętu
 Name:		hal
 Version:	0.5.9.1
-Release:	1
+Release:	2
 License:	AFL v2.0 or GPL v2
 Group:		Libraries
 Source0:	http://freedesktop.org/~david/dist/%{name}-%{version}.tar.gz
@@ -166,8 +166,10 @@ Program dla GNOME wyświetlający urządzenia wykryte przez HAL.
 	--enable-acl-management \
 	--enable-sonypic \
 	--enable-umount-helper \
+%ifarch %{ix86} %{x8664}
 	--with-macbook \
 	--with-macbookpro \
+%endif
 	--with-cpufreq \
 	--with-usb-csr \
 	--with-html-dir=%{_gtkdocdir} \
