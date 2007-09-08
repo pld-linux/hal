@@ -4,7 +4,7 @@
 # Conditional build:
 %bcond_without	doc		# disable documentation building
 #
-%define	_snap	20070805
+%define	_snap	rc2
 Summary:	HAL - Hardware Abstraction Layer
 Summary(pl.UTF-8):	HAL - abstrakcyjna warstwa dostępu do sprzętu
 Name:		hal
@@ -12,9 +12,8 @@ Version:	0.5.10
 Release:	0.%{_snap}.1
 License:	AFL v2.0 or GPL v2
 Group:		Libraries
-#Source0:	http://freedesktop.org/~david/dist/%{name}-20070805.tar.bz2
-Source0:	%{name}-%{_snap}.tar.bz2
-# Source0-md5:	af1d2d33f3857dfa6180ed7cd141c3e3
+Source0:	http://hal.freedesktop.org/releases/%{name}-%{version}%{_snap}.tar.gz
+# Source0-md5:	fd7770348b4fc52d4df0670f1eeaf806
 Source1:	%{name}daemon.init
 Source2:	%{name}d.sysconfig
 Source3:	%{name}-storage-policy-fixed-drives.fdi
@@ -124,9 +123,9 @@ HAL API documentation.
 Dokumentacja API biblioteki HAL.
 
 %prep
-%setup -q -n %{name}
+%setup -q
 #%%patch0 -p1
-#%%patch1 -p1
+%patch1 -p1
 
 %build
 %{__libtoolize}
@@ -217,6 +216,7 @@ fi
 %attr(755,root,root) %{_bindir}/hal-is-caller-privileged
 %attr(755,root,root) %{_bindir}/hal-lock
 %attr(755,root,root) %{_bindir}/hal-set-property
+%attr(755,root,root) %{_bindir}/hal-setup-keymap
 %attr(755,root,root) %{_bindir}/lshal
 %attr(755,root,root) %{_sbindir}/hald
 %attr(755,root,root) /sbin/umount.hal
