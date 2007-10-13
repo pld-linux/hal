@@ -5,22 +5,20 @@
 Summary:	HAL - Hardware Abstraction Layer
 Summary(pl.UTF-8):	HAL - abstrakcyjna warstwa dostępu do sprzętu
 Name:		hal
-Version:	0.5.9.1
-Release:	4
+Version:	0.5.10
+Release:	1
 License:	AFL v2.0 or GPL v2
 Group:		Libraries
-Source0:	http://freedesktop.org/~david/dist/%{name}-%{version}.tar.gz
-# Source0-md5:	6a40f49f964e64358e53652038f3059f
+Source0:	http://hal.freedesktop.org/releases/%{name}-%{version}.tar.gz
+# Source0-md5:	fce852c428e7cda0b937087c79eec63f
 Source1:	%{name}daemon.init
 Source2:	%{name}d.sysconfig
-Source3:	%{name}-device-manager.desktop
-Source4:	%{name}-storage-policy-fixed-drives.fdi
-Patch0:		%{name}-device_manager.patch
-Patch1:		%{name}-tools.patch
-Patch2:		%{name}-parted.patch
+Source3:	%{name}-storage-policy-fixed-drives.fdi
+Patch0:		%{name}-tools.patch
+Patch1:		%{name}-parted.patch
 URL:		http://freedesktop.org/Software/hal
 #BuildRequires:	ConsoleKit-devel
-BuildRequires:	PolicyKit-devel >= 0.2
+BuildRequires:	PolicyKit-devel >= 0.5
 BuildRequires:	autoconf >= 2.57
 BuildRequires:	automake
 BuildRequires:	dbus-glib-devel >= 0.71
@@ -33,6 +31,7 @@ BuildRequires:	doxygen
 BuildRequires:	expat-devel >= 1:1.95.8
 BuildRequires:	gettext-devel
 BuildRequires:	glib2-devel >= 1:2.12.1
+BuildRequires:	gperf
 BuildRequires:	intltool >= 0.22
 BuildRequires:	libcap-devel
 BuildRequires:	libselinux-devel >= 1.17.13
@@ -57,12 +56,13 @@ Requires(pre):	/usr/sbin/useradd
 %pyrequires_eq	python
 Requires:	%{name}-libs = %{version}-%{release}
 #Requires:	ConsoleKit
-Requires:	PolicyKit >= 0.2
+Requires:	PolicyKit >= 0.5
 Requires:	dbus >= 0.91
 Requires:	dmidecode >= 2.7
 Requires:	glib2 >= 1:2.12.1
 Requires:	python-dbus >= 0.71
 Requires:	udev >= 1:089
+Obsoletes:	hal-device-manager
 Obsoletes:	hal-fstab-sync
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -121,30 +121,12 @@ HAL API documentation.
 %description apidocs -l pl.UTF-8
 Dokumentacja API biblioteki HAL.
 
-%package device-manager
-Summary:	HAL device manager for GNOME
-Summary(pl.UTF-8):	Zarządca urządzeń HALa dla GNOME
-Group:		X11/Applications
-Requires:	%{name} = %{version}-%{release}
-Requires:	python-gnome-ui
-Requires:	python-gnome-vfs
-Requires:	python-pygtk-glade
-
-%description device-manager
-GNOME program for displaying devices detected by HAL.
-
-%description device-manager -l pl.UTF-8
-Program dla GNOME wyświetlający urządzenia wykryte przez HAL.
-
 %prep
 %setup -q
 %patch0 -p1
 %patch1 -p1
-%patch2 -p1
 
 %build
-%{__glib_gettextize}
-%{__intltoolize}
 %{__libtoolize}
 %{__aclocal}
 %{__autoheader}
@@ -159,7 +141,7 @@ Program dla GNOME wyświetlający urządzenia wykryte przez HAL.
 	--enable-pcmcia-support \
 	--enable-selinux \
 	--enable-policy-kit \
-	--disable-console-kit \
+	--enable-console-kit \
 	--enable-parted \
 	--enable-acpi-ibm \
 	--enable-acpi-toshiba \
@@ -187,21 +169,18 @@ install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version} \
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-find $RPM_BUILD_ROOT%{_datadir}/hal/device-manager -name "*.py" -exec rm -f {} \;
+#find $RPM_BUILD_ROOT%{_datadir}/hal/device-manager -name "*.py" -exec rm -f {} \;
 
 install %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/haldaemon
 install %{SOURCE2} $RPM_BUILD_ROOT/etc/sysconfig/hald
-install %{SOURCE3} $RPM_BUILD_ROOT%{_desktopdir}
 
 # policy file to ignore fixed disks.
-install %{SOURCE4} \
+install %{SOURCE3} \
 	$RPM_BUILD_ROOT%{_datadir}/%{name}/fdi/policy/10osvendor/99-storage-policy-fixed-drives.fdi
 
 rm -rf $RPM_BUILD_ROOT%{_sysconfdir}/hotplug.d
 rm -rf $RPM_BUILD_ROOT%{_libdir}/hal.hotplug
-mv -f $RPM_BUILD_ROOT%{_datadir}/locale/sl{_SI,}
 
-%find_lang %{name}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -224,19 +203,22 @@ fi
 %postun	libs -p /sbin/ldconfig
 
 
-%files -f %{name}.lang
+%files
 %defattr(644,root,root,755)
-%doc AUTHORS ChangeLog NEWS README doc/TODO
+%doc AUTHORS NEWS README doc/TODO
 %attr(755,root,root) %{_bindir}/hal-device
 %attr(755,root,root) %{_bindir}/hal-disable-polling
 %attr(755,root,root) %{_bindir}/hal-find-by-capability
 %attr(755,root,root) %{_bindir}/hal-find-by-property
 %attr(755,root,root) %{_bindir}/hal-get-property
 %attr(755,root,root) %{_bindir}/hal-is-caller-locked-out
+%attr(755,root,root) %{_bindir}/hal-is-caller-privileged
 %attr(755,root,root) %{_bindir}/hal-lock
 %attr(755,root,root) %{_bindir}/hal-set-property
+%attr(755,root,root) %{_bindir}/hal-setup-keymap
 %attr(755,root,root) %{_bindir}/lshal
 %attr(755,root,root) %{_sbindir}/hald
+%attr(755,root,root) /sbin/umount.hal
 %attr(755,root,root) %{_libdir}/hald-*
 %attr(755,root,root) %{_libexecdir}/hal-*
 %dir %{_libdir}/hal
@@ -250,7 +232,7 @@ fi
 %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/hald
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/dbus*/system.d/hal.conf
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/udev/rules.d/90-hal.rules
-%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/PolicyKit/privilege.d/hal-*.privilege
+%config(noreplace) %verify(not md5 mtime size) %{_datadir}/PolicyKit/policy/*.policy
 
 %dir %{_datadir}/%{name}
 %{_datadir}/%{name}/fdi
@@ -286,12 +268,3 @@ fi
 %defattr(644,root,root,755)
 %{_gtkdocdir}/libhal
 %{_gtkdocdir}/libhal-storage
-
-%files device-manager
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/hal-device-manager
-%dir %{_datadir}/%{name}/device-manager
-%{_datadir}/%{name}/device-manager/*.py[co]
-%{_datadir}/%{name}/device-manager/*.png
-%{_datadir}/%{name}/device-manager/*.glade
-%{_desktopdir}/*.desktop
