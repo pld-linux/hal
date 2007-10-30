@@ -133,6 +133,7 @@ Dokumentacja API biblioteki HAL.
 %{__autoconf}
 %{__automake}
 %configure \
+	POLKIT_POLICY_FILE_VALIDATE=/usr/bin/polkit-policy-file-validate \
 	%{?with_doc:--enable-docbook-docs} \
 	%{!?with_doc:--disable-docbook-docs} \
 	%{?with_doc:--enable-doxygen-docs} \
