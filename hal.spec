@@ -16,8 +16,8 @@ Source2:	%{name}d.sysconfig
 Source3:	%{name}-storage-policy-fixed-drives.fdi
 Patch0:		%{name}-tools.patch
 Patch1:		%{name}-parted.patch
+Patch2:		%{name}-link.patch
 URL:		http://freedesktop.org/Software/hal
-#BuildRequires:	ConsoleKit-devel
 BuildRequires:	PolicyKit-devel >= 0.5
 BuildRequires:	autoconf >= 2.57
 BuildRequires:	automake
@@ -32,17 +32,18 @@ BuildRequires:	expat-devel >= 1:1.95.8
 BuildRequires:	gettext-devel
 BuildRequires:	glib2-devel >= 1:2.12.1
 BuildRequires:	gperf
+BuildRequires:	gtk-doc >= 1.3
 BuildRequires:	intltool >= 0.22
-BuildRequires:	libcap-devel
-BuildRequires:	libselinux-devel >= 1.17.13
+%ifarch %{ix86} %{x8664}
+BuildRequires:	libsmbios-devel >= 0.13.4
+%endif
 BuildRequires:	libtool
 BuildRequires:	libusb-devel >= 0.1.10a
-BuildRequires:	libvolume_id-devel >= 0.97
-# 1.7.1/1.8.0/1.8.1/1.8.2 or 1.8.6
-BuildRequires:	parted-devel >= 1.7.1
+BuildRequires:	libvolume_id-devel >= 1:0.097
+# 1.7.1/1.8.0/1.8.1/1.8.2/1.8.6/1.8.7 (1.8.8 added by patch)
+BuildRequires:	parted-devel >= 1.8.6
 BuildRequires:	pciutils-devel >= 2.2.3
 BuildRequires:	pkgconfig
-BuildRequires:	popt-devel
 BuildRequires:	python-modules
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.228
@@ -61,7 +62,10 @@ Requires:	dbus >= 0.91
 Requires:	dmidecode >= 2.7
 Requires:	glib2 >= 1:2.12.1
 Requires:	python-dbus >= 0.71
-Requires:	udev >= 1:089
+Requires:	udev >= 1:097
+# require pciutils and usbutils with .ids in expected location
+Requires:	/etc/pci.ids
+Requires:	/etc/usb.ids
 Obsoletes:	hal-device-manager
 Obsoletes:	hal-fstab-sync
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -125,6 +129,7 @@ Dokumentacja API biblioteki HAL.
 %setup -q
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %build
 %{__libtoolize}
@@ -138,26 +143,23 @@ Dokumentacja API biblioteki HAL.
 	%{!?with_doc:--disable-docbook-docs} \
 	%{?with_doc:--enable-doxygen-docs} \
 	%{!?with_doc:--disable-doxygen-docs} \
-	--enable-fstab-sync \
-	--enable-pcmcia-support \
-	--enable-selinux \
-	--enable-policy-kit \
-	--enable-console-kit \
-	--enable-parted \
+	--enable-acl-management \
 	--enable-acpi-ibm \
 	--enable-acpi-toshiba \
-	--enable-acl-management \
+	--enable-console-kit \
+	--enable-parted \
+	--enable-policy-kit \
 	--enable-sonypic \
 	--enable-umount-helper \
+	--with-cpufreq \
+	--with-html-dir=%{_gtkdocdir} \
+	--with-hwdata=/etc \
 %ifarch %{ix86} %{x8664}
 	--with-macbook \
 	--with-macbookpro \
 %endif
-	--with-cpufreq \
-	--with-usb-csr \
-	--with-html-dir=%{_gtkdocdir} \
-	--with-hwdata=%{_sysconfdir} \
-	--with-pid-file=%{_localstatedir}/run/hald.pid
+	--with-pid-file=%{_localstatedir}/run/hald.pid \
+	--with-usb-csr
 %{__make}
 
 %install
