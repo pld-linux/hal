@@ -6,7 +6,7 @@ Summary:	HAL - Hardware Abstraction Layer
 Summary(pl.UTF-8):	HAL - abstrakcyjna warstwa dostępu do sprzętu
 Name:		hal
 Version:	0.5.10
-Release:	1
+Release:	2
 License:	AFL v2.0 or GPL v2
 Group:		Libraries
 Source0:	http://hal.freedesktop.org/releases/%{name}-%{version}.tar.gz
@@ -48,6 +48,7 @@ BuildRequires:	python-modules
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.228
 BuildRequires:	which
+BuildRequires:	xmlto
 # R: cryptsetup-luks >= 1.0.1 (at runtime)
 Requires(post,preun):	/sbin/chkconfig
 Requires(pre):	/bin/id
@@ -138,7 +139,7 @@ Dokumentacja API biblioteki HAL.
 %{__autoconf}
 %{__automake}
 %configure \
-	POLKIT_POLICY_FILE_VALIDATE=/usr/bin/polkit-policy-file-validate \
+	POLKIT_POLICY_FILE_VALIDATE=%{_bindir}/polkit-policy-file-validate \
 	%{?with_doc:--enable-docbook-docs} \
 	%{!?with_doc:--disable-docbook-docs} \
 	%{?with_doc:--enable-doxygen-docs} \
@@ -153,7 +154,7 @@ Dokumentacja API biblioteki HAL.
 	--enable-umount-helper \
 	--with-cpufreq \
 	--with-html-dir=%{_gtkdocdir} \
-	--with-hwdata=/etc \
+	--with-hwdata=%{_sysconfdir} \
 %ifarch %{ix86} %{x8664}
 	--with-macbook \
 	--with-macbookpro \
@@ -166,7 +167,7 @@ Dokumentacja API biblioteki HAL.
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version} \
 	$RPM_BUILD_ROOT{/etc/{sysconfig,rc.d}/init.d,%{_desktopdir}} \
-	$RPM_BUILD_ROOT/etc/hal/fdi/{information,policy,preprobe} \
+	$RPM_BUILD_ROOT%{_sysconfdir}/hal/fdi/{information,policy,preprobe} \
 	$RPM_BUILD_ROOT%{_sysconfdir}/udev/rules.d
 
 %{__make} install \
