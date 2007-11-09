@@ -6,7 +6,7 @@ Summary:	HAL - Hardware Abstraction Layer
 Summary(pl.UTF-8):	HAL - abstrakcyjna warstwa dostępu do sprzętu
 Name:		hal
 Version:	0.5.10
-Release:	2
+Release:	3
 License:	AFL v2.0 or GPL v2
 Group:		Libraries
 Source0:	http://hal.freedesktop.org/releases/%{name}-%{version}.tar.gz
@@ -62,6 +62,7 @@ Requires:	PolicyKit >= 0.5
 Requires:	dbus >= 0.91
 Requires:	dmidecode >= 2.7
 Requires:	glib2 >= 1:2.12.1
+Requires:	hal-info
 Requires:	python-dbus >= 0.71
 Requires:	udev >= 1:097
 # require pciutils and usbutils with .ids in expected location
