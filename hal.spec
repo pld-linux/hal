@@ -6,7 +6,7 @@ Summary:	HAL - Hardware Abstraction Layer
 Summary(pl.UTF-8):	HAL - abstrakcyjna warstwa dostępu do sprzętu
 Name:		hal
 Version:	0.5.10
-Release:	3
+Release:	4
 License:	AFL v2.0 or GPL v2
 Group:		Libraries
 Source0:	http://hal.freedesktop.org/releases/%{name}-%{version}.tar.gz
@@ -71,6 +71,8 @@ Requires:	/etc/usb.ids
 Obsoletes:	hal-device-manager
 Obsoletes:	hal-fstab-sync
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+
+%define		_libexecdir	%{_libdir}/%{name}
 
 %description
 HAL is an implementation of a hardware abstraction layer.
@@ -224,7 +226,8 @@ fi
 %attr(755,root,root) %{_bindir}/lshal
 %attr(755,root,root) %{_sbindir}/hald
 %attr(755,root,root) /sbin/umount.hal
-%attr(755,root,root) %{_libdir}/hald-*
+%dir %{_libexecdir}
+%attr(755,root,root) %{_libexecdir}/hald-*
 %attr(755,root,root) %{_libexecdir}/hal-*
 %dir %{_libdir}/hal
 %dir %{_libdir}/hal/scripts
