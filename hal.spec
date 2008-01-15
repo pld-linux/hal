@@ -6,7 +6,7 @@ Summary:	HAL - Hardware Abstraction Layer
 Summary(pl.UTF-8):	HAL - abstrakcyjna warstwa dostępu do sprzętu
 Name:		hal
 Version:	0.5.10
-Release:	5
+Release:	6
 License:	AFL v2.0 or GPL v2
 Group:		Libraries
 Source0:	http://hal.freedesktop.org/releases/%{name}-%{version}.tar.gz
@@ -19,7 +19,7 @@ Patch1:		%{name}-parted.patch
 Patch2:		%{name}-link.patch
 Patch3:		%{name}-dbus.patch
 URL:		http://freedesktop.org/Software/hal
-BuildRequires:	PolicyKit-devel >= 0.5
+BuildRequires:	PolicyKit-devel >= 0.7
 BuildRequires:	autoconf >= 2.57
 BuildRequires:	automake
 BuildRequires:	dbus-glib-devel >= 0.71
@@ -56,10 +56,11 @@ Requires(pre):	/bin/id
 Requires(pre):	/usr/bin/getgid
 Requires(pre):	/usr/sbin/groupadd
 Requires(pre):	/usr/sbin/useradd
+Requires(pre):	/usr/bin/polkit-auth
 %pyrequires_eq	python
 Requires:	%{name}-libs = %{version}-%{release}
 #Requires:	ConsoleKit
-Requires:	PolicyKit >= 0.5
+Requires:	PolicyKit >= 0.7
 Requires:	dbus >= 0.91
 Requires:	dmidecode >= 2.7
 Requires:	glib2 >= 1:2.12.1
@@ -197,6 +198,8 @@ rm -rf $RPM_BUILD_ROOT
 %pre
 %groupadd -g 126 -r -f haldaemon
 %useradd -u 126 -r -d /usr/share/empty -s /bin/false -c "HAL daemon" -g haldaemon haldaemon
+/usr/bin/polkit-auth --user haldaemon --grant org.freedesktop.policykit.read >& /dev/null || :
+
 
 %post
 /sbin/chkconfig --add haldaemon
