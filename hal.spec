@@ -6,7 +6,7 @@ Summary:	HAL - Hardware Abstraction Layer
 Summary(pl.UTF-8):	HAL - abstrakcyjna warstwa dostępu do sprzętu
 Name:		hal
 Version:	0.5.10
-Release:	6
+Release:	7
 License:	AFL v2.0 or GPL v2
 Group:		Libraries
 Source0:	http://hal.freedesktop.org/releases/%{name}-%{version}.tar.gz
@@ -198,7 +198,7 @@ rm -rf $RPM_BUILD_ROOT
 %pre
 %groupadd -g 126 -r -f haldaemon
 %useradd -u 126 -r -d /usr/share/empty -s /bin/false -c "HAL daemon" -g haldaemon haldaemon
-/usr/bin/polkit-auth --user haldaemon --grant org.freedesktop.policykit.read >& /dev/null || :
+/usr/bin/polkit-auth --user haldaemon --grant org.freedesktop.policykit.read 2> /dev/null || :
 
 
 %post
