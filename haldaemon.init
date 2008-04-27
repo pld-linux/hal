@@ -8,6 +8,7 @@
 #               about hardware from several sources. \
 #               See http://www.freedesktop.org/software/hal
 #
+# $Id$
 
 
 # Source function library
@@ -49,6 +50,27 @@ stop() {
 	fi
 }
 
+condrestart() {
+	if [ -f /var/lock/subsys/haldaemon ]; then
+		stop
+		start
+	else
+		msg_not_running haldaemon
+		RETVAL=$1
+	fi
+}
+
+reload() {
+	if [ -f /var/lock/subsys/haldaemon ]; then
+		msg_reloading haldaemon
+		killproc hald -HUP
+		RETVAL=$?
+	else
+		msg_not_running haldaemon
+		RETVAL=7
+	fi
+}
+
 # See how we were called.
 case "$1" in
   start)
@@ -61,26 +83,19 @@ case "$1" in
 	stop
 	start
 	;;
+  try-restart)
+	condrestart 0
+	;;
   reload|force-reload)
-	if [ -f /var/lock/subsys/haldaemon ]; then
-		msg_reloading haldaemon
-		killproc hald -HUP
-		RETVAL=$?
-	else
-		msg_not_running haldaemon
-		RETVAL=7
-	fi
+  	reload
 	;;
   status)
 	status hald
 	RETVAL=$?
 	;;
   *)
-	msg_usage "$0 {start|stop|restart|reload|force-reload|status}"
+	msg_usage "$0 {start|stop|restart|try-restart|reload|force-reload|status}"
 	exit 3
 esac
 
 exit $RETVAL
-
-# This must be last line !
-# vi:syntax=sh
