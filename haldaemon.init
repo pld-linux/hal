@@ -24,9 +24,9 @@ start() {
 		    msg_starting haldaemon
 		    # Syslog output
 			if is_yes "$USE_SYSLOG"; then
-				daemon hald --use-syslog
+				daemon /usr/sbin/hald --use-syslog
 			else
-				daemon hald
+				daemon /usr/sbin/hald
 			fi
 		    RETVAL=$?
 		    [ $RETVAL -eq 0 ] && touch /var/lock/subsys/haldaemon
