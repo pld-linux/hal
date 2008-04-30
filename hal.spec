@@ -2,22 +2,21 @@
 # Conditional build:
 %bcond_without	doc		# disable documentation building
 #
+%define		snap	rc2
 Summary:	HAL - Hardware Abstraction Layer
 Summary(pl.UTF-8):	HAL - abstrakcyjna warstwa dostępu do sprzętu
 Name:		hal
-Version:	0.5.10
-Release:	9
+Version:	0.5.11
+Release:	0.%{snap}.1
 License:	AFL v2.0 or GPL v2
 Group:		Libraries
-Source0:	http://hal.freedesktop.org/releases/%{name}-%{version}.tar.gz
-# Source0-md5:	fce852c428e7cda0b937087c79eec63f
+Source0:	http://hal.freedesktop.org/releases/%{name}-%{version}%{snap}.tar.gz
+# Source0-md5:	ade962044a62e8f2dc4625a17f4a5c7e
 Source1:	%{name}daemon.init
 Source2:	%{name}d.sysconfig
 Source3:	%{name}-storage-policy-fixed-drives.fdi
 Patch0:		%{name}-tools.patch
-Patch1:		%{name}-parted.patch
 Patch2:		%{name}-link.patch
-Patch3:		%{name}-dbus.patch
 URL:		http://freedesktop.org/Software/hal
 BuildRequires:	PolicyKit-devel >= 0.7
 BuildRequires:	autoconf >= 2.57
@@ -132,11 +131,9 @@ HAL API documentation.
 Dokumentacja API biblioteki HAL.
 
 %prep
-%setup -q
+%setup -q -n %{name}-%{version}%{snap}
 %patch0 -p1
-%patch1 -p1
 %patch2 -p1
-%patch3 -p1
 
 %build
 %{__libtoolize}
@@ -251,7 +248,6 @@ fi
 %{_datadir}/%{name}/fdi
 
 %dir /var/cache/hald
-%dir /var/lib/hal
 %dir /var/run/hald
 %dir /var/run/hald/hald-local
 %dir /var/run/hald/hald-runner
@@ -261,7 +257,9 @@ fi
 %files libs
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libhal.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libhal.so.1
 %attr(755,root,root) %{_libdir}/libhal-storage.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libhal-storage.so.1
 
 %files devel
 %defattr(644,root,root,755)
