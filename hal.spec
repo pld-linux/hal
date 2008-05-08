@@ -2,16 +2,15 @@
 # Conditional build:
 %bcond_without	doc		# disable documentation building
 #
-%define		snap	rc2
 Summary:	HAL - Hardware Abstraction Layer
 Summary(pl.UTF-8):	HAL - abstrakcyjna warstwa dostępu do sprzętu
 Name:		hal
 Version:	0.5.11
-Release:	0.%{snap}.1
+Release:	1
 License:	AFL v2.0 or GPL v2
 Group:		Libraries
-Source0:	http://hal.freedesktop.org/releases/%{name}-%{version}%{snap}.tar.gz
-# Source0-md5:	ade962044a62e8f2dc4625a17f4a5c7e
+Source0:	http://hal.freedesktop.org/releases/%{name}-%{version}.tar.gz
+# Source0-md5:	750cf074e88b6fb7012f26d99cd39b9b
 Source1:	%{name}daemon.init
 Source2:	%{name}d.sysconfig
 Source3:	%{name}-storage-policy-fixed-drives.fdi
@@ -131,7 +130,7 @@ HAL API documentation.
 Dokumentacja API biblioteki HAL.
 
 %prep
-%setup -q -n %{name}-%{version}%{snap}
+%setup -q
 %patch0 -p1
 %patch2 -p1
 
