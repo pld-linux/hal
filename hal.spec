@@ -40,8 +40,8 @@ BuildRequires:	libsmbios-devel >= 0.13.4
 BuildRequires:	libtool
 BuildRequires:	libusb-devel >= 0.1.10a
 BuildRequires:	libvolume_id-devel >= 1:0.097
-# 1.7.1/1.8.0/1.8.1/1.8.2/1.8.6/1.8.7 (1.8.8 added by patch)
-BuildRequires:	parted-devel >= 1.8.6
+# 1.7.1 or 1.8.0+
+BuildRequires:	parted-devel >= 1.8.0
 BuildRequires:	pciutils-devel >= 2.2.3
 BuildRequires:	pkgconfig
 BuildRequires:	python-modules
