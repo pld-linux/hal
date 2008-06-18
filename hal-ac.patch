@@ -1,0 +1,10 @@
+--- hal-0.5.11/configure.in.orig	2008-06-18 07:07:31.980051000 +0200
++++ hal-0.5.11/configure.in	2008-06-18 07:14:04.318407553 +0200
+@@ -402,6 +402,7 @@
+ 	      AS_HELP_STRING([--disable-smbios], [Do not use libsmbios]),
+ 	      [use_smbios=$enableval], [use_smbios=yes])
+ if test "x$use_smbios" = "xyes" ; then
++	AC_PROG_CXX
+ 	AC_LANG_PUSH([C++])
+ 	AC_CHECK_LIB([smbios], [SMBIOSFreeMemory], [LIB_SMBIOS=yes], [LIB_SMBIOS=no])
+ 	AC_LANG_POP([C++])
