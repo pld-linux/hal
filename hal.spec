@@ -15,11 +15,12 @@ Source1:	%{name}daemon.init
 Source2:	%{name}d.sysconfig
 Source3:	%{name}-storage-policy-fixed-drives.fdi
 Patch0:		%{name}-tools.patch
+Patch1:		%{name}-ac.patch
 Patch2:		%{name}-link.patch
 URL:		http://freedesktop.org/Software/hal
 BuildRequires:	PolicyKit-devel >= 0.7
-BuildRequires:	autoconf >= 2.57
-BuildRequires:	automake
+BuildRequires:	autoconf >= 2.60
+BuildRequires:	automake >= 1:1.9
 BuildRequires:	dbus-glib-devel >= 0.71
 %if %{with doc}
 BuildRequires:	docbook-dtd41-sgml
@@ -29,7 +30,7 @@ BuildRequires:	doxygen
 %endif
 BuildRequires:	expat-devel >= 1:1.95.8
 BuildRequires:	gettext-devel
-BuildRequires:	glib2-devel >= 1:2.12.1
+BuildRequires:	glib2-devel >= 1:2.14.0
 BuildRequires:	gperf
 BuildRequires:	gtk-doc >= 1.3
 BuildRequires:	intltool >= 0.22
@@ -61,7 +62,7 @@ Requires:	%{name}-libs = %{version}-%{release}
 Requires:	PolicyKit >= 0.7
 Requires:	dbus >= 0.91
 Requires:	dmidecode >= 2.7
-Requires:	glib2 >= 1:2.12.1
+Requires:	glib2 >= 1:2.14.0
 Requires:	hal-info
 Requires:	python-dbus >= 0.71
 Requires:	udev-core >= 1:097
@@ -132,6 +133,7 @@ Dokumentacja API biblioteki HAL.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 %patch2 -p1
 
 %build
