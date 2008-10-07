@@ -2,7 +2,7 @@
 #
 # haldaemon	HAL daemon
 #
-# chkconfig:	345 48 02
+# chkconfig:	345 48 52
 #
 # description:	This is a daemon for collecting and maintaing information \
 #               about hardware from several sources. \
