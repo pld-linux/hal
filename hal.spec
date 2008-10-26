@@ -6,7 +6,7 @@ Summary:	HAL - Hardware Abstraction Layer
 Summary(pl.UTF-8):	HAL - abstrakcyjna warstwa dostępu do sprzętu
 Name:		hal
 Version:	0.5.11
-Release:	4
+Release:	5
 License:	AFL v2.0 or GPL v2
 Group:		Libraries
 Source0:	http://hal.freedesktop.org/releases/%{name}-%{version}.tar.gz
@@ -18,6 +18,7 @@ Patch0:		%{name}-tools.patch
 Patch1:		%{name}-ac.patch
 Patch2:		%{name}-link.patch
 Patch3:		%{name}-ck-api-change.patch
+Patch4:		%{name}-udev.patch
 URL:		http://freedesktop.org/Software/hal
 BuildRequires:	PolicyKit-devel >= 0.7
 BuildRequires:	autoconf >= 2.60
@@ -66,7 +67,7 @@ Requires:	dmidecode >= 2.7
 Requires:	glib2 >= 1:2.14.0
 Requires:	hal-info
 Requires:	python-dbus >= 0.71
-Requires:	udev-core >= 1:097
+Requires:	udev-core >= 1:117
 # require pciutils and usbutils with .ids in expected location
 Requires:	/etc/pci.ids
 Requires:	/etc/usb.ids
@@ -137,6 +138,7 @@ Dokumentacja API biblioteki HAL.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1
 
 %build
 %{__libtoolize}
