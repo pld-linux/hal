@@ -6,7 +6,7 @@ Summary:	HAL - Hardware Abstraction Layer
 Summary(pl.UTF-8):	HAL - abstrakcyjna warstwa dostępu do sprzętu
 Name:		hal
 Version:	0.5.11
-Release:	5
+Release:	6
 License:	AFL v2.0 or GPL v2
 Group:		Libraries
 Source0:	http://hal.freedesktop.org/releases/%{name}-%{version}.tar.gz
