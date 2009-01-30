@@ -6,7 +6,7 @@ Summary:	HAL - Hardware Abstraction Layer
 Summary(pl.UTF-8):	HAL - abstrakcyjna warstwa dostępu do sprzętu
 Name:		hal
 Version:	0.5.11
-Release:	6
+Release:	7
 License:	AFL v2.0 or GPL v2
 Group:		Libraries
 Source0:	http://hal.freedesktop.org/releases/%{name}-%{version}.tar.gz
@@ -19,6 +19,7 @@ Patch1:		%{name}-ac.patch
 Patch2:		%{name}-link.patch
 Patch3:		%{name}-ck-api-change.patch
 Patch4:		%{name}-udev.patch
+Patch5:		%{name}-dbus-conf.patch
 URL:		http://freedesktop.org/Software/hal
 BuildRequires:	PolicyKit-devel >= 0.7
 BuildRequires:	autoconf >= 2.60
@@ -139,6 +140,7 @@ Dokumentacja API biblioteki HAL.
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
+%patch5 -p1
 
 %build
 %{__libtoolize}
