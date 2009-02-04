@@ -6,7 +6,7 @@ Summary:	HAL - Hardware Abstraction Layer
 Summary(pl.UTF-8):	HAL - abstrakcyjna warstwa dostępu do sprzętu
 Name:		hal
 Version:	0.5.11
-Release:	7
+Release:	8
 License:	AFL v2.0 or GPL v2
 Group:		Libraries
 Source0:	http://hal.freedesktop.org/releases/%{name}-%{version}.tar.gz
@@ -41,7 +41,7 @@ BuildRequires:	intltool >= 0.22
 BuildRequires:	libsmbios-devel >= 0.13.4
 %endif
 BuildRequires:	libtool
-BuildRequires:	libusb-devel >= 0.1.10a
+BuildRequires:	libusb-compat-devel
 BuildRequires:	libvolume_id-devel >= 1:0.097
 # 1.7.1 or 1.8.0+
 BuildRequires:	parted-devel >= 1.8.0
