@@ -1,7 +1,5 @@
 # Customized settings for hal daemon
 #
+
 # Logging output
 USE_SYSLOG="yes"
-
-# This must be last line !
-# vi:syntax=sh:tw=78:ts=8:sw=4
