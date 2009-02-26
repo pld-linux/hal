@@ -16,7 +16,9 @@
 # Include debbuging statment
 . /etc/sysconfig/hald
 
-start() {
+# See how we were called.
+case "$1" in
+  start)
 	# First step: check for running messagebus service
 	if [ -f /var/lock/subsys/messagebus ]; then
 		# Check if the service is already running?
@@ -36,9 +38,8 @@ start() {
 	else
 		msg_not_running messagebus
 	fi
-}
-
-stop() {
+	;;
+  stop)
 	if [ -f /var/lock/subsys/haldaemon ]; then
 		# Stop daemons.
 		msg_stopping haldaemon
@@ -47,29 +48,30 @@ stop() {
 	else
 		msg_not_running haldaemon
 	fi
-}
-
-# See how we were called.
-case "$1" in
-  start)
-  	start
-	;;
-  stop)
-  	stop
 	;;
   restart)
-	stop
-	start
+	$0 stop
+	$0 start
+	exit $?
 	;;
-  reload|force-reload)
+  reload)
 	if [ -f /var/lock/subsys/haldaemon ]; then
 		msg_reloading haldaemon
 		killproc hald -HUP
 		RETVAL=$?
 	else
-		msg_not_running haldaemon
+		msg_not_running haldaemon >&2
 		RETVAL=7
 	fi
+	;;
+  force-reload)
+	# if program allows reloading without stopping
+	$0 reload
+
+	# or if it doesn't
+	$0 restart
+
+	exit $?
 	;;
   status)
 	status hald
@@ -83,4 +85,4 @@ esac
 exit $RETVAL
 
 # This must be last line !
-# vi:syntax=sh
+# vi:syntax=sh:tw=78:ts=8:sw=4
