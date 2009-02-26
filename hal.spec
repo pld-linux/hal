@@ -6,7 +6,7 @@ Summary:	HAL - Hardware Abstraction Layer
 Summary(pl):	HAL - abstrakcyjna warstwa dostêpu do sprzêtu
 Name:		hal
 Version:	0.5.7.1
-Release:	4
+Release:	2
 License:	AFL v2.0 or GPL v2
 Group:		Libraries
 Source0:	http://freedesktop.org/~david/dist/%{name}-%{version}.tar.gz
@@ -28,8 +28,8 @@ BuildRequires:	autoconf >= 2.57
 BuildRequires:	automake
 BuildRequires:	dbus-glib-devel >= 0.60
 %if %{with docs}
-BuildRequires:	docbook-dtd41-sgml
 BuildRequires:	docbook-dtd412-xml
+BuildRequires:	docbook-dtd41-sgml
 BuildRequires:	docbook-utils
 BuildRequires:	doxygen
 %endif
@@ -46,11 +46,11 @@ BuildRequires:	popt-devel
 BuildRequires:	python-modules
 BuildRequires:	rpmbuild(macros) >= 1.228
 BuildRequires:	which
-Requires(post,preun):	/sbin/chkconfig
-Requires(pre):	/bin/id
 Requires(pre):	/usr/bin/getgid
+Requires(pre):	/bin/id
 Requires(pre):	/usr/sbin/groupadd
 Requires(pre):	/usr/sbin/useradd
+Requires(post,preun):	/sbin/chkconfig
 %pyrequires_eq	python
 Requires:	%{name}-libs = %{version}-%{release}
 Requires:	dbus >= 0.60-4
@@ -108,10 +108,10 @@ Statyczna biblioteka HAL.
 Summary:	HAL device manager for GNOME
 Summary(pl):	Zarz±dca urz±dzeñ HALa dla GNOME
 Group:		X11/Applications
-Requires:	%{name} = %{version}-%{release}
 Requires:	python-gnome-ui
 Requires:	python-gnome-vfs
 Requires:	python-pygtk-glade
+Requires:	%{name} = %{version}-%{release}
 
 %description device-manager
 GNOME program for displaying devices detected by HAL.
@@ -126,17 +126,17 @@ Group:		Applications/System
 Requires:	%{name} = %{version}-%{release}
 Requires:	libusb >= 0.1.10-2
 Requires:	udev >= 1:079-2
-Provides:	udev-digicam
 Obsoletes:	hotplug-digicam
 Obsoletes:	udev-digicam
+Provides:	udev-digicam
 
 %description gphoto
 Set of Udev rules and HAL device information file to handle digital
 cameras in userspace.
 
 %description gphoto -l pl
-Zestaw regu³ Udev i plik z informacjami o urz±dzeniach HALa do obs³ugi
-kamer cyfrowych w przestrzeni u¿ytkownika.
+Zestaw regu³ Udev i plik z informacjami o urz±dzeniach HALa do
+obs³ugi kamer cyfrowych w przestrzeni u¿ytkownika.
 
 %prep
 %setup -q
@@ -219,8 +219,9 @@ fi
 %post	libs -p /sbin/ldconfig
 %postun	libs -p /sbin/ldconfig
 
+
 %post gphoto
-%service -q haldaemon restart
+%service haldaemon restart
 %banner %{name} -e << EOF
 WARNING!
  hal-gphoto NO LONGER uses special "digicam" group.
