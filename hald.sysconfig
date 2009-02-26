@@ -1,0 +1,5 @@
+# Customized settings for hal daemon
+#
+
+# Logging output
+USE_SYSLOG="yes"
