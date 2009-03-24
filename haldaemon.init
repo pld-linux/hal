@@ -19,7 +19,7 @@
 
 start() {
 	# First step: check for running messagebus service
-	if [ |! -f /var/lock/subsys/messagebus ]; then
+	if [ ! -f /var/lock/subsys/messagebus ]; then
 		msg_not_running messagebus
 		return
 	fi
