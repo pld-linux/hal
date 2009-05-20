@@ -5,21 +5,18 @@
 Summary:	HAL - Hardware Abstraction Layer
 Summary(pl.UTF-8):	HAL - abstrakcyjna warstwa dostępu do sprzętu
 Name:		hal
-Version:	0.5.11
-Release:	10
+Version:	0.5.12
+Release:	1
 License:	AFL v2.0 or GPL v2
 Group:		Libraries
 Source0:	http://hal.freedesktop.org/releases/%{name}-%{version}.tar.gz
-# Source0-md5:	750cf074e88b6fb7012f26d99cd39b9b
+# Source0-md5:	bb7c36e142437f7363f9a80ae8391926
 Source1:	%{name}daemon.init
 Source2:	%{name}d.sysconfig
 Source3:	%{name}-storage-policy-fixed-drives.fdi
 Patch0:		%{name}-tools.patch
 Patch1:		%{name}-ac.patch
 Patch2:		%{name}-link.patch
-Patch3:		%{name}-ck-api-change.patch
-Patch4:		%{name}-udev.patch
-Patch5:		%{name}-dbus-conf.patch
 Patch6:		%{name}-rethink.patch
 URL:		http://freedesktop.org/Software/hal
 BuildRequires:	PolicyKit-devel >= 0.7
@@ -38,12 +35,12 @@ BuildRequires:	glib2-devel >= 1:2.14.0
 BuildRequires:	gperf
 BuildRequires:	gtk-doc >= 1.3
 BuildRequires:	intltool >= 0.22
+BuildRequires:	libblkid-devel >= 2.15
 %ifarch %{ix86} %{x8664}
 BuildRequires:	libsmbios-devel >= 0.13.4
 %endif
 BuildRequires:	libtool
 BuildRequires:	libusb-compat-devel
-BuildRequires:	libvolume_id-devel >= 1:0.097
 # 1.7.1 or 1.8.0+
 BuildRequires:	parted-devel >= 1.8.0
 BuildRequires:	pciutils-devel >= 2.2.3
@@ -69,7 +66,7 @@ Requires:	dmidecode >= 2.7
 Requires:	glib2 >= 1:2.14.0
 Requires:	hal-info
 Requires:	python-dbus >= 0.71
-Requires:	udev-core >= 1:117
+Requires:	udev-core >= 1:125
 # require pciutils and usbutils with .ids in expected location
 Requires:	/etc/pci.ids
 Requires:	/etc/usb.ids
@@ -139,9 +136,6 @@ Dokumentacja API biblioteki HAL.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
-%patch3 -p1
-%patch4 -p1
-%patch5 -p1
 %patch6 -p1
 
 %build
@@ -167,6 +161,7 @@ Dokumentacja API biblioteki HAL.
 	--with-cpufreq \
 	--with-html-dir=%{_gtkdocdir} \
 	--with-hwdata=%{_sysconfdir} \
+	--with-udev-prefix=%{_sysconfdir} \
 %ifarch %{ix86} %{x8664}
 	--with-macbook \
 	--with-macbookpro \
