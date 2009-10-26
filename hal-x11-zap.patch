@@ -1,0 +1,10 @@
+--- hal-0.5.13/fdi/policy/10osvendor/10-x11-input.fdi~	2009-06-26 09:28:39.000000000 +0200
++++ hal-0.5.13/fdi/policy/10osvendor/10-x11-input.fdi	2009-10-26 15:25:27.705238508 +0100
+@@ -31,6 +31,7 @@
+              string="Linux">
+         <merge key="input.x11_driver" type="string">evdev</merge>
+       </match>
++      <merge key="input.xkb.options" type="string">terminate:ctrl_alt_bksp</merge>
+     </match>
+   </device>
+ </deviceinfo>
