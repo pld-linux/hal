@@ -1,0 +1,10 @@
+--- hal-0.5.13/fdi/policy/10osvendor/20-storage-methods.fdi~	2008-11-10 11:14:12.000000000 +0100
++++ hal-0.5.13/fdi/policy/10osvendor/20-storage-methods.fdi	2009-10-26 15:25:58.011902480 +0100
+@@ -184,6 +184,7 @@
+ 	  <append key="volume.mount.valid_options" type="strlist">fmask=</append>
+ 	  <append key="volume.mount.valid_options" type="strlist">uid=</append>
+ 	  <append key="volume.mount.valid_options" type="strlist">flush</append>
++	  <append key="volume.mount.valid_options" type="strlist">showexec</append>
+ 	</match>
+ 	<match key="/org/freedesktop/Hal/devices/computer:system.kernel.name" string="FreeBSD">
+ 	  <append key="volume.mount.valid_options" type="strlist">longnames</append>
