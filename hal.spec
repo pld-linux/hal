@@ -52,6 +52,7 @@ BuildRequires:	pkgconfig
 BuildRequires:	python-modules
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.228
+BuildRequires:	sed >= 4.0
 BuildRequires:	which
 BuildRequires:	xmlto
 # R: cryptsetup-luks >= 1.0.1 (at runtime)
@@ -144,6 +145,7 @@ Dokumentacja API biblioteki HAL.
 %patch4 -p1
 %patch5 -p1
 %patch6 -p1
+sed '450,550 s/USE_LIBUSB/USE_LIBUSB_/g' -i configure.in
 
 %build
 %{__libtoolize}
