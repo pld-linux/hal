@@ -1,0 +1,37 @@
+--- hal-0.5.14/hald/linux/probing/probe-input.c~	2009-08-24 14:42:30.000000000 +0200
++++ hal-0.5.14/hald/linux/probing/probe-input.c	2009-12-11 08:46:10.518267420 +0100
+@@ -73,7 +73,7 @@
+ 
+ 	button_type = getenv ("HAL_PROP_BUTTON_TYPE");
+ 	if (button_type == NULL)
+-		goto out;
++		goto out_end;
+ 
+ 	if (strcmp (button_type, "lid") == 0)
+ 		sw = SW_LID;
+@@ -86,15 +86,15 @@
+ 		sw = SW_RADIO;
+ #endif
+ 	else
+-		goto out;
++		goto out_end;
+ 
+ 	device_file = getenv ("HAL_PROP_INPUT_DEVICE");
+ 	if (device_file == NULL)
+-		goto out;
++		goto out_end;
+ 
+ 	udi = getenv ("UDI");
+ 	if (udi == NULL)
+-		goto out;
++		goto out_end;
+ 
+ 	dbus_error_init (&error);
+ 	if ((ctx = libhal_ctx_init_direct (&error)) == NULL)
+@@ -129,5 +129,6 @@
+ 		libhal_ctx_free (ctx);
+ 	}
+ 
++out_end:
+ 	return ret;
+ }
