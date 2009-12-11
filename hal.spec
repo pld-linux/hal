@@ -22,6 +22,7 @@ Patch4:		%{name}-showexec.patch
 Patch5:		%{name}-x11-zap.patch
 Patch6:		%{name}-out.patch
 URL:		http://freedesktop.org/Software/hal
+BuildRequires:	ConsoleKit-devel
 BuildRequires:	PolicyKit-devel >= 0.7
 BuildRequires:	autoconf >= 2.60
 BuildRequires:	automake >= 1:1.9
@@ -57,9 +58,9 @@ BuildRequires:	xmlto
 Requires(post,preun):	/sbin/chkconfig
 Requires(pre):	/bin/id
 Requires(pre):	/usr/bin/getgid
+Requires(pre):	/usr/bin/polkit-auth
 Requires(pre):	/usr/sbin/groupadd
 Requires(pre):	/usr/sbin/useradd
-Requires(pre):	/usr/bin/polkit-auth
 %pyrequires_eq	python
 Requires:	%{name}-libs = %{version}-%{release}
 #Requires:	ConsoleKit
