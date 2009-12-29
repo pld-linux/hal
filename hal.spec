@@ -37,7 +37,9 @@ BuildRequires:	expat-devel >= 1:1.95.8
 BuildRequires:	gettext-devel
 BuildRequires:	glib2-devel >= 1:2.14.0
 BuildRequires:	gperf
+%if %{with doc}
 BuildRequires:	gtk-doc >= 1.3
+%endif
 BuildRequires:	intltool >= 0.22
 BuildRequires:	libblkid-devel >= 2.15
 %ifarch %{ix86} %{x8664}
