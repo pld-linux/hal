@@ -1,0 +1,400 @@
+diff --git a/configure.in b/configure.in
+index e8aa021..8363595 100644
+--- a/configure.in
++++ b/configure.in
+@@ -479,9 +479,6 @@ if test "x$with_libpci" != xno ; then
+ fi 
+ AM_CONDITIONAL([HAVE_LIBPCI], [test "x$USE_LIBPCI" = "xyes"])
+ 
+-USE_LIBUSB20=no
+-USE_LIBUSB=no
+-LIBUSB20_LIBS=""
+ AC_ARG_WITH([backend],
+ 	    AS_HELP_STRING([--with-backend=<name>],
+ 	                   [backend to use (linux/solaris/freebsd/dummy)]),
+@@ -510,21 +507,25 @@ AM_CONDITIONAL(HALD_COMPILE_FREEBSD, [test x$HALD_BACKEND = xfreebsd], [Compilin
+ AM_CONDITIONAL(HALD_COMPILE_SOLARIS, [test x$HALD_BACKEND = xsolaris], [Compiling for Solaris])
+ AC_SUBST(HALD_BACKEND)
+ if test "x$HALD_BACKEND" = "xfreebsd"; then
+-    AC_CHECK_LIB([usb20], [libusb20_dev_get_info], [USE_LIBUSB20=yes], [USE_LIBUSB20=no])
+-fi
+-if test "x$USE_LIBUSB20" = "xno"; then
+-    AC_CHECK_LIB([usb], [libusb20_dev_get_info], [USE_LIBUSB=yes], [USE_LIBUSB=no])
+-fi
+-AM_CONDITIONAL([HAVE_LIBUSB20],[test "x$USE_LIBUSB20" = "xyes"])
+-AM_CONDITIONAL([HAVE_LIBUSB20],[test "x$USE_LIBUSB" = "xyes"])
+-if test "x$USE_LIBUSB20" = "xyes"; then
+-    AC_DEFINE(HAVE_LIBUSB20, 1, [Set if we need libusb20])
+-    LIBUSB20_LIBS="-lusb20"
+-elif test "x$USE_LIBUSB" = "xyes"; then
+-    AC_DEFINE(HAVE_LIBUSB20, 1, [Set if we need libsub20])
+-    LIBUSB20_LIBS="-lusb"
++    USE_BSDLIBUSB20=no
++    USE_BSDLIBUSB=no
++    LIBUSB20_LIBS=""
++    AC_CHECK_LIB([usb20], [libusb20_dev_get_info], [USE_BSDLIBUSB20=yes], [USE_BSDLIBUSB20=no])
++    if test "x$USE_BSDLIBUSB20" = "xno"; then
++        AC_CHECK_LIB([usb], [libusb20_dev_get_info], [USE_BSDLIBUSB=yes], [USE_BSDLIBUSB=no])
++    fi
++    AM_CONDITIONAL([HAVE_LIBUSB20],[test "x$USE_BSDLIBUSB20" = "xyes" -o "x$USE_BSDLIBUSB" = "xyes"])
++    if test "x$USE_BSDLIBUSB20" = "xyes"; then
++        AC_DEFINE(HAVE_LIBUSB20, 1, [Set if we need libusb20])
++        LIBUSB20_LIBS="-lusb20"
++    elif test "x$USE_BSDLIBUSB" = "xyes"; then
++        AC_DEFINE(HAVE_LIBUSB20, 1, [Set if we need libsub20])
++        LIBUSB20_LIBS="-lusb"
++    fi
++    AC_SUBST(LIBUSB20_LIBS)
++else
++    AM_CONDITIONAL([HAVE_LIBUSB20], [false])
+ fi
+-AC_SUBST(LIBUSB20_LIBS)
+ 
+ dnl DBUS API is subject to changes
+ AC_DEFINE_UNQUOTED(DBUS_API_SUBJECT_TO_CHANGE, [], [DBUS API is subject to change])
+diff --git a/hald/freebsd/addons/addon-storage.c b/hald/freebsd/addons/addon-storage.c
+index 3125037..cd28581 100644
+--- a/hald/freebsd/addons/addon-storage.c
++++ b/hald/freebsd/addons/addon-storage.c
+@@ -107,8 +107,7 @@ hf_addon_storage_update (void)
+ 
+ 	  if (hf_addon_storage_cdrom_eject_pressed(cdrom))
+ 	    {
+-	      libhal_device_emit_condition(hfp_ctx, hfp_udi, "EjectPressed", "", &hfp_error);
+-	      dbus_error_free(&hfp_error);
++	      libhal_device_emit_condition(hfp_ctx, hfp_udi, "EjectPressed", "", NULL);
+ 	    }
+ 
+ 	  hfp_cdrom_free(cdrom);
+@@ -164,19 +163,17 @@ unmount_volumes (void)
+                                                          "block.storage_device",
+ 							 hfp_udi,
+ 							 &num_volumes,
+-							 &hfp_error)) != NULL)
++							 NULL)) != NULL)
+     {
+       int i;
+ 
+-      dbus_error_free(&hfp_error);
+-
+       for (i = 0; i < num_volumes; i++)
+         {
+           char *vol_udi;
+ 
+ 	  vol_udi = volumes[i];
+ 
+-	  if (libhal_device_get_property_bool(hfp_ctx, vol_udi, "volume.is_mounted", &hfp_error))
++	  if (libhal_device_get_property_bool(hfp_ctx, vol_udi, "volume.is_mounted", NULL))
+             {
+               DBusMessage *msg = NULL;
+ 	      DBusMessage *reply = NULL;
+@@ -185,7 +182,6 @@ unmount_volumes (void)
+ 	      char **options = NULL;
+ 	      char *devfile;
+ 
+-	      dbus_error_free(&hfp_error);
+               hfp_info("Forcing unmount of volume '%s'", vol_udi);
+ 
+ 	      dbus_connection = libhal_ctx_get_dbus_connection(hfp_ctx);
+@@ -265,10 +261,9 @@ poll_for_media (boolean check_only, boolean force)
+       check_lock_state = FALSE;
+ 
+       hfp_info("Checking whether device %s is locked by HAL", addon.device_file);
+-      if (libhal_device_is_locked_by_others(hfp_ctx, hfp_udi, "org.freedesktop.Hal.Device.Storage", &hfp_error))
++      if (libhal_device_is_locked_by_others(hfp_ctx, hfp_udi, "org.freedesktop.Hal.Device.Storage", NULL))
+         {
+           hfp_info("... device %s is locked by HAL", addon.device_file);
+-	  dbus_error_free(&hfp_error);
+ 	  is_locked_by_hal = TRUE;
+ 	  update_proc_title(addon.device_file);
+ 	  goto skip_check;
+@@ -278,10 +273,8 @@ poll_for_media (boolean check_only, boolean force)
+           hfp_info("... device %s is not locked by HAL", addon.device_file);
+ 	  is_locked_by_hal = FALSE;
+ 	}
+-      dbus_error_free(&hfp_error);
+ 
+-      should_poll = libhal_device_get_property_bool(hfp_ctx, hfp_udi, "storage.media_check_enabled", &hfp_error);
+-      dbus_error_free(&hfp_error);
++      should_poll = libhal_device_get_property_bool(hfp_ctx, hfp_udi, "storage.media_check_enabled", NULL);
+       polling_disabled = ! should_poll;
+       update_proc_title(addon.device_file);
+     }
+@@ -314,8 +307,7 @@ poll_for_media (boolean check_only, boolean force)
+       unmount_volumes();
+ #endif
+ 
+-      libhal_device_rescan(hfp_ctx, hfp_udi, &hfp_error);
+-      dbus_error_free(&hfp_error);
++      libhal_device_rescan(hfp_ctx, hfp_udi, NULL);
+       addon.had_media = has_media;
+ 
+       return TRUE;
+@@ -412,12 +404,10 @@ main (int argc, char **argv)
+     ! strcmp(driver, "cd")))) && ! strcmp(removable, "true");
+   addon.had_media = poll_for_media(TRUE, FALSE);
+ 
+-  if (! libhal_device_addon_is_ready(hfp_ctx, hfp_udi, &hfp_error))
++  if (! libhal_device_addon_is_ready(hfp_ctx, hfp_udi, NULL))
+     goto end;
+-  dbus_error_free(&hfp_error);
+ 
+-  syscon = dbus_bus_get(DBUS_BUS_SYSTEM, &hfp_error);
+-  dbus_error_free(&hfp_error);
++  syscon = dbus_bus_get(DBUS_BUS_SYSTEM, NULL);
+   assert(syscon != NULL);
+   dbus_connection_set_exit_on_disconnect(syscon, 0);
+ 
+@@ -452,12 +442,11 @@ main (int argc, char **argv)
+ 				      "    <method name=\"CheckForMedia\">\n"
+ 				      "      <arg name=\"call_had_sideeffect\" direction=\"out\" type=\"b\"/>\n"
+ 				      "    </method>\n",
+-				      &hfp_error))
++				      NULL))
+     {
+       hfp_critical("Cannot claim interface 'org.freedesktop.Hal.Device.Storage.Removable'");
+       goto end;
+     }
+-  dbus_error_free(&hfp_error);
+ 
+   while (TRUE)
+     {
+diff --git a/hald/freebsd/hf-storage.c b/hald/freebsd/hf-storage.c
+index 3bc5ab9..3833ec8 100644
+--- a/hald/freebsd/hf-storage.c
++++ b/hald/freebsd/hf-storage.c
+@@ -30,6 +30,7 @@
+ #include <limits.h>
+ #include <inttypes.h>
+ #include <string.h>
++#include <unistd.h>
+ #include <sys/param.h>
+ #include <sys/types.h>
+ #include <sys/disklabel.h>
+@@ -418,10 +419,39 @@ hf_storage_parse_conftxt (const char *conftxt)
+ 	  continue;
+ 	}
+ 
++      /* XXX This is a hack, but we need to ignore dynamic labels like
++       * ufsids which are created and destroyed based on whether or not
++       * the actual device is mounted or not.  If we don't then strange
++       * things happen in applications like nautilus.
++       */
++      if ((! strcmp(fields[1], "LABEL") ||
++          ! strcmp(fields[1], "BSD")) &&
++          ! strncmp(fields[2], "ufsid/", strlen("ufsid/")))
++        {
++          g_strfreev(fields);
++	  continue;
++	}
++
+       geom_obj = g_new0(Geom_Object, 1);
+ 
+       geom_obj->class = g_strdup(fields[1]);
+       geom_obj->dev = g_strdup(fields[2]);
++      /* Allow for spaces in label names. */
++      if (! strcmp(fields[1], "LABEL"))
++        {
++          int j;
++
++	  for (j = 3; g_strv_length(fields) > (j + 2) &&
++               strcmp(fields[j + 2], "i"); j++)
++            {
++              char *tmp;
++
++	      tmp = g_strdup_printf("%s %s", geom_obj->dev, fields[j]);
++	      g_free(geom_obj->dev);
++	      geom_obj->dev = tmp;
++	    }
++	}
++
+       geom_obj->type = -1;	/* We use -1 here to denote a missing type. */
+       geom_obj->hash = hash;
+ 
+@@ -589,11 +619,16 @@ hf_storage_devd_notify (const char *system,
+   char *conftxt;
+   GSList *new_disks;
+ 
+-  if (strcmp(system, "DEVFS") || strcmp(subsystem, "CDEV") ||
++  if (! data || strcmp(system, "DEVFS") || strcmp(subsystem, "CDEV") ||
+       (strcmp(type, "CREATE") && strcmp(type, "DESTROY")))
+     return FALSE;
+ 
++  if (! strcmp(type, "DESTROY"))
++    g_usleep(G_USEC_PER_SEC/2);
++
+   conftxt = hf_get_string_sysctl(NULL, "kern.geom.conftxt");
++  if (! conftxt)
++    return FALSE;
+   new_disks = hf_storage_parse_conftxt(conftxt);
+   g_free(conftxt);
+ 
+@@ -669,7 +704,7 @@ hf_storage_conftxt_timeout_cb (gpointer data)
+   if (hf_is_waiting)
+     return TRUE;
+ 
+-  hf_storage_devd_notify("DEVFS", "CDEV", "CREATE", NULL);
++  hf_storage_devd_notify("DEVFS", "CDEV", "CREATE", "");
+ 
+   return TRUE;
+ }
+diff --git a/hald/freebsd/hf-usb2.c b/hald/freebsd/hf-usb2.c
+index fff49e0..f1a02e2 100644
+--- a/hald/freebsd/hf-usb2.c
++++ b/hald/freebsd/hf-usb2.c
+@@ -98,10 +98,10 @@ hf_usb2_probe_interfaces(HalDevice *parent)
+ 	  if (driver)
+             {
+ 	      if (! strcmp(driver, "ukbd"))
+-                hf_device_set_input(device, "keyboard", NULL);
+-	      else if (! strcmp(driver, "ums"))
++                hf_device_set_input(device, "keyboard", "keys", devname);
++	      else if (! strcmp(driver, "ums") || ! strcmp(driver, "atp"))
+                 {
+-                  hf_device_set_input(device, "mouse", devname);
++                  hf_device_set_input(device, "mouse", NULL, devname);
+ 	          hf_runner_run_sync(device, 0, "hald-probe-mouse", NULL);
+ 	        }
+ 	      else if (! strcmp(driver, "uhid"))
+@@ -192,11 +192,12 @@ hf_usb2_probe (void)
+       addr = libusb20_dev_get_address(pdev);
+ 
+       if (addr == 1)
+-        parent = hf_devtree_find_parent_from_info(hald_get_gdl(), "usbus", bus);
++        parent = hf_devtree_find_from_info(hald_get_gdl(), "usbus", bus);
+       else
+         parent = hf_device_store_match(hald_get_gdl(), "usb_device.bus_number",
+           HAL_PROPERTY_TYPE_INT32, bus, "usb_device.port_number",
+-	  HAL_PROPERTY_TYPE_INT32, addr - 1, NULL);
++	  HAL_PROPERTY_TYPE_INT32, addr - 1, "info.bus",
++	  HAL_PROPERTY_TYPE_STRING, "usb_device", NULL);
+       if (! parent || hal_device_property_get_bool(parent, "info.ignore"))
+         continue;
+ 
+@@ -216,7 +217,13 @@ hf_usb2_devd_add (const char *name,
+   HalDevice *parent_device;
+   int bus, addr, pbus, paddr;
+ 
+-  if (strncmp(name, "ugen", strlen("ugen")))
++  if (! parent)
++    return FALSE;
++
++  if (strncmp(name, "ugen", strlen("ugen")) &&
++      ! strncmp(parent, "uhub", strlen("uhub")))
++    return TRUE;
++  else if (strncmp(name, "ugen", strlen("ugen")))
+     return FALSE;
+   else if (strncmp(parent, "ugen", strlen("ugen")))
+     return TRUE;
+@@ -232,7 +239,8 @@ hf_usb2_devd_add (const char *name,
+ 
+   parent_device = hf_device_store_match(hald_get_gdl(),
+     "usb_device.bus_number", HAL_PROPERTY_TYPE_INT32, pbus,
+-    "usb_device.port_number", HAL_PROPERTY_TYPE_INT32, paddr, NULL);
++    "usb_device.port_number", HAL_PROPERTY_TYPE_INT32, paddr, "info.bus",
++    HAL_PROPERTY_TYPE_STRING, "usb_device", NULL);
+ 
+   if (parent_device && ! hal_device_property_get_bool(parent_device,
+       "info.ignore"))
+@@ -255,8 +263,6 @@ hf_usb2_devd_remove (const char *name,
+ 
+   if (strncmp(name, "ugen", strlen("ugen")))
+     return FALSE;
+-  else if (strncmp(parent, "ugen", strlen("ugen")))
+-    return TRUE;
+ 
+   if (sscanf(name, "ugen%i.%i", &bus, &addr) != 2)
+     return FALSE;
+@@ -265,7 +271,8 @@ hf_usb2_devd_remove (const char *name,
+ 
+   device = hf_device_store_match(hald_get_gdl(), "usb_device.bus_number",
+     HAL_PROPERTY_TYPE_INT32, bus, "usb_device.port_number",
+-    HAL_PROPERTY_TYPE_INT32, addr, NULL);
++    HAL_PROPERTY_TYPE_INT32, addr, "info.bus",
++    HAL_PROPERTY_TYPE_STRING, "usb_device", NULL);
+ 
+   if (device)
+     {
+@@ -276,6 +283,23 @@ hf_usb2_devd_remove (const char *name,
+   return FALSE;
+ }
+ 
++static gboolean
++hf_usb2_devd_notify (const char *system,
++		     const char *subsystem,
++		     const char *type,
++		     const char *data)
++{
++  if (! data || strcmp(system, "DEVFS") || strcmp(subsystem, "CDEV") ||
++      (strcmp(type, "CREATE") && strcmp(type, "DESTROY")))
++    return FALSE;
++
++  if (! strncmp(data, "cdev=ugen", strlen("cdev=ugen")) ||
++      ! strncmp(data, "cdev=usb", strlen("cdev=usb")))
++    return TRUE;
++
++  return FALSE;
++}
++
+ HFHandler hf_usb2_handler = {
+   .privileged_init	= hf_usb2_privileged_init,
+   .probe		= hf_usb2_probe
+@@ -283,5 +307,6 @@ HFHandler hf_usb2_handler = {
+ 
+ HFDevdHandler hf_usb2_devd_handler = {
+   .add =	hf_usb2_devd_add,
+-  .remove =	hf_usb2_devd_remove
++  .remove =	hf_usb2_devd_remove,
++  .notify =     hf_usb2_devd_notify
+ };
+diff --git a/hald/freebsd/hf-volume.c b/hald/freebsd/hf-volume.c
+index 249d2bd..07cf805 100644
+--- a/hald/freebsd/hf-volume.c
++++ b/hald/freebsd/hf-volume.c
+@@ -86,9 +86,12 @@ hf_volume_resolve_fuse (const char *special)
+         {
+           if (strcmp(fields[0], special) == 0)
+ 	    {
++	      char *ret;
++
++	      ret = g_strdup(fields[1]);
+ 	      g_strfreev(fields);
+ 	      g_strfreev(lines);
+-	      return g_strdup(fields[1]);
++	      return ret;
+ 	    }
+ 	}
+       g_strfreev(fields);
+diff --git a/hald/freebsd/probing/probe-volume.c b/hald/freebsd/probing/probe-volume.c
+index 73e0318..e4e1689 100644
+--- a/hald/freebsd/probing/probe-volume.c
++++ b/hald/freebsd/probing/probe-volume.c
+@@ -574,6 +574,7 @@ main (int argc, char **argv)
+ 
+ 	  snprintf(ufsid, sizeof(ufsid), "%08x%08x", ufsdisk.d_fs.fs_id[0], ufsdisk.d_fs.fs_id[1]);
+ 	  libhal_device_set_property_string(hfp_ctx, hfp_udi, "volume.freebsd.ufsid", ufsid, &hfp_error);
++	  dbus_error_free(&hfp_error);
+ 	  ufs_devs = libhal_manager_find_device_string_match(hfp_ctx,
+ 			  				     "volume.freebsd.ufsid",
+ 							     ufsid,
+@@ -582,16 +583,17 @@ main (int argc, char **argv)
+ 	  dbus_error_free(&hfp_error);
+ 	  for (i = 0; i < num_udis; i++)
+             {
+-              if (ufs_devs[i] != NULL)
++              if (ufs_devs[i] != NULL && strcmp(ufs_devs[i], hfp_udi))
+                 {
+                   gboolean mounted;
+ 
+ 		  mounted = libhal_device_get_property_bool(hfp_ctx, ufs_devs[i], "volume.is_mounted", &hfp_error);
+-		  dbus_error_free(&hfp_error);
++	          dbus_error_free(&hfp_error);
+ 		  if (mounted)
+-		    {
++	            {
+                       libhal_device_set_property_bool(hfp_ctx, hfp_udi, "volume.ignore", TRUE, &hfp_error);
+ 		      dbus_error_free(&hfp_error);
++		      break;
+ 		    }
+ 		}
+ 	    }

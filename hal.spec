@@ -6,7 +6,7 @@ Summary:	HAL - Hardware Abstraction Layer
 Summary(pl.UTF-8):	HAL - abstrakcyjna warstwa dostępu do sprzętu
 Name:		hal
 Version:	0.5.14
-Release:	3
+Release:	4
 License:	AFL v2.0 or GPL v2
 Group:		Libraries
 Source0:	http://hal.freedesktop.org/releases/%{name}-%{version}.tar.gz
@@ -21,6 +21,7 @@ Patch3:		%{name}-rethink.patch
 Patch4:		%{name}-showexec.patch
 Patch5:		%{name}-x11-zap.patch
 Patch6:		%{name}-out.patch
+Patch7:		%{name}-fixes.patch
 URL:		http://freedesktop.org/Software/hal
 BuildRequires:	ConsoleKit-devel
 BuildRequires:	PolicyKit-devel >= 0.7
@@ -54,7 +55,6 @@ BuildRequires:	pkgconfig
 BuildRequires:	python-modules
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.228
-BuildRequires:	sed >= 4.0
 BuildRequires:	which
 BuildRequires:	xmlto
 # R: cryptsetup-luks >= 1.0.1 (at runtime)
@@ -148,7 +148,7 @@ Dokumentacja API biblioteki HAL.
 %patch4 -p1
 %patch5 -p1
 %patch6 -p1
-sed '450,550 s/USE_LIBUSB/USE_LIBUSB_/g' -i configure.in
+%patch7 -p1
 
 %build
 %{__libtoolize}
