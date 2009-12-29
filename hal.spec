@@ -158,10 +158,8 @@ Dokumentacja API biblioteki HAL.
 %{__automake}
 %configure \
 	POLKIT_POLICY_FILE_VALIDATE=%{_bindir}/polkit-policy-file-validate \
-	%{?with_doc:--enable-docbook-docs} \
-	%{!?with_doc:--disable-docbook-docs} \
-	%{?with_doc:--enable-doxygen-docs} \
-	%{!?with_doc:--disable-doxygen-docs} \
+	--%{?with_doc:en}%{!?with_doc:dis}able-docbook-docs \
+	--%{?with_doc:en}%{!?with_doc:dis}able-gtk-doc \
 	--enable-acl-management \
 	--enable-acpi-ibm \
 	--enable-acpi-toshiba \
