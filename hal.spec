@@ -151,6 +151,7 @@ Dokumentacja API biblioteki HAL.
 %patch7 -p1
 
 %build
+%{__gtkdocize}
 %{__libtoolize}
 %{__aclocal}
 %{__autoheader}
