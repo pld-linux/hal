@@ -1,12 +1,13 @@
 #
 # Conditional build:
 %bcond_without	doc		# disable documentation building
+%bcond_with	policykit	# http://lists.pld-linux.org/mailman/pipermail/pld-devel-pl/2010-January/150972.html
 #
 Summary:	HAL - Hardware Abstraction Layer
 Summary(pl.UTF-8):	HAL - abstrakcyjna warstwa dostępu do sprzętu
 Name:		hal
 Version:	0.5.14
-Release:	4
+Release:	5
 License:	AFL v2.0 or GPL v2
 Group:		Libraries
 Source0:	http://hal.freedesktop.org/releases/%{name}-%{version}.tar.gz
@@ -24,7 +25,7 @@ Patch6:		%{name}-out.patch
 Patch7:		%{name}-fixes.patch
 URL:		http://freedesktop.org/Software/hal
 BuildRequires:	ConsoleKit-devel
-BuildRequires:	PolicyKit-devel >= 0.7
+%{?with_policykit:BuildRequires:	PolicyKit-devel >= 0.7}
 BuildRequires:	autoconf >= 2.60
 BuildRequires:	automake >= 1:1.9
 BuildRequires:	dbus-glib-devel >= 0.71
@@ -66,8 +67,11 @@ Requires(pre):	/usr/sbin/groupadd
 Requires(pre):	/usr/sbin/useradd
 %pyrequires_eq	python
 Requires:	%{name}-libs = %{version}-%{release}
-#Requires:	ConsoleKit
+%if %{with policykit}
 Requires:	PolicyKit >= 0.7
+%else
+Requires:	ConsoleKit
+%endif
 Requires:	dbus >= 0.91
 Requires:	dmidecode >= 2.7
 Requires:	glib2 >= 1:2.14.0
@@ -166,7 +170,7 @@ Dokumentacja API biblioteki HAL.
 	--enable-acpi-toshiba \
 	--enable-console-kit \
 	--enable-parted \
-	--enable-policy-kit \
+	%{?with_policykit:--enable-policy-kit} \
 	--enable-sonypic \
 	--enable-umount-helper \
 	--with-cpufreq \
@@ -210,7 +214,7 @@ rm -rf $RPM_BUILD_ROOT
 %pre
 %groupadd -g 126 -r -f haldaemon
 %useradd -u 126 -r -d /usr/share/empty -s /bin/false -c "HAL daemon" -g haldaemon haldaemon
-/usr/bin/polkit-auth --user haldaemon --grant org.freedesktop.policykit.read 2> /dev/null || :
+%{?with_policykit:/usr/bin/polkit-auth --user haldaemon --grant org.freedesktop.policykit.read 2> /dev/null || :}
 
 
 %post
@@ -257,7 +261,7 @@ fi
 %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/hald
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/dbus*/system.d/hal.conf
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/udev/rules.d/90-hal.rules
-%config(noreplace) %verify(not md5 mtime size) %{_datadir}/PolicyKit/policy/*.policy
+%{?with_policykit:%config(noreplace) %verify(not md5 mtime size) %{_datadir}/PolicyKit/policy/*.policy}
 
 %dir %{_datadir}/%{name}
 %{_datadir}/%{name}/fdi
