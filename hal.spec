@@ -155,6 +155,7 @@ Dokumentacja API biblioteki HAL.
 %patch7 -p1
 
 %build
+rm -f acinclude.m4
 %{__gtkdocize}
 %{__libtoolize}
 %{__aclocal}
@@ -165,12 +166,12 @@ Dokumentacja API biblioteki HAL.
 	POLKIT_POLICY_FILE_VALIDATE=%{_bindir}/polkit-policy-file-validate \
 	--%{?with_doc:en}%{!?with_doc:dis}able-docbook-docs \
 	--%{?with_doc:en}%{!?with_doc:dis}able-gtk-doc \
-	--enable-acl-management \
+	%{?with_policykit:--enable-acl-management} \
 	--enable-acpi-ibm \
 	--enable-acpi-toshiba \
 	--enable-console-kit \
 	--enable-parted \
-	%{?with_policykit:--enable-policy-kit} \
+	--%{?!with_policykit:dis}%{?with_policykit:en}able-policy-kit \
 	--enable-sonypic \
 	--enable-umount-helper \
 	--with-cpufreq \
@@ -240,7 +241,7 @@ fi
 %attr(755,root,root) %{_bindir}/hal-find-by-property
 %attr(755,root,root) %{_bindir}/hal-get-property
 %attr(755,root,root) %{_bindir}/hal-is-caller-locked-out
-%attr(755,root,root) %{_bindir}/hal-is-caller-privileged
+%{?with_policykit:%attr(755,root,root) %{_bindir}/hal-is-caller-privileged}
 %attr(755,root,root) %{_bindir}/hal-lock
 %attr(755,root,root) %{_bindir}/hal-set-property
 %attr(755,root,root) %{_bindir}/hal-setup-keymap
