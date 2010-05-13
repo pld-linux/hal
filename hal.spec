@@ -2,12 +2,13 @@
 # Conditional build:
 %bcond_without	doc		# disable documentation building
 %bcond_with	policykit	# http://lists.pld-linux.org/mailman/pipermail/pld-devel-pl/2010-January/150972.html
+%bcond_with	consolekit
 #
 Summary:	HAL - Hardware Abstraction Layer
 Summary(pl.UTF-8):	HAL - abstrakcyjna warstwa dostępu do sprzętu
 Name:		hal
 Version:	0.5.14
-Release:	5
+Release:	6
 License:	AFL v2.0 or GPL v2
 Group:		Libraries
 Source0:	http://hal.freedesktop.org/releases/%{name}-%{version}.tar.gz
@@ -24,7 +25,7 @@ Patch5:		%{name}-x11-zap.patch
 Patch6:		%{name}-out.patch
 Patch7:		%{name}-fixes.patch
 URL:		http://freedesktop.org/Software/hal
-BuildRequires:	ConsoleKit-devel
+%{?with_consolekit:BuildRequires:	ConsoleKit-devel}
 %{?with_policykit:BuildRequires:	PolicyKit-devel >= 0.7}
 BuildRequires:	autoconf >= 2.60
 BuildRequires:	automake >= 1:1.9
@@ -70,7 +71,9 @@ Requires:	%{name}-libs = %{version}-%{release}
 %if %{with policykit}
 Requires:	PolicyKit >= 0.7
 %else
+%if %{with consolekit}
 Requires:	ConsoleKit
+%endif
 %endif
 Requires:	dbus >= 0.91
 Requires:	dmidecode >= 2.7
@@ -169,7 +172,7 @@ rm -f acinclude.m4
 	%{?with_policykit:--enable-acl-management} \
 	--enable-acpi-ibm \
 	--enable-acpi-toshiba \
-	--enable-console-kit \
+	--%{?!with_consolekit:dis}%{?with_consolekit:en}able-console-kit \
 	--enable-parted \
 	--%{?!with_policykit:dis}%{?with_policykit:en}able-policy-kit \
 	--enable-sonypic \
