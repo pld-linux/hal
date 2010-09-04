@@ -158,7 +158,7 @@ Dokumentacja API biblioteki HAL.
 %patch7 -p1
 
 %build
-rm -f acinclude.m4
+%{__rm} acinclude.m4
 %{__gtkdocize}
 %{__libtoolize}
 %{__aclocal}
@@ -169,6 +169,7 @@ rm -f acinclude.m4
 	POLKIT_POLICY_FILE_VALIDATE=%{_bindir}/polkit-policy-file-validate \
 	--%{?with_doc:en}%{!?with_doc:dis}able-docbook-docs \
 	--%{?with_doc:en}%{!?with_doc:dis}able-gtk-doc \
+	--disable-silent-rules \
 	%{?with_policykit:--enable-acl-management} \
 	--enable-acpi-ibm \
 	--enable-acpi-toshiba \
