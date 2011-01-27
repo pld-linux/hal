@@ -1,0 +1,9 @@
+description "HAL Daemon"
+
+start on virtual-filesystems and started SERVICE=syslog and started messagebus and started acpid
+stop on pld.shutdown-started
+
+respawn
+console output
+
+exec /usr/sbin/hald --use-syslog --daemon=no
