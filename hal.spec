@@ -3,12 +3,12 @@
 %bcond_without	doc		# disable documentation building
 %bcond_with	policykit	# http://lists.pld-linux.org/mailman/pipermail/pld-devel-pl/2010-January/150972.html
 %bcond_without	consolekit
-#
+
 Summary:	HAL - Hardware Abstraction Layer
 Summary(pl.UTF-8):	HAL - abstrakcyjna warstwa dostępu do sprzętu
 Name:		hal
 Version:	0.5.14
-Release:	7
+Release:	8
 License:	AFL v2.0 or GPL v2
 Group:		Libraries
 Source0:	http://hal.freedesktop.org/releases/%{name}-%{version}.tar.gz
@@ -16,6 +16,7 @@ Source0:	http://hal.freedesktop.org/releases/%{name}-%{version}.tar.gz
 Source1:	%{name}daemon.init
 Source2:	%{name}d.sysconfig
 Source3:	%{name}-storage-policy-fixed-drives.fdi
+Source4:	%{name}daemon.upstart
 Patch0:		%{name}-tools.patch
 Patch1:		%{name}-ac.patch
 Patch2:		%{name}-link.patch
@@ -173,15 +174,15 @@ Dokumentacja API biblioteki HAL.
 	%{?with_policykit:--enable-acl-management} \
 	--enable-acpi-ibm \
 	--enable-acpi-toshiba \
-	--%{?!with_consolekit:dis}%{?with_consolekit:en}able-console-kit \
+	--%{!?with_consolekit:dis}%{?with_consolekit:en}able-console-kit \
 	--enable-parted \
-	--%{?!with_policykit:dis}%{?with_policykit:en}able-policy-kit \
+	--%{!?with_policykit:dis}%{?with_policykit:en}able-policy-kit \
 	--enable-sonypic \
 	--enable-umount-helper \
 	--with-cpufreq \
 	--with-html-dir=%{_gtkdocdir} \
 	--with-hwdata=%{_sysconfdir} \
-	--with-udev-prefix=%{_sysconfdir} \
+	--with-udev-prefix=/lib \
 %ifarch %{ix86} %{x8664}
 	--with-macbook \
 	--with-macbookpro \
@@ -193,25 +194,26 @@ Dokumentacja API biblioteki HAL.
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version} \
-	$RPM_BUILD_ROOT{/etc/{sysconfig,rc.d}/init.d,%{_desktopdir}} \
+	$RPM_BUILD_ROOT{/etc/{sysconfig,rc.d/init.d,init},%{_desktopdir}} \
 	$RPM_BUILD_ROOT%{_sysconfdir}/hal/fdi/{information,policy,preprobe} \
-	$RPM_BUILD_ROOT%{_sysconfdir}/udev/rules.d
+	$RPM_BUILD_ROOT/lib/udev/rules.d
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
 #find $RPM_BUILD_ROOT%{_datadir}/hal/device-manager -name "*.py" -exec rm -f {} \;
 
-install %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/haldaemon
-install %{SOURCE2} $RPM_BUILD_ROOT/etc/sysconfig/hald
+install -p %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/haldaemon
+cp -p %{SOURCE4} $RPM_BUILD_ROOT/etc/init/haldaemon.conf
+cp -p %{SOURCE2} $RPM_BUILD_ROOT/etc/sysconfig/hald
 
 # policy file to ignore fixed disks.
-install %{SOURCE3} \
+cp -p %{SOURCE3} \
 	$RPM_BUILD_ROOT%{_datadir}/%{name}/fdi/policy/10osvendor/99-storage-policy-fixed-drives.fdi
 
 rm -rf $RPM_BUILD_ROOT%{_sysconfdir}/hotplug.d
 rm -rf $RPM_BUILD_ROOT%{_libdir}/hal.hotplug
-
+rm -rf $RPM_BUILD_ROOT%{_docdir}/%{name}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -220,7 +222,6 @@ rm -rf $RPM_BUILD_ROOT
 %groupadd -g 126 -r -f haldaemon
 %useradd -u 126 -r -d /usr/share/empty -s /bin/false -c "HAL daemon" -g haldaemon haldaemon
 %{?with_policykit:/usr/bin/polkit-auth --user haldaemon --grant org.freedesktop.policykit.read 2> /dev/null || :}
-
 
 %post
 /sbin/chkconfig --add haldaemon
@@ -262,10 +263,11 @@ fi
 %dir %{_sysconfdir}/%{name}
 %{_sysconfdir}/%{name}/fdi
 
-%attr(754,root,root) /etc/rc.d/init.d/*
+%attr(754,root,root) /etc/rc.d/init.d/haldaemon
+%config(noreplace) %verify(not md5 mtime size) /etc/init/haldaemon.conf
 %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/hald
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/dbus*/system.d/hal.conf
-%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/udev/rules.d/90-hal.rules
+/lib/udev/rules.d/90-hal.rules
 %{?with_policykit:%config(noreplace) %verify(not md5 mtime size) %{_datadir}/PolicyKit/policy/*.policy}
 
 %dir %{_datadir}/%{name}
