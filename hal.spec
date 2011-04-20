@@ -2,13 +2,13 @@
 # Conditional build:
 %bcond_without	doc		# disable documentation building
 %bcond_with	policykit	# http://lists.pld-linux.org/mailman/pipermail/pld-devel-pl/2010-January/150972.html
-%bcond_without	consolekit
+%bcond_without	consolekit	# ConsoleKit support
 
 Summary:	HAL - Hardware Abstraction Layer
 Summary(pl.UTF-8):	HAL - abstrakcyjna warstwa dostępu do sprzętu
 Name:		hal
 Version:	0.5.14
-Release:	11
+Release:	12
 License:	AFL v2.0 or GPL v2
 Group:		Libraries
 Source0:	http://hal.freedesktop.org/releases/%{name}-%{version}.tar.gz
@@ -25,6 +25,7 @@ Patch4:		%{name}-showexec.patch
 Patch5:		%{name}-x11-zap.patch
 Patch6:		%{name}-out.patch
 Patch7:		%{name}-fixes.patch
+Patch8:		%{name}-kill-v4l1.patch
 URL:		http://freedesktop.org/Software/hal
 %{?with_consolekit:BuildRequires:	ConsoleKit-devel}
 %{?with_policykit:BuildRequires:	PolicyKit-devel >= 0.7}
@@ -157,6 +158,7 @@ Dokumentacja API biblioteki HAL.
 %patch5 -p1
 %patch6 -p1
 %patch7 -p1
+%patch8 -p1
 
 %build
 %{__rm} acinclude.m4

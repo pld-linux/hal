@@ -11,3 +11,19 @@
  
    AC_MSG_CHECKING([for libparted == 1.7.1 or >= 1.8.0])
    if ! $PKG_CONFIG --atleast-version 1.8.0 libparted; then
+@@ -417,6 +417,7 @@
+ 	AC_LANG_POP([C++])
+ 	if test "$LIB_SMBIOS" = "yes" ; then
+    		AC_MSG_CHECKING([for libsmbios >= 0.13.4])
++		save_LIBS="$LIBS"
+    		LIBS="$LIBS -lsmbios"
+    		AC_RUN_IFELSE([AC_LANG_SOURCE([[
+    		#include <smbios/version.h>
+@@ -436,6 +437,7 @@
+ 			return 1;
+    		}]])], [USE_SMBIOS=yes; AC_MSG_RESULT(yes); AM_CONDITIONAL(HAVE_SMBIOS,true)],
+        		[USE_SMBIOS=no; AC_MSG_RESULT(failed); AM_CONDITIONAL(HAVE_SMBIOS,false)])
++		LIBS="$save_LIBS"
+ 	else
+   		USE_SMBIOS=no
+   		AM_CONDITIONAL(HAVE_SMBIOS, [false])
