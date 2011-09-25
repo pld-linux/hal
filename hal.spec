@@ -68,6 +68,7 @@ Requires(pre):	/usr/bin/getgid
 Requires(pre):	/usr/bin/polkit-auth
 Requires(pre):	/usr/sbin/groupadd
 Requires(pre):	/usr/sbin/useradd
+Requires:	rc-scripts >= 0.4.3.0
 %pyrequires_eq	python
 Requires:	%{name}-libs = %{version}-%{release}
 %if %{with policykit}
