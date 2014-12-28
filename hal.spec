@@ -39,7 +39,7 @@ BuildRequires:	docbook-utils
 BuildRequires:	doxygen
 %endif
 BuildRequires:	expat-devel >= 1:1.95.8
-BuildRequires:	gettext-devel
+BuildRequires:	gettext-tools
 BuildRequires:	glib2-devel >= 1:2.14.0
 BuildRequires:	gperf
 %if %{with doc}
