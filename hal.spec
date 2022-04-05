@@ -88,8 +88,8 @@ Requires:	udev-core >= 1:125
 # require pciutils and usbutils with .ids in expected location
 Requires:	/etc/pci.ids
 Requires:	/etc/usb.ids
-Obsoletes:	hal-device-manager
-Obsoletes:	hal-fstab-sync
+Obsoletes:	hal-device-manager < 0.5.10
+Obsoletes:	hal-fstab-sync < 0.5.7
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_libexecdir	%{_libdir}/%{name}
